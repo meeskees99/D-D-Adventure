@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
-    Vector3 v3;
 
     [SerializeField] float moveDistance;
     [SerializeField] float distanceMovedThisTurn;
     [Tooltip("Multiply Distance Moved This Turn by this value")]
     [SerializeField] float moveMultiplier = 5;
+
+    [SerializeField] Vector3 v3;
+    float distanceToGo;
+    float zMovement;
+    float xMovement;
 
     [SerializeField] bool isTurn;
     [SerializeField] Slider movementSlider;
@@ -27,9 +31,28 @@ public class Movement : MonoBehaviour
     {
         if (isTurn)
         {
+            if (v3.z < 0)
+            {
+                zMovement = v3.z * v3.z;
+            }
+            else
+            {
+                zMovement = v3.z;
+            }
+            if (v3.x < 0)
+            {
+                xMovement = v3.x * v3.x;
+            }
+            else
+            {
+                xMovement = v3.x;
+            }
+            float moveAmount = zMovement + xMovement;
+            distanceToGo = moveDistance - distanceMovedThisTurn;
             movementSlider.transform.gameObject.SetActive(true);
             movementSlider.maxValue = moveDistance;
-            distanceMovedThisTurn += transform.GetComponent<Rigidbody>().velocity.magnitude * moveMultiplier * Time.deltaTime;
+            movementSlider.value = distanceToGo;
+            distanceMovedThisTurn += moveAmount * moveMultiplier * Time.deltaTime;
 
             if (distanceMovedThisTurn < moveDistance)
             {
