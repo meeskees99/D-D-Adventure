@@ -7,14 +7,17 @@ using UnityEngine.TextCore.Text;
 
 public class InitiativeHandler : MonoBehaviour
 {
+    public GameObject playerTab;
+    public int currentTurnNmbr;
     public List<CharacterSheet> characters;
-    public List<(GameObject, int)> initiativeOrder = new List<(GameObject, int)>();
+    public List<Initiative> initiativeOrder = new();
+
+
 
     public void Start()
     {
         SetInitiativeOrder();
     }
-
     private void SetInitiativeOrder()
     {
         if(initiativeOrder != null)
@@ -27,28 +30,35 @@ public class InitiativeHandler : MonoBehaviour
             {
                 var count = 0;
                 int initiative = UnityEngine.Random.Range(1, 20) + character.initiativeBonus;
-                Debug.Log(initiative);
                 if (initiativeOrder.Count != 0)
                 {
                     foreach (var item in initiativeOrder)
                     {
-                        if(initiative >= item.Item2)
+                        if(initiative >= item.initiative)
                         {
-                            initiativeOrder.Insert(count, (character.characterModel, initiative));
+                            var initiativeInstance = new Initiative {character = character,initiative = initiative};
+                            initiativeOrder.Insert(count, initiativeInstance);
                             break;
                         }
                         else
                         {
                             count++;
-                            continue;
+                            if(count == initiativeOrder.Count -1)
+                            {
+                                var _initiativeInstance = new Initiative { character = character, initiative = initiative };
+                                initiativeOrder.Add(_initiativeInstance);
+                                break;
+                            }
                         }
                     }
                 }
                 else
                 {
-                    initiativeOrder.Add((character.characterModel, initiative));
+                    var initiativeInstance = new Initiative { character = character, initiative = initiative };
+                    initiativeOrder.Add(initiativeInstance);
                 }
-                Debug.Log(initiativeOrder);
+                Debug.Log("The amount of characters is: " + initiativeOrder.Count);
+                Debug.Log("Initiative of "+ character + " is: " + initiative);
             }
         }
         StartCombat();
@@ -59,7 +69,25 @@ public class InitiativeHandler : MonoBehaviour
     }
     private void StartCombat()
     {
-        int currentTurnNmbr = 0;
+        currentTurnNmbr = 0;
+        Debug.Log(currentTurnNmbr);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
 
     }
+    public void EndTurn()
+    {
+        initiativeOrder[currentTurnNmbr].character.characterModel.GetComponent<Renderer>().material.color = Color.red;
+        currentTurnNmbr++;
+        
+        Debug.Log(currentTurnNmbr);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
+    }
+    
+}
+[Serializable]
+public class Initiative
+{
+    public CharacterSheet character;
+    [SerializeField]
+    public int initiative;
 }
