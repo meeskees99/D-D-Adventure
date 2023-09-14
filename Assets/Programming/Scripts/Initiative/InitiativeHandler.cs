@@ -8,7 +8,8 @@ using UnityEngine.TextCore.Text;
 public class InitiativeHandler : MonoBehaviour
 {
     public List<CharacterSheet> characters;
-    public SortedList<GameObject, int> initiativeOrder;
+    public List<(GameObject, int)> initiativeOrder = new List<(GameObject, int)>();
+
     public void Start()
     {
         SetInitiativeOrder();
@@ -16,16 +17,18 @@ public class InitiativeHandler : MonoBehaviour
 
     private void SetInitiativeOrder()
     {
-        if(initiativeOrder.Count != 0)
+        if(initiativeOrder != null)
         {
-            initiativeOrder.Clear();
-        }
-        
-        foreach(var character in characters)
-        {
-            int initiative = UnityEngine.Random.Range(0, 20) + character.initiativeBonus;
-            initiativeOrder.Add(character.characterModel, initiative);
-            Debug.Log(initiativeOrder);
+            if(initiativeOrder.Count != 0)
+            {
+                initiativeOrder.Clear();
+            }
+            foreach (var character in characters)
+            {
+                int initiative = UnityEngine.Random.Range(1, 20) + character.initiativeBonus;
+                initiativeOrder.Add((character.characterModel, initiative));
+                Debug.Log(initiativeOrder);
+            }
         }
     }
 }
