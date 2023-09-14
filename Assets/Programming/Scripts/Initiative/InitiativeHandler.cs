@@ -25,10 +25,41 @@ public class InitiativeHandler : MonoBehaviour
             }
             foreach (var character in characters)
             {
+                var count = 0;
                 int initiative = UnityEngine.Random.Range(1, 20) + character.initiativeBonus;
-                initiativeOrder.Add((character.characterModel, initiative));
+                Debug.Log(initiative);
+                if (initiativeOrder.Count != 0)
+                {
+                    foreach (var item in initiativeOrder)
+                    {
+                        if(initiative >= item.Item2)
+                        {
+                            initiativeOrder.Insert(count, (character.characterModel, initiative));
+                            break;
+                        }
+                        else
+                        {
+                            count++;
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    initiativeOrder.Add((character.characterModel, initiative));
+                }
                 Debug.Log(initiativeOrder);
             }
         }
+        StartCombat();
+    }
+    public void AddInitiatives()
+    {
+
+    }
+    private void StartCombat()
+    {
+        int currentTurnNmbr = 0;
+
     }
 }
