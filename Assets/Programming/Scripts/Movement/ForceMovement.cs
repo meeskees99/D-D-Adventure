@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
 public class ForceMovement : MonoBehaviour
@@ -11,7 +12,9 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
-    [SerializeField] Animator animator;
+    [SerializeField] float turningSmoothness;
+    [SerializeField] MouseLook mouseLook;
+    bool isMoving;
 
     [Header("Jumping")]
     [Tooltip("How high the player will jump")]
@@ -65,13 +68,10 @@ public class ForceMovement : MonoBehaviour
     bool charSet;
     void Update()
     {
-        //     if (animator == null)
-        //     {
-        //         return;
-        //     }
         speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0.##");
         // Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
+        isMoving = rb.velocity.magnitude > 0.1;
 
         MyInput();
         SpeedControl();
@@ -126,12 +126,35 @@ public class ForceMovement : MonoBehaviour
         }
     }
     [SerializeField] Transform shootPos;
+
     void MovePlayer()
     {
         // Calculalte move direction
-        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        // moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 moveDir = new(horizontalInput, 0, verticalInput);
+        Vector3 location = transform.position - moveDir;
+        location.y -= transform.position.y;
+        Debug.DrawRay(transform.position, location, Color.green);
+        Vector3 lastDir;
+        if (isMoving)
+        {
+            if (moveDir != new Vector3(0, 0, 0))
+            {
+                lastDir = moveDir;
+                transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
+            }
+            else if (moveDir == new Vector3(0, 0, 0))
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+
         RaycastHit hit;
-        Debug.DrawRay(shootPos.position, moveDir);
+        Debug.DrawRay(shootPos.position, moveDir, Color.red);
         if (Physics.Raycast(shootPos.position, moveDir, out hit, raycastLenght))
         {
             wallWalk = true;

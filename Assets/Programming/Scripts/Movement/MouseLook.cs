@@ -6,6 +6,7 @@ public class MouseLook : MonoBehaviour
 {
     [SerializeField] Transform camTarget;
     [SerializeField] float mouseSensitivity;
+    [SerializeField] float maxLookUpDegrees;
 
     float yRotation;
     public float GetYRotation
@@ -52,7 +53,7 @@ public class MouseLook : MonoBehaviour
             yRotation += mouseX;
 
             xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation = Mathf.Clamp(xRotation, -maxLookUpDegrees, 90f);
 
             //transform.rotation = Quaternion.Euler(0, yRotation, 0);
             camTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);

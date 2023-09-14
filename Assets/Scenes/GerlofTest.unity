@@ -623,7 +623,7 @@ Transform:
   m_GameObject: {fileID: 1246303249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0786839, y: 1.15, z: -1.4230008}
+  m_LocalPosition: {x: 0, y: 1.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -658,7 +658,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1246303256
 MonoBehaviour:
@@ -675,7 +675,8 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 7
   groundDrag: 3
-  animator: {fileID: 0}
+  turningSmoothness: 2
+  mouseLook: {fileID: 1540338886}
   jumpForce: 3
   jumpCooldown: 0.25
   airMultiplier: 0.4
@@ -688,7 +689,7 @@ MonoBehaviour:
   grounded: 0
   maxSlopeAngle: 50
   minSlopeAngle: 1
-  orientation: {fileID: 645551008}
+  orientation: {fileID: 1246303254}
   speedTxt: {fileID: 107139744}
   raycastLenght: 0.5
   wallWalk: 0
@@ -777,7 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.46, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 1.3, y: 1.7, z: 0}
+  ShoulderOffset: {x: 0.1, y: 1.7, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 5.66
@@ -1320,8 +1321,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434613648}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17152208, y: -0.110952616, z: 0.019444617, w: 0.9787194}
-  m_LocalPosition: {x: 0.2213161, y: 3.8100002, z: -7.0830007}
+  m_LocalRotation: {x: 0.17667578, y: -0.008693929, z: 0.0015606183, w: 0.9842295}
+  m_LocalPosition: {x: 0.1, y: 3.8100002, z: -5.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1342,12 +1343,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_MinimumDistanceFromTarget: 1.649
+  m_MinimumDistanceFromTarget: 1.64
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
@@ -1445,8 +1446,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540338881}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17152208, y: -0.110952616, z: 0.019444617, w: 0.9787194}
-  m_LocalPosition: {x: 1.3, y: 2.6600003, z: -5.66}
+  m_LocalRotation: {x: 0.17667578, y: -0.008693929, z: 0.0015606183, w: 0.9842295}
+  m_LocalPosition: {x: 0.1, y: 2.6600003, z: -5.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1500,6 +1501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camTarget: {fileID: 645551008}
   mouseSensitivity: 500
+  maxLookUpDegrees: 60
 --- !u!1 &1655488967
 GameObject:
   m_ObjectHideFlags: 0
