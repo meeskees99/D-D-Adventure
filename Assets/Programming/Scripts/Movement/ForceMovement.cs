@@ -15,6 +15,42 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] MouseLook mouseLook;
     [SerializeField] GameObject playerModel;
     bool isMoving;
+    [Tooltip("Maximum distance this character can travel in one turn")]
+    [SerializeField] float moveDistance;
+    [SerializeField] float distanceMovedThisTurn;
+    [Tooltip("Multiply Distance Moved This Turn by this value")]
+    [SerializeField] float moveMultiplier = 3;
+
+    [SerializeField] Slider movementSlider;
+
+    [Header("Turn Based Movement")]
+    [SerializeField] bool isFighting;
+    public bool IsFighting
+    {
+        get
+        {
+            return isFighting;
+        }
+        set
+        {
+            isFighting = value;
+        }
+    }
+    [SerializeField] bool isTurn;
+    public bool IsTurn
+    {
+        get
+        {
+            return isTurn;
+        }
+        set
+        {
+            isTurn = value;
+        }
+    }
+    [SerializeField] bool canMove;
+    float distanceToGo;
+
 
     [Header("Jumping")]
     [Tooltip("How high the player will jump")]
@@ -72,8 +108,10 @@ public class ForceMovement : MonoBehaviour
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
         isMoving = rb.velocity.magnitude > 0.1;
-
-        MyInput();
+        if (canMove)
+            MyInput();
+        if (!isFighting)
+            canMove = true;
         SpeedControl();
         StateHandler();
         // Handle drag
@@ -85,11 +123,42 @@ public class ForceMovement : MonoBehaviour
         {
             rb.drag = 0f;
         }
+        if (isFighting)
+        {
+            #region Fight movement
+            if (isTurn)
+            {
+                float moveAmount = rb.velocity.magnitude;
+                distanceToGo = moveDistance - distanceMovedThisTurn;
+                movementSlider.transform.gameObject.SetActive(true);
+                movementSlider.maxValue = moveDistance;
+                movementSlider.value = distanceToGo;
+                distanceMovedThisTurn += moveAmount * moveMultiplier * Time.deltaTime;
+
+                if (distanceMovedThisTurn < moveDistance)
+                {
+                    canMove = true;
+                }
+                else
+                {
+                    canMove = false;
+                    print("No more walking points available");
+                }
+            }
+            else
+            {
+                movementSlider.transform.gameObject.SetActive(false);
+                distanceMovedThisTurn = 0;
+                canMove = false;
+            }
+            #endregion
+        }
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove)
+            MovePlayer();
     }
     private void MyInput()
     {
