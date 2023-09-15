@@ -135,12 +135,11 @@ public class ForceMovement : MonoBehaviour
         Vector3 location = transform.position - moveDir;
         location.y -= transform.position.y;
         Debug.DrawRay(transform.position, location, Color.green);
-        Vector3 lastDir;
         if (isMoving)
         {
+            moveDir.y = 0f;
             if (moveDir != new Vector3(0, 0, 0))
             {
-                lastDir = moveDir;
                 playerModel.transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
             }
             else if (moveDir == new Vector3(0, 0, 0))
@@ -174,8 +173,11 @@ public class ForceMovement : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
 
             if (rb.velocity.y > 0)
+            {
                 rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+            }
         }
+
 
         //On ground
         else if (grounded)
