@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
 public class ForceMovement : MonoBehaviour
@@ -12,9 +11,46 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
-    [SerializeField] float turningSmoothness;
-    [SerializeField] MouseLook mouseLook;
+    // [SerializeField] MouseLook mouseLook;
+    [SerializeField] GameObject playerModel;
     bool isMoving;
+    [Tooltip("Maximum distance this character can travel in one turn")]
+    [SerializeField] float moveDistance;
+    [SerializeField] float distanceMovedThisTurn;
+    [Tooltip("Multiply Distance Moved This Turn by this value")]
+    [SerializeField] float moveMultiplier = 3;
+    [SerializeField] float rotationSpeed = 7;
+
+    [SerializeField] Slider movementSlider;
+
+    [Header("Turn Based Movement")]
+    [SerializeField] bool isFighting;
+    public bool IsFighting
+    {
+        get
+        {
+            return isFighting;
+        }
+        set
+        {
+            isFighting = value;
+        }
+    }
+    [SerializeField] bool isTurn;
+    public bool IsTurn
+    {
+        get
+        {
+            return isTurn;
+        }
+        set
+        {
+            isTurn = value;
+        }
+    }
+    [SerializeField] bool canMove;
+    float distanceToGo;
+
 
     [Header("Jumping")]
     [Tooltip("How high the player will jump")]
@@ -65,15 +101,16 @@ public class ForceMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    bool charSet;
     void Update()
     {
-        speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0.##");
+        speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
         isMoving = rb.velocity.magnitude > 0.1;
-
-        MyInput();
+        if (canMove)
+            MyInput();
+        if (!isFighting)
+            canMove = true;
         SpeedControl();
         StateHandler();
         // Handle drag
@@ -85,11 +122,42 @@ public class ForceMovement : MonoBehaviour
         {
             rb.drag = 0f;
         }
+        if (isFighting)
+        {
+            #region Fight movement
+            if (isTurn)
+            {
+                float moveAmount = rb.velocity.magnitude;
+                distanceToGo = moveDistance - distanceMovedThisTurn;
+                movementSlider.transform.gameObject.SetActive(true);
+                movementSlider.maxValue = moveDistance;
+                movementSlider.value = distanceToGo;
+                distanceMovedThisTurn += moveAmount * moveMultiplier * Time.deltaTime;
+
+                if (distanceMovedThisTurn < moveDistance)
+                {
+                    canMove = true;
+                }
+                else
+                {
+                    canMove = false;
+                    print("No more walking points available");
+                }
+            }
+            else
+            {
+                movementSlider.transform.gameObject.SetActive(false);
+                distanceMovedThisTurn = 0;
+                canMove = false;
+            }
+            #endregion
+        }
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove)
+            MovePlayer();
     }
     private void MyInput()
     {
@@ -130,27 +198,18 @@ public class ForceMovement : MonoBehaviour
     void MovePlayer()
     {
         // Calculalte move direction
-        // moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        Vector3 moveDir = new(horizontalInput, 0, verticalInput);
+        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
         Vector3 location = transform.position - moveDir;
         location.y -= transform.position.y;
         Debug.DrawRay(transform.position, location, Color.green);
-        Vector3 lastDir;
         if (isMoving)
         {
-            if (moveDir != new Vector3(0, 0, 0))
+            moveDir.y = 0f;
+            if (moveDir != Vector3.zero)
             {
-                lastDir = moveDir;
-                transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
+                Quaternion lookRotation = Quaternion.LookRotation(moveDir, Vector3.up);
+                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
             }
-            else if (moveDir == new Vector3(0, 0, 0))
-            {
-
-            }
-        }
-        else
-        {
-
         }
 
         RaycastHit hit;
@@ -174,8 +233,11 @@ public class ForceMovement : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
 
             if (rb.velocity.y > 0)
+            {
                 rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+            }
         }
+
 
         //On ground
         else if (grounded)
