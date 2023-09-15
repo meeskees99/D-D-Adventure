@@ -33,4 +33,10 @@ public class CharacterSheet : MonoBehaviour
         intelligence,
         wisdom,
         charisma;
+
+    public void Start()
+    {
+        
+    }
+
 }

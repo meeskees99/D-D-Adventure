@@ -7,7 +7,7 @@ using UnityEngine.TextCore.Text;
 
 public class InitiativeHandler : MonoBehaviour
 {
-    public GameObject playerTab;
+    public CharacterSheetHandler playerTab;
     public int currentTurnNmbr;
     public List<CharacterSheet> characters;
     public List<Initiative> initiativeOrder = new();
@@ -17,6 +17,10 @@ public class InitiativeHandler : MonoBehaviour
     public void Start()
     {
         SetInitiativeOrder();
+        foreach (var player in characters)
+        {
+
+        }
     }
     private void SetInitiativeOrder()
     {
@@ -43,7 +47,7 @@ public class InitiativeHandler : MonoBehaviour
                         else
                         {
                             count++;
-                            if(count == initiativeOrder.Count -1)
+                            if(count == initiativeOrder.Count)
                             {
                                 var _initiativeInstance = new Initiative { character = character, initiative = initiative };
                                 initiativeOrder.Add(_initiativeInstance);
@@ -78,7 +82,10 @@ public class InitiativeHandler : MonoBehaviour
     {
         initiativeOrder[currentTurnNmbr].character.characterModel.GetComponent<Renderer>().material.color = Color.red;
         currentTurnNmbr++;
-        
+        if(currentTurnNmbr > initiativeOrder.Count-1)
+        {
+            currentTurnNmbr = 0;
+        }
         Debug.Log(currentTurnNmbr);
         initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
     }
