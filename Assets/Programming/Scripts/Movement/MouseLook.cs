@@ -55,7 +55,6 @@ public class MouseLook : MonoBehaviour
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -maxLookUpDegrees, 90f);
 
-            //transform.rotation = Quaternion.Euler(0, yRotation, 0);
             camTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         }
         else

@@ -1044,12 +1044,11 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 7
   groundDrag: 3
-  turningSmoothness: 2
-  mouseLook: {fileID: 1540338886}
   playerModel: {fileID: 1934938505}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 1
+  rotationSpeed: 7
   movementSlider: {fileID: 1777502464}
   isFighting: 0
   isTurn: 0

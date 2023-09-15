@@ -11,8 +11,7 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
-    [SerializeField] float turningSmoothness;
-    [SerializeField] MouseLook mouseLook;
+    // [SerializeField] MouseLook mouseLook;
     [SerializeField] GameObject playerModel;
     bool isMoving;
     [Tooltip("Maximum distance this character can travel in one turn")]
@@ -20,6 +19,7 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float distanceMovedThisTurn;
     [Tooltip("Multiply Distance Moved This Turn by this value")]
     [SerializeField] float moveMultiplier = 3;
+    [SerializeField] float rotationSpeed = 7;
 
     [SerializeField] Slider movementSlider;
 
@@ -101,7 +101,6 @@ public class ForceMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    bool charSet;
     void Update()
     {
         speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
@@ -200,25 +199,17 @@ public class ForceMovement : MonoBehaviour
     {
         // Calculalte move direction
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        //Vector3 moveDir = new(horizontalInput, 0, verticalInput);
         Vector3 location = transform.position - moveDir;
         location.y -= transform.position.y;
         Debug.DrawRay(transform.position, location, Color.green);
         if (isMoving)
         {
             moveDir.y = 0f;
-            if (moveDir != new Vector3(0, 0, 0))
+            if (moveDir != Vector3.zero)
             {
-                playerModel.transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
+                Quaternion lookRotation = Quaternion.LookRotation(moveDir, Vector3.up);
+                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
             }
-            else if (moveDir == new Vector3(0, 0, 0))
-            {
-
-            }
-        }
-        else
-        {
-
         }
 
         RaycastHit hit;
