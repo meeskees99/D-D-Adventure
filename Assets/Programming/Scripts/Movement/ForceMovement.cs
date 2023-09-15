@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
 public class ForceMovement : MonoBehaviour
@@ -14,6 +13,7 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float groundDrag;
     [SerializeField] float turningSmoothness;
     [SerializeField] MouseLook mouseLook;
+    [SerializeField] GameObject playerModel;
     bool isMoving;
 
     [Header("Jumping")]
@@ -68,7 +68,7 @@ public class ForceMovement : MonoBehaviour
     bool charSet;
     void Update()
     {
-        speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0.##");
+        speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
         isMoving = rb.velocity.magnitude > 0.1;
@@ -130,8 +130,8 @@ public class ForceMovement : MonoBehaviour
     void MovePlayer()
     {
         // Calculalte move direction
-        // moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        Vector3 moveDir = new(horizontalInput, 0, verticalInput);
+        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        //Vector3 moveDir = new(horizontalInput, 0, verticalInput);
         Vector3 location = transform.position - moveDir;
         location.y -= transform.position.y;
         Debug.DrawRay(transform.position, location, Color.green);
@@ -141,7 +141,7 @@ public class ForceMovement : MonoBehaviour
             if (moveDir != new Vector3(0, 0, 0))
             {
                 lastDir = moveDir;
-                transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
+                playerModel.transform.rotation = Quaternion.LookRotation(moveDir, Vector3.up);
             }
             else if (moveDir == new Vector3(0, 0, 0))
             {
