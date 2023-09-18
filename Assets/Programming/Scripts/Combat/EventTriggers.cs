@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class EventTriggers : MonoBehaviour
 {
+    [SerializeField] InitiativeHandler initiativeHandler;
     [SerializeField] bool combatTrigger;
+    [SerializeField] GameObject[] enemies;
+    public GameObject[] Enemies
+    {
+        get
+        {
+            return enemies;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        initiativeHandler = FindObjectOfType<InitiativeHandler>();
     }
 
     // Update is called once per frame
@@ -26,6 +35,12 @@ public class EventTriggers : MonoBehaviour
                 return;
             }
             other.transform.GetComponent<ForceMovement>().IsFighting = true;
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                initiativeHandler.characters.Add(enemies[i].GetComponent<CharacterSheet>());
+            }
+            initiativeHandler.characters.Add(other.GetComponent<CharacterSheet>());
+            initiativeHandler.SetInitiativeOrder();
         }
     }
 }

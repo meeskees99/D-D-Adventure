@@ -103,7 +103,7 @@ public class ForceMovement : MonoBehaviour
 
     void Update()
     {
-        speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
+        //speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
         isMoving = rb.velocity.magnitude > 0.1;

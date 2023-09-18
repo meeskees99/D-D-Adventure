@@ -12,21 +12,11 @@ public class InitiativeHandler : MonoBehaviour
     public List<CharacterSheet> characters;
     public List<Initiative> initiativeOrder = new();
 
-
-
-    public void Start()
+    public void SetInitiativeOrder()
     {
-        SetInitiativeOrder();
-        foreach (var player in characters)
+        if (initiativeOrder != null)
         {
-
-        }
-    }
-    private void SetInitiativeOrder()
-    {
-        if(initiativeOrder != null)
-        {
-            if(initiativeOrder.Count != 0)
+            if (initiativeOrder.Count != 0)
             {
                 initiativeOrder.Clear();
             }
@@ -38,16 +28,16 @@ public class InitiativeHandler : MonoBehaviour
                 {
                     foreach (var item in initiativeOrder)
                     {
-                        if(initiative >= item.initiative)
+                        if (initiative >= item.initiative)
                         {
-                            var initiativeInstance = new Initiative {character = character,initiative = initiative};
+                            var initiativeInstance = new Initiative { character = character, initiative = initiative };
                             initiativeOrder.Insert(count, initiativeInstance);
                             break;
                         }
                         else
                         {
                             count++;
-                            if(count == initiativeOrder.Count)
+                            if (count == initiativeOrder.Count)
                             {
                                 var _initiativeInstance = new Initiative { character = character, initiative = initiative };
                                 initiativeOrder.Add(_initiativeInstance);
@@ -62,7 +52,7 @@ public class InitiativeHandler : MonoBehaviour
                     initiativeOrder.Add(initiativeInstance);
                 }
                 Debug.Log("The amount of characters is: " + initiativeOrder.Count);
-                Debug.Log("Initiative of "+ character + " is: " + initiative);
+                Debug.Log("Initiative of " + character + " is: " + initiative);
             }
         }
         StartCombat();
@@ -75,21 +65,31 @@ public class InitiativeHandler : MonoBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log(currentTurnNmbr);
-        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
+        // initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
+        initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.GetComponent<ForceMovement>().IsTurn = true;
 
     }
     public void EndTurn()
     {
-        initiativeOrder[currentTurnNmbr].character.characterModel.GetComponent<Renderer>().material.color = Color.red;
+        ForceMovement playerMovement;
+        initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.TryGetComponent<ForceMovement>(out playerMovement);
+        if (playerMovement != null)
+        {
+            playerMovement.IsTurn = false;
+        }
         currentTurnNmbr++;
-        if(currentTurnNmbr > initiativeOrder.Count-1)
+        if (currentTurnNmbr > initiativeOrder.Count - 1)
         {
             currentTurnNmbr = 0;
         }
-        Debug.Log(currentTurnNmbr);
-        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
+
+        initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.TryGetComponent<ForceMovement>(out playerMovement);
+        if (playerMovement != null)
+        {
+            playerMovement.IsTurn = true;
+        }
     }
-    
+
 }
 [Serializable]
 public class Initiative

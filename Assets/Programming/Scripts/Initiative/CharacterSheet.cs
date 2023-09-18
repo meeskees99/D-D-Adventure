@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterSheet : MonoBehaviour 
+public class CharacterSheet : MonoBehaviour
 {
     [Header("Character Info")]
     public string charaterName;
@@ -15,6 +15,7 @@ public class CharacterSheet : MonoBehaviour
     public Sexes sex;
     public enum Class
     {
+        None,
         Knight,
         Ranger
     }
@@ -36,7 +37,7 @@ public class CharacterSheet : MonoBehaviour
 
     public void Start()
     {
-        
+
     }
 
 }
