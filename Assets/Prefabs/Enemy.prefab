@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2691598107904355871}
   - component: {fileID: 19573224131744063}
   - component: {fileID: 2956071256247033932}
-  - component: {fileID: 7745234100760072089}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -108,31 +107,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7745234100760072089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2396848879782116359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charaterName: Goblin Deez
-  characterModel: {fileID: 2396848879782116359}
-  sex: 0
-  _class: 0
-  maxHitPoints: 10
-  hitPoints: 10
-  proficiency: 2
-  walking: 3
-  initiativeBonus: 2
-  armorClass: 14
-  strength: 3
-  dexterity: 3
-  constitution: 2
-  intelligence: 1
-  wisdom: -1
-  charisma: -2

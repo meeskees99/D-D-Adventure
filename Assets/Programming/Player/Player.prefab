@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4656321426742236741}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17667574, y: -0.008693929, z: 0.0015606179, w: 0.9842295}
-  m_LocalPosition: {x: 0.099999994, y: 2.6599998, z: -5.66}
+  m_LocalRotation: {x: 0.17667578, y: -0.008693929, z: 0.0015606183, w: 0.9842295}
+  m_LocalPosition: {x: 0.1, y: 2.6600003, z: -5.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -371,7 +371,6 @@ GameObject:
   - component: {fileID: 3182186462368259055}
   - component: {fileID: 3740611470103476260}
   - component: {fileID: 6424190131289996555}
-  - component: {fileID: 7905016285663031011}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -563,34 +562,6 @@ MonoBehaviour:
   wallWalk: 0
   state: 0
   shootPos: {fileID: 3238259149397390782}
---- !u!114 &7905016285663031011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7358223925176065834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charaterName: Harold
-  characterModel: {fileID: 5458709087797643964}
-  sex: 0
-  _class: 1
-  maxHitPoints: 12
-  hitPoints: 12
-  proficiency: 2
-  walking: 4
-  initiativeBonus: 2
-  armorClass: 16
-  strength: 4
-  dexterity: 3
-  constitution: 2
-  intelligence: -1
-  wisdom: 1
-  charisma: 4
 --- !u!1 &8738973672429574886
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,11 +642,11 @@ PrefabInstance:
       objectReference: {fileID: 562210597231450210}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.099999994
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6599998
+      value: 2.6600003
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.z
@@ -687,7 +658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17667574
+      value: 0.17667578
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalRotation.y
@@ -695,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0015606179
+      value: 0.0015606183
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -433,7 +433,6 @@ GameObject:
   - component: {fileID: 1222185285661417142}
   - component: {fileID: 1806843440534848619}
   - component: {fileID: 2133913032339306739}
-  - component: {fileID: 5957944846516447527}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -625,34 +624,6 @@ MonoBehaviour:
   wallWalk: 0
   state: 0
   shootPos: {fileID: 5228612932233097938}
---- !u!114 &5957944846516447527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8714344782717578731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charaterName: Harold
-  characterModel: {fileID: 3560505183068516763}
-  sex: 0
-  _class: 1
-  maxHitPoints: 12
-  hitPoints: 12
-  proficiency: 2
-  walking: 4
-  initiativeBonus: 2
-  armorClass: 16
-  strength: 4
-  dexterity: 3
-  constitution: 2
-  intelligence: -1
-  wisdom: 1
-  charisma: 4
 --- !u!1001 &3748016058977188516
 PrefabInstance:
   m_ObjectHideFlags: 0
