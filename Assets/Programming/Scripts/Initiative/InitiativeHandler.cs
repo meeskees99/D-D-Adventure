@@ -7,7 +7,6 @@ using UnityEngine.TextCore.Text;
 
 public class InitiativeHandler : MonoBehaviour
 {
-    public CharacterSheetHandler playerTab;
     public int currentTurnNmbr;
     public List<CharacterSheet> characters;
     public List<Initiative> initiativeOrder = new();
