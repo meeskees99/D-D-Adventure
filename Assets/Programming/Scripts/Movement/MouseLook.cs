@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] Transform camTarget;
+    [SerializeField] Transform camPos;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float maxLookUpDegrees;
+
+    [Header("In battle")]
+    [SerializeField] GameObject cam;
+    [SerializeField] Transform battleCamPos;
+    [SerializeField] Transform battleCamTarget;
+    public bool inBattle;
 
     float yRotation;
     public float GetYRotation
@@ -39,12 +49,22 @@ public class MouseLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
     // Update is called once per frame
     void Update()
     {
         isLocked = Cursor.lockState == CursorLockMode.Locked;
         #region Mouse movement
+
+        if (inBattle)
+        {
+            cam.GetComponent<CinemachineVirtualCamera>().transform.position = battleCamPos.position;
+            cam.GetComponent<CinemachineVirtualCamera>().LookAt = battleCamTarget;
+        }
+        else
+        {
+            cam.GetComponent<CinemachineVirtualCamera>().transform.position = camPos.position;
+            cam.GetComponent<CinemachineVirtualCamera>().LookAt = camTarget;
+        }
         if (isLocked)
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * mouseSensitivity;
