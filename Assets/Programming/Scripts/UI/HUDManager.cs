@@ -15,7 +15,7 @@ public class HUDManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            turnUI.SetActive(!gameObject.activeSelf);
+            turnUI.SetActive(!turnUI.activeSelf);
         }
 
     }
