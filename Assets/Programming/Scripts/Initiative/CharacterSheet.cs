@@ -15,13 +15,13 @@ public class CharacterSheet : ScriptableObject
         Ranger
     }
     [SerializeField] private Class _class;
-    [SerializeField] private int maxHitPoints,
-        hitPoints,
-        proficiency,
-        speed,
-        initiativeBonus ,
-        armorClass;
-    
+    [SerializeField] public int maxHitPoints { get; set; }
+    [SerializeField] public int hitPoints { get; set; }
+    [SerializeField] public int proficiency { get; set; }
+    [SerializeField] public int speed { get; set; }
+    [SerializeField] public int initiativeBonus { get; set; }
+    [SerializeField] public int armorClass { get; set; }
+
     [Header("Stats")]
     [SerializeField] private int strength;
     [SerializeField] private int dexterity,
