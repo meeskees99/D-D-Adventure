@@ -250,6 +250,11 @@ MonoBehaviour:
   - {fileID: 2093816554}
   - {fileID: 1052512681}
   - {fileID: 1968782263}
+--- !u!1 &314251737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4738000952451298264, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+  m_PrefabInstance: {fileID: 8578642912388555371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &335863614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1469,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416192754}
   m_CullTransparentMesh: 1
+--- !u!1 &1709521632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709521633}
+  m_Layer: 0
+  m_Name: NormalCamPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1709521633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709521632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.17667574, y: -0.008693929, z: 0.0015606179, w: 0.9842295}
+  m_LocalPosition: {x: 0.099999994, y: 2.6599998, z: -5.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8578642912388555372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1722198638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,6 +2136,22 @@ PrefabInstance:
       propertyPath: movementSlider
       value: 
       objectReference: {fileID: 1172392777}
+    - target: {fileID: 2165436412499327591, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      propertyPath: camPos
+      value: 
+      objectReference: {fileID: 1709521633}
+    - target: {fileID: 2165436412499327591, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      propertyPath: virCam
+      value: 
+      objectReference: {fileID: 314251737}
+    - target: {fileID: 2165436412499327591, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      propertyPath: battleCamPos
+      value: 
+      objectReference: {fileID: 382034248}
+    - target: {fileID: 2165436412499327591, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      propertyPath: battleCamTarget
+      value: 
+      objectReference: {fileID: 625252615}
     - target: {fileID: 4351495529817795291, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.099999994
@@ -2167,6 +2219,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6091978239453243886, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1709521633}
     - targetCorrespondingSourceObject: {fileID: 6091978239453243886, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 382034248}

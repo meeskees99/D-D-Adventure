@@ -35,6 +35,7 @@ public class EventTriggers : MonoBehaviour
                 return;
             }
             other.transform.GetComponent<ForceMovement>().IsFighting = true;
+            other.transform.GetComponent<MouseLook>().inBattle = true;
             for (int i = 0; i < enemies.Length; i++)
             {
                 initiativeHandler.characters.Add(enemies[i].GetComponent<CharacterSheet>());

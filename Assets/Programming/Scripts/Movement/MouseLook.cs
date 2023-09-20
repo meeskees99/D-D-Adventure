@@ -13,7 +13,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] float maxLookUpDegrees;
 
     [Header("In battle")]
-    [SerializeField] GameObject cam;
+    [SerializeField] GameObject virCam;
     [SerializeField] Transform battleCamPos;
     [SerializeField] Transform battleCamTarget;
     public bool inBattle;
@@ -31,17 +31,6 @@ public class MouseLook : MonoBehaviour
         }
     }
     float xRotation;
-    public float GetXRotation
-    {
-        get
-        {
-            return xRotation;
-        }
-        set
-        {
-            xRotation = value;
-        }
-    }
 
     bool isLocked;
     // Start is called before the first frame update
@@ -57,13 +46,13 @@ public class MouseLook : MonoBehaviour
 
         if (inBattle)
         {
-            cam.GetComponent<CinemachineVirtualCamera>().transform.position = battleCamPos.position;
-            cam.GetComponent<CinemachineVirtualCamera>().LookAt = battleCamTarget;
+            virCam.GetComponent<CinemachineVirtualCamera>().transform.position = battleCamPos.position;
+            virCam.GetComponent<CinemachineVirtualCamera>().LookAt = battleCamTarget;
         }
         else
         {
-            cam.GetComponent<CinemachineVirtualCamera>().transform.position = camPos.position;
-            cam.GetComponent<CinemachineVirtualCamera>().LookAt = camTarget;
+            virCam.GetComponent<CinemachineVirtualCamera>().transform.position = camPos.position;
+            virCam.GetComponent<CinemachineVirtualCamera>().LookAt = camTarget;
         }
         if (isLocked)
         {
