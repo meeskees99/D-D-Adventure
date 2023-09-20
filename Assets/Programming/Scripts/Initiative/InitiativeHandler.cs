@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InitiativeHandler : MonoBehaviour
@@ -21,7 +22,7 @@ public class InitiativeHandler : MonoBehaviour
             foreach (var character in characters)
             {
                 var count = 0;
-                int initiative = UnityEngine.Random.Range(1, 20) /*+ character.GetInitiativeBonus*/;
+                int initiative = UnityEngine.Random.Range(1, 20) + character.InitiativeBonus;
                 if (initiativeOrder.Count != 0)
                 {
                     foreach (var item in initiativeOrder)
@@ -63,17 +64,15 @@ public class InitiativeHandler : MonoBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log(currentTurnNmbr);
-        // initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponent<Renderer>().material.color = Color.green;
-        //initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.GetComponent<ForceMovement>().IsTurn = true;
-
+        initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().IsTurn = true;
     }
     public void EndTurn()
     {
         ForceMovement playerMovement;
-        /*initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponentInParent<Transform>().TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
-           // playerMovement.IsTurn = false;
+            playerMovement.IsTurn = false;
         }
         currentTurnNmbr++;
         if (currentTurnNmbr > initiativeOrder.Count - 1)
@@ -81,12 +80,12 @@ public class InitiativeHandler : MonoBehaviour
             currentTurnNmbr = 0;
         }
 
-        //initiativeOrder.ElementAt(currentTurnNmbr).character.gameObject.TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponentInParent<Transform>().TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.IsTurn = true;
         }
-        */
+
     }
 
 }

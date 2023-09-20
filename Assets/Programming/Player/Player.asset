@@ -14,16 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charaterName: 
   characterModel: {fileID: 0}
-  _class: 0
-  maxHitPoints: 0
-  hitPoints: 0
-  proficiency: 0
-  speed: 0
-  initiativeBonus: 0
-  armorClass: 0
-  strength: 0
-  dexterity: 0
-  constitution: 0
-  intelligence: 0
-  wisdom: 0
-  charisma: 0
