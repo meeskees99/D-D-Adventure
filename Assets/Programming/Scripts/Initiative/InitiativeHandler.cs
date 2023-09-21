@@ -64,7 +64,7 @@ public class InitiativeHandler : MonoBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log(currentTurnNmbr);
-        initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().IsTurn = true;
+        initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().isTurn = true;
     }
     public void EndTurn()
     {
@@ -72,7 +72,7 @@ public class InitiativeHandler : MonoBehaviour
         initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
-            playerMovement.IsTurn = false;
+            playerMovement.isTurn = false;
         }
         currentTurnNmbr++;
         if (currentTurnNmbr > initiativeOrder.Count - 1)
@@ -82,7 +82,7 @@ public class InitiativeHandler : MonoBehaviour
         initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
-            playerMovement.IsTurn = true;
+            playerMovement.isTurn = true;
         }
     }
 

@@ -23,31 +23,9 @@ public class ForceMovement : MonoBehaviour
 
     [SerializeField] Slider movementSlider;
 
+    public bool isFighting { get; set; }
+    public bool isTurn { get; set; }
     [Header("Turn Based Movement")]
-    [SerializeField] bool isFighting;
-    public bool IsFighting
-    {
-        get
-        {
-            return isFighting;
-        }
-        set
-        {
-            isFighting = value;
-        }
-    }
-    [SerializeField] bool isTurn;
-    public bool IsTurn
-    {
-        get
-        {
-            return isTurn;
-        }
-        set
-        {
-            isTurn = value;
-        }
-    }
     [SerializeField] bool canMove;
     float distanceToGo;
 

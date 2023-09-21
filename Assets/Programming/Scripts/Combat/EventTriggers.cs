@@ -31,11 +31,11 @@ public class EventTriggers : MonoBehaviour
     {
         if (combatTrigger)
         {
-            if (other.transform.GetComponent<ForceMovement>().IsFighting == true)
+            if (other.transform.GetComponent<ForceMovement>().isFighting == true)
             {
                 return;
             }
-            other.transform.GetComponent<ForceMovement>().IsFighting = true;
+            other.transform.GetComponent<ForceMovement>().isFighting = true;
             other.transform.GetChild(0).GetComponent<MouseLook>().inBattle = true;
             for (int i = 0; i < enemies.Length; i++)
             {
