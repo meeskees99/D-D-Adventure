@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
@@ -7,15 +9,54 @@ using UnityEngine;
 public class CharacterSheet : ScriptableObject
 {
     [Header("Character Info")]
-    public string charaterName;
+    public string characterName;
     public GameObject characterModel;
-    [SerializeField] private enum Class
+
+
+    public void OnInspectorGUI()
     {
-        None,
-        Knight,
-        Ranger
+        Debug.Log("Yes");
+        Class newValue = (Class)EditorGUILayout.EnumPopup(_class);
+        if (newValue != _class)
+        {
+            _class = newValue;
+            if (_class == Class.Goblin)
+            {
+                characterName = "Goblin";
+                MaxHitPoints = 7;
+                HitPoints = 7;
+                Proficiency = 2;
+                Speed = 30;
+                InitiativeBonus = 2;
+                ArmorClass = 15;
+                Strength = 8;
+                Dexterity = 14;
+                Constitution = 10;
+                Intelligence = 10;
+                Wisdom = 8;
+                Charisma = 8;
+            }
+            else if (_class == Class.Knight)
+            {
+                characterName = "Knight";
+                MaxHitPoints = 12;
+                HitPoints = 12;
+                Proficiency = 2;
+                Speed = 30;
+                InitiativeBonus = 3;
+                ArmorClass = 14;
+                Strength = 14;
+                Dexterity = 16;
+                Constitution = 15;
+                Intelligence = 11;
+                Wisdom = 13;
+                Charisma = 9;
+            }
+        }
     }
-    [SerializeField] private Class _class;
+
+
+    [SerializeField] public Class _class;
     [SerializeField] public int MaxHitPoints { get; set; }
     [SerializeField] public int HitPoints { get; set; }
     [SerializeField] public int Proficiency { get; set; }
@@ -26,6 +67,14 @@ public class CharacterSheet : ScriptableObject
     [SerializeField] public int Dexterity { get; set; }
     [SerializeField] public int Constitution { get; set; }
     [SerializeField] public int Intelligence { get; set; }
-    [SerializeField] public int Wisdom{ get; set; }
-    [SerializeField] public int Charisma{ get; set; }
+    [SerializeField] public int Wisdom { get; set; }
+    [SerializeField] public int Charisma { get; set; }
 }
+[SerializeField]
+public enum Class
+{
+    Goblin,
+    Knight,
+    Ranger
+}
+
