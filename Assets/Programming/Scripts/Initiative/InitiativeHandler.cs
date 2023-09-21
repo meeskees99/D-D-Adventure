@@ -8,7 +8,7 @@ using UnityEngine;
 public class InitiativeHandler : MonoBehaviour
 {
     public int currentTurnNmbr;
-    public List<CharacterSheet> characters;
+    public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
 
     public void SetInitiativeOrder()
@@ -22,7 +22,7 @@ public class InitiativeHandler : MonoBehaviour
             foreach (var character in characters)
             {
                 var count = 0;
-                int initiative = UnityEngine.Random.Range(1, 20) + character.InitiativeBonus;
+                int initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus;
                 if (initiativeOrder.Count != 0)
                 {
                     foreach (var item in initiativeOrder)
@@ -69,7 +69,7 @@ public class InitiativeHandler : MonoBehaviour
     public void EndTurn()
     {
         ForceMovement playerMovement;
-        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponentInParent<Transform>().TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.IsTurn = false;
@@ -79,20 +79,18 @@ public class InitiativeHandler : MonoBehaviour
         {
             currentTurnNmbr = 0;
         }
-
-        initiativeOrder.ElementAt(currentTurnNmbr).character.characterModel.GetComponentInParent<Transform>().TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.IsTurn = true;
         }
-
     }
 
 }
 [Serializable]
 public class Initiative
 {
-    public CharacterSheet character;
+    public GameObject character;
     [SerializeField]
     public int initiative;
 }

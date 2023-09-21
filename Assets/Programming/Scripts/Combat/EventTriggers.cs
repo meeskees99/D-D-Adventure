@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EventTriggers : MonoBehaviour
@@ -35,12 +36,12 @@ public class EventTriggers : MonoBehaviour
                 return;
             }
             other.transform.GetComponent<ForceMovement>().IsFighting = true;
-            other.transform.GetComponent<MouseLook>().inBattle = true;
+            other.transform.GetChild(0).GetComponent<MouseLook>().inBattle = true;
             for (int i = 0; i < enemies.Length; i++)
             {
-                initiativeHandler.characters.Add(enemies[i].GetComponent<CharacterSheet>());
+                initiativeHandler.characters.Add(enemies[i].gameObject);
             }
-            initiativeHandler.characters.Add(other.GetComponent<CharacterSheet>());
+            initiativeHandler.characters.Add(other.gameObject);
             initiativeHandler.SetInitiativeOrder();
         }
     }

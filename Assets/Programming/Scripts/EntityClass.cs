@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class EntityClass : MonoBehaviour
 {
     [SerializeField] private CharacterSheet stats;
     [SerializeField] private ForceMovement movement;
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private int maxHitPoints;
     [SerializeField]
-    private int
+    public int
         hitPoints,
         armorClass,
         initiativeBonus,
@@ -24,9 +24,10 @@ public class Player : MonoBehaviour
         intelligence,
         wisdom,
         charisma;
-
+    bool statsSet;
     private void SetStats()
     {
+        statsSet = true;
         maxHitPoints = stats.MaxHitPoints;
         hitPoints = stats.HitPoints;
         armorClass = stats.ArmorClass;
@@ -58,6 +59,8 @@ public class Player : MonoBehaviour
             stats.Intelligence = 10;
             stats.Wisdom = 8;
             stats.Charisma = 8;
+            if (!statsSet)
+                SetStats();
         }
         else if (stats._class == Class.Knight)
         {
@@ -74,6 +77,8 @@ public class Player : MonoBehaviour
             stats.Intelligence = 11;
             stats.Wisdom = 13;
             stats.Charisma = 9;
+            if (!statsSet)
+                SetStats();
         }
         else if (stats._class == Class.Ranger)
         {
@@ -90,6 +95,8 @@ public class Player : MonoBehaviour
             stats.Intelligence = 10;
             stats.Wisdom = 15;
             stats.Charisma = 8;
+            if (!statsSet)
+                SetStats();
         }
     }
 }

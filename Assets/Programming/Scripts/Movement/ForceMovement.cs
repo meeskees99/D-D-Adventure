@@ -85,7 +85,7 @@ public class ForceMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    [SerializeField] float raycastLenght = 0.5f;
+    [SerializeField] float raycastLenght = 0.51f;
 
     [SerializeField] bool wallWalk;
 
