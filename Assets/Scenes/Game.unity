@@ -873,6 +873,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 2b640e13e8c17a64fab604fa06b5a738, type: 2}
   movement: {fileID: 0}
   mouse: {fileID: 0}
+  playerName: 
   maxHitPoints: 0
   hitPoints: 0
   armorClass: 0

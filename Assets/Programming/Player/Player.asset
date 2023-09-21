@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  charaterName: 
+  characterName: Ranger
   characterModel: {fileID: 0}
+  _class: 2
