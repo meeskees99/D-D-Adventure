@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class EntityClass : MonoBehaviour
 {
-    [SerializeField] private CharacterSheet stats;
+    [SerializeField] private ClassSheet stats;
     [SerializeField] private ForceMovement movement;
     [SerializeField] private MouseLook mouse;
     [SerializeField] string playerName;
+    public bool isPlayer;
     [Header("Stats")]
     [SerializeField] private int maxHitPoints;
     [SerializeField]
@@ -28,6 +29,7 @@ public class EntityClass : MonoBehaviour
     private void SetStats()
     {
         statsSet = true;
+        isPlayer = stats.isPlayer;
         maxHitPoints = stats.MaxHitPoints;
         hitPoints = stats.HitPoints;
         armorClass = stats.ArmorClass;
