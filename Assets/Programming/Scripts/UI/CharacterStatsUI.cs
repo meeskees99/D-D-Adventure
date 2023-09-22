@@ -39,7 +39,7 @@ public class CharacterStatsUI : MonoBehaviour
         if (uIManager.players.Count == 0)
             return;
         #region Character Stats
-        playerName.text = uIManager.players[playerNumber - 1].name;
+        playerName.text = uIManager.players[playerNumber - 1].playerName;
         classType.text = uIManager.players[playerNumber - 1].stats._class.ToString();
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
         level.text = uIManager.players[playerNumber - 1].level.ToString();

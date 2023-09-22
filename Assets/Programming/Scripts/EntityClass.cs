@@ -8,7 +8,7 @@ public class EntityClass : MonoBehaviour
     public ClassSheet stats;
     [SerializeField] private ForceMovement movement;
     [SerializeField] private MouseLook mouse;
-    [SerializeField] string playerName;
+    public string playerName;
     public bool isPlayer;
     [Header("Stats")]
     [SerializeField] private int maxHitPoints;
