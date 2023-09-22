@@ -12862,6 +12862,9 @@ MonoBehaviour:
   playerName: Goblin Deez Nuts
   isPlayer: 0
   maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
   hitPoints: 0
   armorClass: 0
   initiativeBonus: 0
@@ -12873,6 +12876,12 @@ MonoBehaviour:
   intelligence: 0
   wisdom: 0
   charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
 --- !u!54 &1052512688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19132,6 +19141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1571566095}
+  - component: {fileID: 1571566096}
   m_Layer: 5
   m_Name: Info player2
   m_TagString: Untagged
@@ -19162,6 +19172,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &1571566096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571566094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5583444e01a2e3844be5968c75799dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIManager: {fileID: 0}
+  playerNumber: 0
+  playerName: {fileID: 0}
+  classType: {fileID: 0}
+  race: {fileID: 0}
+  level: {fileID: 0}
+  xp: {fileID: 0}
+  profB: {fileID: 0}
+  armorClass: {fileID: 0}
+  initiative: {fileID: 0}
+  speed: {fileID: 0}
+  strenghtNor: {fileID: 0}
+  strenghtBonus: {fileID: 0}
+  dexterityNor: {fileID: 0}
+  dexterityBonus: {fileID: 0}
+  constitutionNor: {fileID: 0}
+  constitutionBonus: {fileID: 0}
+  intelligenceNor: {fileID: 0}
+  intelligenceBonus: {fileID: 0}
+  wisdomNor: {fileID: 0}
+  wisdomBonus: {fileID: 0}
+  charismaNor: {fileID: 0}
+  charismaBonus: {fileID: 0}
 --- !u!1 &1581648360
 GameObject:
   m_ObjectHideFlags: 0
@@ -24458,6 +24503,9 @@ MonoBehaviour:
   playerName: Goblin Deez Nuts
   isPlayer: 0
   maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
   hitPoints: 0
   armorClass: 0
   initiativeBonus: 0
@@ -24469,6 +24517,12 @@ MonoBehaviour:
   intelligence: 0
   wisdom: 0
   charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
 --- !u!54 &1968782270
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25700,6 +25754,9 @@ MonoBehaviour:
   playerName: Goblin Deez Nuts
   isPlayer: 0
   maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
   hitPoints: 0
   armorClass: 0
   initiativeBonus: 0
@@ -25711,6 +25768,12 @@ MonoBehaviour:
   intelligence: 0
   wisdom: 0
   charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
 --- !u!54 &2093816561
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31464,7 +31527,7 @@ GameObject:
   - component: {fileID: 2448737462771123988}
   - component: {fileID: 1715269356767285423}
   m_Layer: 5
-  m_Name: XP
+  m_Name: XP Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34605,6 +34668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5891075937621981084}
+  - component: {fileID: 5891075937621981085}
   m_Layer: 5
   m_Name: Info player1
   m_TagString: Untagged
@@ -37310,7 +37374,7 @@ GameObject:
   - component: {fileID: 2393122968400772838}
   - component: {fileID: 8441635715430572538}
   m_Layer: 5
-  m_Name: Ac txt
+  m_Name: Spd txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40526,7 +40590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7500515838115212732}
   m_Layer: 5
-  m_Name: Armor Class (3)
+  m_Name: Speed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42075,6 +42139,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &5891075937621981085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080210485377441807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5583444e01a2e3844be5968c75799dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIManager: {fileID: 8294351749239685365}
+  playerNumber: 1
+  playerName: {fileID: 2077926262071954891}
+  classType: {fileID: 1865719426442888474}
+  race: {fileID: 2692464771217794484}
+  level: {fileID: 6863498746680498844}
+  xp: {fileID: 1715269356767285423}
+  profB: {fileID: 7794813635832900993}
+  armorClass: {fileID: 7449036705205834257}
+  initiative: {fileID: 8745991812213682237}
+  speed: {fileID: 8441635715430572538}
+  strenghtNor: {fileID: 5199786706347349923}
+  strenghtBonus: {fileID: 1940084831595052970}
+  dexterityNor: {fileID: 2379040155518362789}
+  dexterityBonus: {fileID: 1210181658761685144}
+  constitutionNor: {fileID: 4893718421411950898}
+  constitutionBonus: {fileID: 7135566017073635185}
+  intelligenceNor: {fileID: 6718903306121182071}
+  intelligenceBonus: {fileID: 2578780648909003804}
+  wisdomNor: {fileID: 4008343905707218713}
+  wisdomBonus: {fileID: 4721445911522861058}
+  charismaNor: {fileID: 1890284134669939774}
+  charismaBonus: {fileID: 1844741922794579455}
 --- !u!224 &5892132931722191392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49823,6 +49922,9 @@ MonoBehaviour:
   playerName: Gerrielofo
   isPlayer: 1
   maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
   hitPoints: 0
   armorClass: 0
   initiativeBonus: 0
@@ -49834,6 +49936,12 @@ MonoBehaviour:
   intelligence: 0
   wisdom: 0
   charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
 --- !u!114 &8580471138413301220
 MonoBehaviour:
   m_ObjectHideFlags: 0

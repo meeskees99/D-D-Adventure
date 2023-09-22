@@ -11,7 +11,7 @@ public class CharacterSheetUIManager : MonoBehaviour
     [SerializeField] GameObject playerOneSheet;
     [SerializeField] GameObject playerTwoSheet;
     [Header("Player")]
-    [SerializeField] List<EntityClass> players = new();
+    public List<EntityClass> players = new();
 
     [SerializeField] List<EntityClass> allEntities;
     [SerializeField] bool allPlayersChecked;
@@ -25,7 +25,7 @@ public class CharacterSheetUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print($"All entities count = {allEntities.Count}. All players Count = {FindObjectsOfType<EntityClass>().Length}.");
+        print($"All entities count = {allEntities.Count}. All players Count = {players.Count}.");
         allPlayersChecked = allEntities.Count == FindObjectsOfType<EntityClass>().Length;
         EntityClass[] Sheet = FindObjectsOfType<EntityClass>();
         if (!allPlayersChecked)

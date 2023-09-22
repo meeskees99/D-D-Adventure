@@ -12,25 +12,35 @@ public class ClassSheet : ScriptableObject
     public string characterName;
     public bool isPlayer;
 
-    [SerializeField] public Class _class;
-    [SerializeField] public int MaxHitPoints { get; set; }
-    [SerializeField] public int HitPoints { get; set; }
-    [SerializeField] public int Proficiency { get; set; }
-    [SerializeField] public int Speed { get; set; }
-    [SerializeField] public int InitiativeBonus { get; set; }
-    [SerializeField] public int ArmorClass { get; set; }
-    [SerializeField] public int Strength { get; set; }
-    [SerializeField] public int Dexterity { get; set; }
-    [SerializeField] public int Constitution { get; set; }
-    [SerializeField] public int Intelligence { get; set; }
-    [SerializeField] public int Wisdom { get; set; }
-    [SerializeField] public int Charisma { get; set; }
+    public Class _class;
+    public Race _race;
+    public int Level { get; set; }
+    public int CurrentXP { get; set; }
+    public int XpToGo { get; set; }
+    public int MaxHitPoints { get; set; }
+    public int HitPoints { get; set; }
+    public int Proficiency { get; set; }
+    public int Speed { get; set; }
+    public int InitiativeBonus { get; set; }
+    public int ArmorClass { get; set; }
+    public int Strength { get; set; }
+    public int Dexterity { get; set; }
+    public int Constitution { get; set; }
+    public int Intelligence { get; set; }
+    public int Wisdom { get; set; }
+    public int Charisma { get; set; }
+
 }
 [SerializeField]
 public enum Class
 {
-    Goblin,
     Knight,
     Ranger
+}
+public enum Race
+{
+    Human,
+    Elf,
+    Goblin
 }
 
