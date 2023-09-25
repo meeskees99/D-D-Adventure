@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Netcode;
 
-public class EntityClass : MonoBehaviour
+public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
     [SerializeField] private ForceMovement movement;

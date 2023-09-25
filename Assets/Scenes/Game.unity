@@ -49871,7 +49871,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1222185285661417142, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6091978239453243886, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
@@ -49887,6 +49888,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8714344782717578731, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8578642912388555379}
+    - targetCorrespondingSourceObject: {fileID: 8714344782717578731, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8578642912388555380}
+    - targetCorrespondingSourceObject: {fileID: 8714344782717578731, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8578642912388555381}
   m_SourcePrefab: {fileID: 100100000, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
 --- !u!4 &8578642912388555372 stripped
 Transform:
@@ -49942,6 +49949,56 @@ MonoBehaviour:
   intelligenceBonus: 0
   wisdomBonus: 0
   charismaBonus: 0
+--- !u!114 &8578642912388555380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326654030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4116085361
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &8578642912388555381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326654030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!114 &8580471138413301220
 MonoBehaviour:
   m_ObjectHideFlags: 0
