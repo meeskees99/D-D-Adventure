@@ -11,7 +11,6 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
-    // [SerializeField] MouseLook mouseLook;
     [SerializeField] GameObject playerModel;
     bool isMoving;
     [Tooltip("Maximum distance this character can travel in one turn")]
