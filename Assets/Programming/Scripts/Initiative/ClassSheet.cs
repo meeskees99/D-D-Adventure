@@ -9,7 +9,15 @@ using UnityEngine;
 public class ClassSheet : ScriptableObject
 {
     [Header("Character Info")]
-    public string characterName;
+    [SerializeField] int id = -1;
+    [SerializeField] string characterName;
+    [SerializeField] Sprite icon;
+
+    public int Id => id;
+    public string CharacterName => characterName;
+    public Sprite Icon => icon;
+
+
     public bool isPlayer;
 
     public Class _class;

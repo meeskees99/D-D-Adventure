@@ -82,7 +82,7 @@ public class EntityClass : NetworkBehaviour
         // }
         if (stats._class == Class.Knight)
         {
-            stats.characterName = "Knight";
+            // stats.characterName = "Knight";
             stats.MaxHitPoints = 12;
             stats.HitPoints = 12;
             stats.Proficiency = 2;
@@ -100,7 +100,7 @@ public class EntityClass : NetworkBehaviour
         }
         else if (stats._class == Class.Ranger)
         {
-            stats.characterName = "Ranger";
+            // stats.CharacterName = "Ranger";
             stats.MaxHitPoints = 11;
             stats.HitPoints = 1;
             stats.Proficiency = 2;
