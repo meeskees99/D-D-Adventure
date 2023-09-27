@@ -12,11 +12,12 @@ public class ClassSheet : ScriptableObject
     [SerializeField] int id = -1;
     [SerializeField] string characterName;
     [SerializeField] Sprite icon;
+    [SerializeField] GameObject introPrefab;
 
     public int Id => id;
     public string CharacterName => characterName;
     public Sprite Icon => icon;
-
+    public GameObject Introprefab => Introprefab;
 
     public bool isPlayer;
 

@@ -14,6 +14,11 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] PlayerCards[] playerCards;
     [SerializeField] GameObject characterInfoPanel;
     [SerializeField] TMP_Text characterNameText;
+    [SerializeField] Transform introSpawnPos;
+    [SerializeField] Button lockInButton;
+
+    GameObject introInstance;
+    List<CharacterSelectButton> characterButtons = new();
 
     NetworkList<CharacterSelection> players;
 
@@ -32,7 +37,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             {
                 var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
                 selectButtonInstance.SetCharacter(this, allCharacters[i]);
-
+                characterButtons.Add(selectButtonInstance);
             }
 
             players.OnListChanged += HandlePlayersStateChanged;
@@ -80,9 +85,27 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
     public void Select(ClassSheet character)
     {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
+
+            if (!characterDataBase.IsValidCharacterId(players[i].CharacterId)) { return; }
+
+            if (players[i].IsLockedIn) { return; }
+
+            if (players[i].CharacterId == character.Id) { return; }
+        }
+
         characterNameText.text = character.CharacterName;
 
         characterInfoPanel.SetActive(true);
+
+        if (introInstance != null)
+        {
+            Destroy(introInstance);
+        }
+
+        introInstance = Instantiate(character.Introprefab, introSpawnPos);
 
         SelectServerRPC(character.Id);
     }
@@ -91,13 +114,35 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i].ClientId == serverRpcParams.Receive.SenderClientId)
-            {
-                players[i] = new CharacterSelection(
-                    players[i].ClientId,
-                    characterId
-                );
-            }
+            if (players[i].ClientId != serverRpcParams.Receive.SenderClientId) { continue; }
+            if (!characterDataBase.IsValidCharacterId(players[i].CharacterId)) { return; }
+            players[i] = new CharacterSelection(
+                players[i].ClientId,
+                characterId,
+                players[i].IsLockedIn
+            );
+
+        }
+    }
+
+    public void LockIn()
+    {
+
+        LockInServerRPC();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void LockInServerRPC(ServerRpcParams serverRpcParams = default)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].ClientId != serverRpcParams.Receive.SenderClientId) { continue; }
+            if (!characterDataBase.IsValidCharacterId(players[i].CharacterId)) { return; }
+            players[i] = new CharacterSelection(
+                players[i].ClientId,
+                players[i].CharacterId,
+                true
+            );
         }
     }
 
@@ -113,6 +158,20 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             {
                 playerCards[i].DisableDisplay();
             }
+        }
+
+        foreach (var player in players)
+        {
+            if (player.ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
+
+            if (player.IsLockedIn)
+            {
+                lockInButton.interactable = false;
+                break;
+            }
+
+            lockInButton.interactable = true;
+            break;
         }
     }
 }
