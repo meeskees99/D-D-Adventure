@@ -26,7 +26,7 @@ public class PlayerCards : MonoBehaviour
         {
             characterIconImage.enabled = false;
         }
-        playerNameText.text = state.IsLockedIn ? $"Player {state.ClientId}" : $"Player {state.ClientId} (Picking...)";
+        playerNameText.text = $"Player {state.ClientId}";
         visuals.SetActive(true);
     }
 

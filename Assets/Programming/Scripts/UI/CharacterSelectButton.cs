@@ -4,7 +4,6 @@ using UnityEngine;
 public class CharacterSelectButton : MonoBehaviour
 {
     [SerializeField] Image iconImage;
-    [SerializeField] Button button;
 
     CharacterSelectionDisplay characterSelect;
     ClassSheet character;
@@ -22,6 +21,4 @@ public class CharacterSelectButton : MonoBehaviour
     {
         characterSelect.Select(character);
     }
-
-
 }
