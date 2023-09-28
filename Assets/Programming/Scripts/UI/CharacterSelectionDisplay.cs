@@ -88,11 +88,24 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
+            if (players[i].IsLockedIn) { return; }
+            if (players[i].CharacterId == character.Id) { return; }
         }
 
         characterNameText.text = character.CharacterName;
 
         characterInfoPanel.SetActive(true);
+
+        if (introPrefabInstance != null)
+        {
+            Destroy(introPrefabInstance);
+        }
+
+        if (character.IntroPrefab != null)
+        {
+            introPrefabInstance = Instantiate(character.IntroPrefab, introSpawnpoint);
+        }
+
 
         SelectServerRPC(character.Id);
     }
@@ -105,7 +118,30 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             {
                 players[i] = new CharacterSelection(
                     players[i].ClientId,
-                    characterId
+                    characterId,
+                    players[i].IsLockedIn
+                );
+            }
+        }
+    }
+
+    public void LockIn()
+    {
+        LockInServerRPC();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void LockInServerRPC(ServerRpcParams serverRpcParams = default)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].ClientId == serverRpcParams.Receive.SenderClientId)
+            {
+                if (!characterDataBase.IsCharacterIdValid(players[i].CharacterId)) { return; }
+                players[i] = new CharacterSelection(
+                    players[i].ClientId,
+                    players[i].CharacterId,
+                    true
                 );
             }
         }
