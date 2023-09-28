@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-// using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Character")]
@@ -12,10 +7,12 @@ public class ClassSheet : ScriptableObject
     [SerializeField] int id = -1;
     [SerializeField] string characterName;
     [SerializeField] Sprite icon;
+    [SerializeField] GameObject introPrefab;
 
     public int Id => id;
     public string CharacterName => characterName;
     public Sprite Icon => icon;
+    public GameObject IntroPrefab => introPrefab;
 
 
     public bool isPlayer;

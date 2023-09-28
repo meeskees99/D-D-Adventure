@@ -8,21 +8,25 @@ public struct CharacterSelection : INetworkSerializable, IEquatable<CharacterSel
 {
     public ulong ClientId;
     public int CharacterId;
+    public bool IsLockedIn;
 
-    public CharacterSelection(ulong clientId, int characterId = -1)
+    public CharacterSelection(ulong clientId, int characterId = -1, bool isLockedIn = false)
     {
         ClientId = clientId;
         CharacterId = characterId;
+        IsLockedIn = isLockedIn;
     }
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref ClientId);
         serializer.SerializeValue(ref CharacterId);
+        serializer.SerializeValue(ref IsLockedIn);
     }
 
     public bool Equals(CharacterSelection other)
     {
         return ClientId == other.ClientId &&
-            CharacterId == other.CharacterId;
+            CharacterId == other.CharacterId &&
+            IsLockedIn == other.IsLockedIn;
     }
 }

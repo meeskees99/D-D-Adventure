@@ -14,6 +14,11 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] PlayerCards[] playerCards;
     [SerializeField] GameObject characterInfoPanel;
     [SerializeField] TMP_Text characterNameText;
+    [SerializeField] Transform introSpawnpoint;
+    [SerializeField] Button lockInButton;
+
+    GameObject introPrefabInstance;
+    List<CharacterSelectButton> characterButtons = new();
 
     NetworkList<CharacterSelection> players;
 
@@ -32,7 +37,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             {
                 var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
                 selectButtonInstance.SetCharacter(this, allCharacters[i]);
-
+                characterButtons.Add(selectButtonInstance);
             }
 
             players.OnListChanged += HandlePlayersStateChanged;
@@ -80,6 +85,11 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
     public void Select(ClassSheet character)
     {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
+        }
+
         characterNameText.text = character.CharacterName;
 
         characterInfoPanel.SetActive(true);
