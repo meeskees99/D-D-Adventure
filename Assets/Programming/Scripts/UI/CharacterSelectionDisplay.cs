@@ -16,7 +16,10 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] TMP_Text characterNameText;
     [SerializeField] Transform introSpawnpoint;
     [SerializeField] Button lockInButton;
+
+    [Header("DM Shizzle")]
     [SerializeField] Button startButton;
+    [SerializeField] TMP_Text dmJoinedText;
 
     GameObject introPrefabInstance;
     List<CharacterSelectButton> characterButtons = new();
@@ -55,6 +58,8 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             {
                 HandleClientConnected(client.ClientId);
             }
+
+            startButton.gameObject.SetActive(true);
         }
 
     }
@@ -84,6 +89,20 @@ public class CharacterSelectionDisplay : NetworkBehaviour
                 players.RemoveAt(i);
                 break;
             }
+        }
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (i == 0)
+                continue;
+            if (!players[i].IsLockedIn)
+            {
+                break;
+            }
+            startButton.interactable = true;
         }
     }
 
@@ -159,7 +178,10 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         for (int i = 0; i < playerCards.Length + 1; i++)
         {
             if (i == 0)
+            {
+                dmJoinedText.text = "Joined";
                 continue;
+            }
             if (players.Count > i)
             {
                 playerCards[i - 1].UpdateDisplay(players[i]);
