@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &282306315
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3864,6 +3864,8 @@ MonoBehaviour:
   characterNameText: {fileID: 1357603302}
   introSpawnpoint: {fileID: 572355606}
   lockInButton: {fileID: 466545653}
+  startButton: {fileID: 282306316}
+  dmJoinedText: {fileID: 297780567}
 --- !u!1 &1894928081
 GameObject:
   m_ObjectHideFlags: 0
