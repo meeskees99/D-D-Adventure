@@ -37,14 +37,14 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         {
             if (!IsHost)
             {
-            }
-            ClassSheet[] allCharacters = characterDataBase.GetAllCharacters();
+                ClassSheet[] allCharacters = characterDataBase.GetAllCharacters();
 
-            for (int i = 0; i < allCharacters.Length; i++)
-            {
-                var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
-                selectButtonInstance.SetCharacter(this, allCharacters[i]);
-                characterButtons.Add(selectButtonInstance);
+                for (int i = 0; i < allCharacters.Length; i++)
+                {
+                    var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
+                    selectButtonInstance.SetCharacter(this, allCharacters[i]);
+                    characterButtons.Add(selectButtonInstance);
+                }
             }
 
             players.OnListChanged += HandlePlayersStateChanged;
