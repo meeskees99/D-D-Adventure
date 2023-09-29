@@ -16,6 +16,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] TMP_Text characterNameText;
     [SerializeField] Transform introSpawnpoint;
     [SerializeField] Button lockInButton;
+    [SerializeField] Button startButton;
 
     GameObject introPrefabInstance;
     List<CharacterSelectButton> characterButtons = new();
@@ -31,6 +32,9 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     {
         if (IsClient)
         {
+            if (!IsHost)
+            {
+            }
             ClassSheet[] allCharacters = characterDataBase.GetAllCharacters();
 
             for (int i = 0; i < allCharacters.Length; i++)
@@ -87,6 +91,8 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
+            // if (i == 0)
+            //     continue;
             if (players[i].ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
             if (players[i].IsLockedIn) { return; }
             if (players[i].CharacterId == character.Id) { return; }
@@ -106,7 +112,6 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             introPrefabInstance = Instantiate(character.IntroPrefab, introSpawnpoint);
         }
 
-
         SelectServerRPC(character.Id);
     }
     [ServerRpc(RequireOwnership = false)]
@@ -114,6 +119,8 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
+            //     if (i == 0)
+            //         continue;
             if (players[i].ClientId == serverRpcParams.Receive.SenderClientId)
             {
                 players[i] = new CharacterSelection(
@@ -149,15 +156,17 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
     void HandlePlayersStateChanged(NetworkListEvent<CharacterSelection> changeEvent)
     {
-        for (int i = 0; i < playerCards.Length; i++)
+        for (int i = 0; i < playerCards.Length + 1; i++)
         {
+            if (i == 0)
+                continue;
             if (players.Count > i)
             {
-                playerCards[i].UpdateDisplay(players[i]);
+                playerCards[i - 1].UpdateDisplay(players[i]);
             }
             else
             {
-                playerCards[i].DisableDisplay();
+                playerCards[i - 1].DisableDisplay();
             }
         }
     }
