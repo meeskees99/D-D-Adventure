@@ -171,6 +171,19 @@ public class CharacterSelectionDisplay : NetworkBehaviour
                 );
             }
         }
+
+        foreach (var player in players)
+        {
+            if (!player.IsLockedIn) { return; }
+        }
+
+        foreach (var player in players)
+        {
+            ServerManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
+        }
+
+        ServerManager.Instance.StartGame();
+
     }
 
     void HandlePlayersStateChanged(NetworkListEvent<CharacterSelection> changeEvent)
