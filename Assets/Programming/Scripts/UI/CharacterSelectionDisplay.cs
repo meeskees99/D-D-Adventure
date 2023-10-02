@@ -145,7 +145,17 @@ public class CharacterSelectionDisplay : NetworkBehaviour
                 players[i] = new CharacterSelection(
                     players[i].ClientId,
                     characterId,
-                    players[i].IsLockedIn
+                    players[i].IsLockedIn,
+                    players[i].IsDungeonMaster
+                );
+            }
+            if (i == 0)
+            {
+                players[i] = new CharacterSelection(
+                    players[i].ClientId,
+                    players[i].CharacterId,
+                    players[i].IsLockedIn,
+                    true
                 );
             }
         }
@@ -174,7 +184,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
         foreach (var player in players)
         {
-            if (!player.IsLockedIn) { return; }
+            if (!player.IsLockedIn && !player.IsDungeonMaster) { return; }
         }
 
         foreach (var player in players)
