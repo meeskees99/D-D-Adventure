@@ -56,6 +56,14 @@ public class InitiativeHandler : MonoBehaviour
             }
         }
         StartCombat();
+        foreach (var instance in initiativeOrder)
+        {
+            if(instance.character.GetComponent<EntityClass>().isPlayer)
+            {
+                var mouseLook = instance.character.GetComponentInChildren<MouseLook>();
+                mouseLook.PositionCameraForObjects(characters);
+            }
+        }
     }
     public void AddInitiatives()
     {
