@@ -12,6 +12,12 @@ GameObject:
   - component: {fileID: 2691598107904355871}
   - component: {fileID: 19573224131744063}
   - component: {fileID: 2956071256247033932}
+  - component: {fileID: 4260735547174641017}
+  - component: {fileID: 3553755039904785633}
+  - component: {fileID: 9022138295024196473}
+  - component: {fileID: 6498826100327061713}
+  - component: {fileID: 4215198863613015917}
+  - component: {fileID: 5917279853584790190}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -27,9 +33,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2396848879782116359}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.32500002, y: 1.15, z: 36.375}
-  m_LocalScale: {x: 0.05, y: 1, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,3 +113,206 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4260735547174641017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497657cb49e9b44479a194f837575845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: c7b54f24d57598748a4d2f82750dbe58, type: 2}
+  movement: {fileID: 3553755039904785633}
+  mouse: {fileID: 0}
+  playerName: Goblin Deez Nuts
+  isPlayer: 0
+  maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
+  hitPoints: 0
+  armorClass: 0
+  initiativeBonus: 0
+  speed: 0
+  proficiency: 0
+  strength: 0
+  dexterity: 0
+  constitution: 0
+  intelligence: 0
+  wisdom: 0
+  charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
+--- !u!114 &3553755039904785633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  sprintSpeed: 7
+  groundDrag: 3
+  playerModel: {fileID: 2396848879782116359}
+  moveDistance: 100
+  distanceMovedThisTurn: 0
+  moveMultiplier: 3
+  rotationSpeed: 7
+  movementSlider: {fileID: 0}
+  canMove: 0
+  jumpForce: 2
+  jumpCooldown: 0.2
+  airMultiplier: 0.4
+  jumpKey: 32
+  sprintKey: 304
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  grounded: 0
+  maxSlopeAngle: 45
+  minSlopeAngle: 2
+  orientation: {fileID: 4218250577788287280}
+  speedTxt: {fileID: 0}
+  raycastLenght: 0.51
+  wallWalk: 0
+  state: 0
+  shootPos: {fileID: 4218250577788287280}
+--- !u!114 &9022138295024196473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497657cb49e9b44479a194f837575845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: c7b54f24d57598748a4d2f82750dbe58, type: 2}
+  movement: {fileID: 6498826100327061713}
+  mouse: {fileID: 0}
+  playerName: Goblin Deez Nuts
+  isPlayer: 0
+  maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
+  hitPoints: 0
+  armorClass: 0
+  initiativeBonus: 0
+  speed: 0
+  proficiency: 0
+  strength: 0
+  dexterity: 0
+  constitution: 0
+  intelligence: 0
+  wisdom: 0
+  charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
+--- !u!114 &6498826100327061713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  sprintSpeed: 7
+  groundDrag: 3
+  playerModel: {fileID: 2396848879782116359}
+  moveDistance: 100
+  distanceMovedThisTurn: 0
+  moveMultiplier: 3
+  rotationSpeed: 7
+  movementSlider: {fileID: 0}
+  canMove: 0
+  jumpForce: 2
+  jumpCooldown: 0.2
+  airMultiplier: 0.4
+  jumpKey: 32
+  sprintKey: 304
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  grounded: 0
+  maxSlopeAngle: 45
+  minSlopeAngle: 2
+  orientation: {fileID: 4218250577788287280}
+  speedTxt: {fileID: 0}
+  raycastLenght: 0.51
+  wallWalk: 0
+  state: 0
+  shootPos: {fileID: 4218250577788287280}
+--- !u!54 &4215198863613015917
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5917279853584790190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396848879782116359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

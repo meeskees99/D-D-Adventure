@@ -84,4 +84,30 @@ public class MouseLook : MonoBehaviour
             }
         }
     }
+
+    public void PositionCameraForObjects(List<GameObject> objects)
+    {
+        // Check if there are any objects in the list
+        if (objects.Count == 0)
+        {
+            Debug.LogWarning("No objects in the list.");
+            return;
+        }
+
+        // Calculate the bounds that encompass all objects in the list
+        Bounds bounds = new Bounds(objects[0].transform.position, Vector3.zero);
+        foreach (GameObject obj in objects)
+        {
+            bounds.Encapsulate(obj.transform.position);
+        }
+
+        // Calculate the camera position and size
+        Vector3 cameraPosition = bounds.center;
+        cameraPosition.y = 20; // Keep the camera at the same y-coordinate
+        float cameraSize = Mathf.Max(bounds.size.x, bounds.size.z) / 2f;
+
+        // Set the camera position and orthographic size
+        camTarget.transform.position = cameraPosition;
+        Camera.main.orthographicSize = cameraSize;
+    }
 }

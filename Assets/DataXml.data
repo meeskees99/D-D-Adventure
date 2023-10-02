@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<CampaignSlots xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedData>
+    <SavedData>
+      <playerStats>
+        <ValueTupleOfInt32Int32Int32Int32Int32Int32Int32ValueTupleOfInt32>
+          <Item1>1</Item1>
+          <Item2>1</Item2>
+          <Item3>1</Item3>
+          <Item4>1</Item4>
+          <Item5>1</Item5>
+          <Item6>1</Item6>
+          <Item7>1</Item7>
+          <Rest>
+            <Item1>1</Item1>
+          </Rest>
+        </ValueTupleOfInt32Int32Int32Int32Int32Int32Int32ValueTupleOfInt32>
+      </playerStats>
+      <entityPos />
+    </SavedData>
+  </savedData>
+</CampaignSlots>

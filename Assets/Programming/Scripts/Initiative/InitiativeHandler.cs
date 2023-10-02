@@ -8,6 +8,7 @@ using UnityEngine;
 public class InitiativeHandler : MonoBehaviour
 {
     public int currentTurnNmbr;
+    public bool DMTurn;
     public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
 
@@ -69,20 +70,33 @@ public class InitiativeHandler : MonoBehaviour
     public void EndTurn()
     {
         ForceMovement playerMovement;
-        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = false;
         }
+        if (initiativeOrder[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
+        {
+            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PositionCameraForObjects(characters);
+        }
+        
         currentTurnNmbr++;
         if (currentTurnNmbr > initiativeOrder.Count - 1)
         {
             currentTurnNmbr = 0;
         }
-        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = true;
+            if(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false)
+            {
+                DMTurn = true;
+            }
+            else
+            {
+                DMTurn = false;
+            }
         }
     }
 
