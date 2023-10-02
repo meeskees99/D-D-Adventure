@@ -78,6 +78,7 @@ public class InitiativeHandler : MonoBehaviour
         if (initiativeOrder[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
         {
             initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PositionCameraForObjects(characters);
+            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = false;
         }
         
         currentTurnNmbr++;
@@ -96,6 +97,8 @@ public class InitiativeHandler : MonoBehaviour
             else
             {
                 DMTurn = false;
+                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PosistionCameraForCombat();
+                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = true;
             }
         }
     }

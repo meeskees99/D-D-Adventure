@@ -11,6 +11,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] Transform camPos;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float maxLookUpDegrees;
+    [SerializeField] float defaultCameraView;
 
     [Header("In battle")]
     [SerializeField] GameObject virCam;
@@ -109,5 +110,11 @@ public class MouseLook : MonoBehaviour
         // Set the camera position and orthographic size
         camTarget.transform.position = cameraPosition;
         Camera.main.orthographicSize = cameraSize;
+    }
+
+    public void PosistionCameraForCombat()
+    {
+        camTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
+        Camera.main.orthographicSize = 10;
     }
 }
