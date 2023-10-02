@@ -15,6 +15,8 @@ MonoBehaviour:
   id: 2
   characterName: Goblin
   icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  introPrefab: {fileID: 0}
+  playerPrefab: {fileID: 4645811974460157948, guid: 1848088155ef7d74aad1ac923a475b6f, type: 3}
   isPlayer: 0
   _class: 0
   _race: 2

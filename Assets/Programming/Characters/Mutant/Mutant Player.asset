@@ -16,6 +16,7 @@ MonoBehaviour:
   characterName: Mutant
   icon: {fileID: 21300000, guid: 3d701820add74454c909ec7eaad9135a, type: 3}
   introPrefab: {fileID: 3365357340020945626, guid: 9b78256dd95478642866ba86fa2f813c, type: 3}
+  playerPrefab: {fileID: 1591870706825310694, guid: 81890459aaa322f40ae8a3aa2197d8c8, type: 3}
   isPlayer: 1
   _class: 0
   _race: 2

@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/Character")]
@@ -8,11 +9,13 @@ public class ClassSheet : ScriptableObject
     [SerializeField] string characterName;
     [SerializeField] Sprite icon;
     [SerializeField] GameObject introPrefab;
+    [SerializeField] NetworkObject playerPrefab;
 
     public int Id => id;
     public string CharacterName => characterName;
     public Sprite Icon => icon;
     public GameObject IntroPrefab => introPrefab;
+    public NetworkObject PlayerPrefab => playerPrefab;
 
 
     public bool isPlayer;
