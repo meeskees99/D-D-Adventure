@@ -5091,7 +5091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67272f21e93d354cb45430ae5446972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDataBase: {fileID: 0}
+  characterDataBase: {fileID: 11400000, guid: 4b5f446f83ed8ef4b83f5cfc75c376fa, type: 2}
 --- !u!4 &397272784
 Transform:
   m_ObjectHideFlags: 0
