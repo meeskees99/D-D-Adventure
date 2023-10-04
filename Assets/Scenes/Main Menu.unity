@@ -1501,6 +1501,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &716816094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716816095}
+  - component: {fileID: 716816096}
+  m_Layer: 0
+  m_Name: ClientManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &716816095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716816094}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 751.37256, y: 510.38016, z: 3.5286765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716816096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716816094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3c179fbe5af6d4f8ac289da413f1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &756448043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,6 +1607,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515909a03c69cfa4e9ac7b149675cc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectingPanel: {fileID: 63142121}
+  menuPanel: {fileID: 961791469}
+  joinCodeInputField: {fileID: 404934926}
 --- !u!114 &858969215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,7 +2280,7 @@ GameObject:
   - component: {fileID: 1509025816}
   - component: {fileID: 1509025815}
   m_Layer: 0
-  m_Name: ServerManager
+  m_Name: HostManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2251,6 +2298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8482e7418644b4bbd76ff537f3b66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxConnections: 3
   lobbyScene: Lobby
   gameScene: Game
 --- !u!4 &1509025816
@@ -2450,6 +2498,7 @@ SceneRoots:
   - {fileID: 1677661720}
   - {fileID: 858969216}
   - {fileID: 1509025816}
+  - {fileID: 716816095}
   - {fileID: 1277178425}
   - {fileID: 525977225}
   - {fileID: 756448044}

@@ -15,6 +15,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] GameObject characterInfoPanel;
     [SerializeField] TMP_Text characterNameText;
     [SerializeField] Transform introSpawnpoint;
+    [SerializeField] TMP_Text joinCodeTxt;
     [SerializeField] Button lockInButton;
 
     [Header("DM Shizzle")]
@@ -62,6 +63,10 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             startButton.gameObject.SetActive(true);
         }
 
+        if (IsHost)
+        {
+            joinCodeTxt.text = HostManager.Instance.JoinCode;
+        }
     }
     public override void OnNetworkDespawn()
     {
@@ -189,10 +194,10 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
         foreach (var player in players)
         {
-            ServerManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
+            HostManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
         }
 
-        ServerManager.Instance.StartGame();
+        HostManager.Instance.StartGame();
 
     }
 

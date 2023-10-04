@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
+using System;
+using Unity.Networking.Transport.Relay;
+using Unity.Netcode.Transports.UTP;
 
-public class ServerManager : MonoBehaviour
+public class HostManager : MonoBehaviour
 {
-    public static ServerManager Instance { get; private set; }
+    public static HostManager Instance { get; private set; }
 
+    [Header("Settings")]
+    [SerializeField] int maxConnections = 3;
     [SerializeField] string lobbyScene = "Lobby";
     [SerializeField] string gameScene = "Game";
 
     private bool gameHasStarted;
     public Dictionary<ulong, ClientData> ClientData { get; private set; }
+
+    public string JoinCode { get; private set; }
 
     private void Awake()
     {
@@ -27,8 +36,37 @@ public class ServerManager : MonoBehaviour
         }
     }
 
-    public void StartHost()
+    public async void StartHost()
     {
+        Allocation _allocation;
+
+        try
+        {
+            _allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Relay Create allocation request failed {e.Message}");
+            throw;
+        }
+
+        Debug.Log($"server: {_allocation.ConnectionData[0]} {_allocation.ConnectionData[1]}");
+        Debug.Log($"server: {_allocation.AllocationId}");
+
+        try
+        {
+            JoinCode = await RelayService.Instance.GetJoinCodeAsync(_allocation.AllocationId);
+        }
+        catch
+        {
+            Debug.LogError("Relay get join code request failed");
+            throw;
+        }
+
+        var relayServerData = new RelayServerData(_allocation, "dtls");
+
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
         NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkManager.Singleton.OnServerStarted += OnNetworkReady;
 

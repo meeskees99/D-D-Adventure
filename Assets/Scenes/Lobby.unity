@@ -3998,6 +3998,7 @@ MonoBehaviour:
   characterInfoPanel: {fileID: 416400195}
   characterNameText: {fileID: 1357603302}
   introSpawnpoint: {fileID: 572355606}
+  joinCodeTxt: {fileID: 1463171706}
   lockInButton: {fileID: 466545653}
   startButton: {fileID: 282306316}
   dmJoinedText: {fileID: 297780567}
