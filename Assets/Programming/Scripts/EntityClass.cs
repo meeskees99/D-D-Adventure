@@ -7,8 +7,6 @@ using Unity.Netcode;
 public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
-    [SerializeField] private ForceMovement movement;
-    [SerializeField] private MouseLook mouse;
     public string playerName;
     public bool isPlayer;
     [Header("Stats")]

@@ -4,20 +4,19 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using Unity.Netcode;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : NetworkBehaviour
 {
     [Header("Settings")]
-    [SerializeField] Transform camTarget;
-    [SerializeField] Transform camPos;
-    [SerializeField] float mouseSensitivity;
-    [SerializeField] float maxLookUpDegrees;
-    [SerializeField] float defaultCameraView;
+    [SerializeField] float mouseSensitivity = 500;
+    [SerializeField] float maxLookUpDegrees = 60;
+    public Transform CamTarget { get; set; }
+    [SerializeField] CinemachineVirtualCamera virCam;
+    public CinemachineVirtualCamera VirCam { get { return virCam; } set { virCam = value; } }
+
 
     [Header("In battle")]
-    [SerializeField] GameObject virCam;
-    [SerializeField] Transform battleCamPos;
-    [SerializeField] Transform battleCamTarget;
     public bool inBattle;
     [SerializeField] CombatHandler combbatHandler;
 
@@ -43,6 +42,7 @@ public class MouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsOwner) { this.enabled = false; }
         Cursor.lockState = CursorLockMode.Locked;
     }
     // Update is called once per frame
@@ -51,16 +51,6 @@ public class MouseLook : MonoBehaviour
         isLocked = Cursor.lockState == CursorLockMode.Locked;
         #region Mouse movement
 
-        if (inBattle)
-        {
-            virCam.GetComponent<CinemachineVirtualCamera>().transform.position = battleCamPos.position;
-            virCam.GetComponent<CinemachineVirtualCamera>().LookAt = battleCamTarget;
-        }
-        else
-        {
-            virCam.GetComponent<CinemachineVirtualCamera>().transform.position = camPos.position;
-            virCam.GetComponent<CinemachineVirtualCamera>().LookAt = camTarget;
-        }
         if (isLocked)
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * mouseSensitivity;
@@ -70,8 +60,14 @@ public class MouseLook : MonoBehaviour
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -maxLookUpDegrees, 90f);
-
-            camTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            if (CamTarget == null)
+            {
+                Debug.LogError("CamTarget Not Assigned");
+            }
+            else
+            {
+                CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            }
         }
         else
         {
@@ -90,7 +86,7 @@ public class MouseLook : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
-        if(inBattle)
+        if (inBattle)
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
@@ -110,11 +106,11 @@ public class MouseLook : MonoBehaviour
                 {
                     Debug.Log("triggering toggle");
                     ActivateCamera(0);
-                    zoomedIn= false;
+                    zoomedIn = false;
                 }
             }
         }
-        
+
     }
 
     public void ActivateCamera(int index)
@@ -157,11 +153,11 @@ public class MouseLook : MonoBehaviour
         float cameraSize = Mathf.Max(bounds.size.x, bounds.size.z) / 2f;
 
         // Set the camera position and orthographic size
-        camTarget.transform.position = cameraPosition;
+        CamTarget.transform.position = cameraPosition;
     }
 
     public void PosistionCameraForCombat()
     {
-        camTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
+        CamTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
     }
 }

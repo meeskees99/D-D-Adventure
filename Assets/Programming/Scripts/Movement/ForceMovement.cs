@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class ForceMovement : MonoBehaviour
+public class ForceMovement : NetworkBehaviour
 {
     [Header("Movement")]
     float moveSpeed;

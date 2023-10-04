@@ -25,7 +25,7 @@ public class CharacterSheetUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print($"All entities count = {allEntities.Count}. All players Count = {players.Count}.");
+        // print($"All entities count = {allEntities.Count}. All players Count = {players.Count}.");
         allPlayersChecked = allEntities.Count == FindObjectsOfType<EntityClass>().Length;
         EntityClass[] Sheet = FindObjectsOfType<EntityClass>();
         if (!allPlayersChecked)

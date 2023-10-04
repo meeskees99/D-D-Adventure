@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8923237445718922857}
   - component: {fileID: 2160956609253045447}
+  - component: {fileID: 7107401129856621816}
   - component: {fileID: 7756837409659615365}
   - component: {fileID: 4082225020209301657}
   - component: {fileID: 4304671743253511942}
@@ -79,6 +80,44 @@ MonoBehaviour:
   raycastLenght: 0.51
   wallWalk: 0
   state: 0
+--- !u!114 &7107401129856621816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409218681213173529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497657cb49e9b44479a194f837575845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  movement: {fileID: 0}
+  mouse: {fileID: 0}
+  playerName: 
+  isPlayer: 0
+  maxHitPoints: 0
+  level: 0
+  currentXp: 0
+  xpToGo: 0
+  hitPoints: 0
+  armorClass: 0
+  initiativeBonus: 0
+  speed: 0
+  proficiency: 0
+  strength: 0
+  dexterity: 0
+  constitution: 0
+  intelligence: 0
+  wisdom: 0
+  charisma: 0
+  strenghtBonus: 0
+  dexterityBonus: 0
+  constitutionBonus: 0
+  intelligenceBonus: 0
+  wisdomBonus: 0
+  charismaBonus: 0
 --- !u!54 &7756837409659615365
 Rigidbody:
   m_ObjectHideFlags: 0
