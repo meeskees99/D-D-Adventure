@@ -42,7 +42,7 @@ public class MouseLook : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!IsOwner) { this.enabled = false; }
+        // if (!IsOwner) { this.enabled = false; }
         Cursor.lockState = CursorLockMode.Locked;
     }
     // Update is called once per frame
