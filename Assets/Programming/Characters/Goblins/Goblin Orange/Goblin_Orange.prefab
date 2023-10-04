@@ -1818,7 +1818,6 @@ GameObject:
   m_Component:
   - component: {fileID: 470266}
   - component: {fileID: 9510850}
-  - component: {fileID: 14325198}
   - component: {fileID: 11460088}
   m_Layer: 0
   m_Name: Goblin_Orange
@@ -1837,7 +1836,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.42, y: -0.009, z: -3.47}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.44, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 404818}
@@ -1866,32 +1865,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!143 &14325198
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172560}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 4.56
-  m_Radius: 1.04
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2.3, z: 0}
 --- !u!114 &11460088
 MonoBehaviour:
   m_ObjectHideFlags: 0

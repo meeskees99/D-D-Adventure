@@ -26,16 +26,16 @@ public class ForceMovement : MonoBehaviour
     public bool isTurn { get; set; }
     [Header("Turn Based Movement")]
     [SerializeField] bool canMove;
-    float distanceToGo;
+    public float distanceToGo { get; private set; }
 
 
     [Header("Jumping")]
     [Tooltip("How high the player will jump")]
-    [SerializeField] float jumpForce;
+    [SerializeField] float jumpForce = 4f;
     [Tooltip("The time a player has to wait before being able to jump again")]
-    [SerializeField] float jumpCooldown;
+    [SerializeField] float jumpCooldown = 0.25f;
     [Tooltip("Speed will multiply by this whilst airborn")]
-    [SerializeField] float airMultiplier;
+    [SerializeField] float airMultiplier = 0.4f;
     bool readyToJump;
 
     [Header("Keybinds")]
@@ -43,15 +43,17 @@ public class ForceMovement : MonoBehaviour
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
-    [SerializeField] float playerHeight;
-    [SerializeField] LayerMask whatIsGround;
+    [SerializeField] float playerHeight = 2f;
+    [SerializeField] LayerMask whatIsGround = 6;
     [SerializeField] bool grounded;
 
     [Header("Slope Check")]
-    [SerializeField] float maxSlopeAngle;
-    [SerializeField] float minSlopeAngle;
+    [SerializeField] float maxSlopeAngle = 50f;
+    [SerializeField] float minSlopeAngle = 2f;
     RaycastHit slopeHit;
+    [SerializeField] Transform shootPos;
 
+    [Header("")]
     [SerializeField] Transform orientation;
     [SerializeField] TMP_Text speedTxt;
 
@@ -69,23 +71,30 @@ public class ForceMovement : MonoBehaviour
     public MovementState state;
     public enum MovementState
     {
-        walk, run, air
+        WALK, RUN, AIR
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        movementSlider = FindObjectOfType<Slider>();
         readyToJump = true;
     }
 
     void Update()
     {
-        //speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
+        if (speedTxt != null)
+        {
+            speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
+        }
         // Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
+
         isMoving = rb.velocity.magnitude > 0.1;
+
         if (canMove)
             MyInput();
+
         if (!isFighting)
             canMove = true;
         SpeedControl();
@@ -106,9 +115,13 @@ public class ForceMovement : MonoBehaviour
             {
                 float moveAmount = rb.velocity.magnitude;
                 distanceToGo = moveDistance - distanceMovedThisTurn;
-                movementSlider.transform.gameObject.SetActive(true);
-                movementSlider.maxValue = moveDistance;
-                movementSlider.value = distanceToGo;
+                if (movementSlider != null)
+                {
+                    movementSlider.transform.gameObject.SetActive(true);
+                    movementSlider.maxValue = moveDistance;
+                    movementSlider.value = distanceToGo;
+                }
+
                 distanceMovedThisTurn += moveAmount * moveMultiplier * Time.deltaTime;
 
                 if (distanceMovedThisTurn < moveDistance)
@@ -141,7 +154,7 @@ public class ForceMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        //When To Jump
+
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -155,22 +168,21 @@ public class ForceMovement : MonoBehaviour
         //Mode - Running
         if (grounded && Input.GetKey(sprintKey))
         {
-            state = MovementState.run;
+            state = MovementState.RUN;
             moveSpeed = sprintSpeed;
         }
         //Mode - Walking
         else if (grounded)
         {
-            state = MovementState.walk;
+            state = MovementState.WALK;
             moveSpeed = walkSpeed;
         }
         // Mode - Air
         else
         {
-            state = MovementState.air;
+            state = MovementState.AIR;
         }
     }
-    [SerializeField] Transform shootPos;
 
     void MovePlayer()
     {
@@ -277,6 +289,19 @@ public class ForceMovement : MonoBehaviour
     Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDir, slopeHit.normal).normalized;
+    }
+
+    public void StartCombat()
+    {
+        isFighting = true;
+        canMove = false;
+    }
+
+    public void EndCombat()
+    {
+        isFighting = false;
+        canMove = true;
+        isTurn = false;
     }
 
 }
