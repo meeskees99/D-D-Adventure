@@ -30,11 +30,14 @@ public class SetPlayerInfo : NetworkBehaviour
                 print($"Is Owner of Movment{i}: {m[i].IsOwner}");
                 if (!myEntities.Contains(m[i]) && m[i].IsOwner)
                 {
-                    myEntities.Add(m[i]);
-                    myEntities[i].GetComponent<MouseLook>().CamTarget = myEntities[i].gameObject.transform.GetChild(1);
-                    myEntities[i].GetComponent<MouseLook>().CamTarget = myEntities[i].gameObject.transform.GetChild(1);
-                    myEntities[i].GetComponent<MouseLook>().VirCam.Follow = myEntities[i].gameObject.transform.GetChild(1);
-                    myEntities[i].GetComponent<MouseLook>().VirCam.LookAt = myEntities[i].gameObject.transform.GetChild(1);
+                    for (int e = 0; e < myEntities.Count; e++)
+                    {
+                        myEntities.Add(m[i]);
+                        myEntities[e].GetComponent<MouseLook>().CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                        myEntities[e].GetComponent<MouseLook>().CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                        myEntities[e].GetComponent<MouseLook>().VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
+                        myEntities[e].GetComponent<MouseLook>().VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
+                    }
                 }
 
             }
