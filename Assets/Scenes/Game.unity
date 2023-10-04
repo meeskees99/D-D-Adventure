@@ -11386,7 +11386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myEntities: []
-  tempCheck: []
   time: 3
 --- !u!4 &908396015
 Transform:
@@ -19410,6 +19409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 500
   maxLookUpDegrees: 60
+  virCam: {fileID: 1579053195}
   inBattle: 0
   combbatHandler: {fileID: 745698787}
   cameras:
@@ -19705,6 +19705,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
+--- !u!114 &1579053195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3201978389682362489, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
+  m_PrefabInstance: {fileID: 1579053194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542897326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1581648360
 GameObject:
   m_ObjectHideFlags: 0
