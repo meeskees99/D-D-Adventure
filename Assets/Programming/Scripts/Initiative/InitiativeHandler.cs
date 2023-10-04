@@ -55,14 +55,23 @@ public class InitiativeHandler : MonoBehaviour
                 Debug.Log("Initiative of " + character + " is: " + initiative);
             }
         }
+        
         StartCombat();
         foreach (var instance in initiativeOrder)
         {
-            if(instance.character.GetComponent<EntityClass>().isPlayer)
+            if (instance.character.GetComponent<ForceMovement>().isTurn)
             {
-                var mouseLook = instance.character.GetComponentInChildren<MouseLook>();
-                mouseLook.PositionCameraForObjects(characters);
+                continue;
             }
+            else
+            {
+                if (instance.character.GetComponent<EntityClass>().isPlayer)
+                {
+                    var mouseLook = instance.character.GetComponentInChildren<MouseLook>();
+                    mouseLook.PositionCameraForObjects(characters);
+                }
+            }
+
         }
     }
     public void AddInitiatives()

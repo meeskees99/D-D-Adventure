@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
@@ -18,6 +19,11 @@ public class MouseLook : MonoBehaviour
     [SerializeField] Transform battleCamPos;
     [SerializeField] Transform battleCamTarget;
     public bool inBattle;
+    [SerializeField] CombatHandler combbatHandler;
+
+    [Header("target Selecting")]
+    bool zoomedIn;
+    public GameObject[] cameras;
 
     float yRotation;
     public float GetYRotation
@@ -84,6 +90,49 @@ public class MouseLook : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
+        if(inBattle)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                if (!zoomedIn)
+                {
+                    ActivateCamera(1);
+                    zoomedIn = true;
+                }
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse1))
+            {
+                if (zoomedIn)
+                {
+                    Debug.Log("triggering toggle");
+                    ActivateCamera(0);
+                    zoomedIn= false;
+                }
+            }
+        }
+        
+    }
+
+    public void ActivateCamera(int index)
+    {
+        Debug.Log("toggling Camera's");
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            if (i == index)
+            {
+                cameras[i].SetActive(true);
+                Debug.Log("enabled camera " + cameras[i].name);
+            }
+            else
+            {
+                cameras[i].SetActive(false);
+                Debug.Log("disabled camera " + cameras[i].name);
+            }
+        }
     }
 
     public void PositionCameraForObjects(List<GameObject> objects)
@@ -109,12 +158,10 @@ public class MouseLook : MonoBehaviour
 
         // Set the camera position and orthographic size
         camTarget.transform.position = cameraPosition;
-        Camera.main.orthographicSize = cameraSize;
     }
 
     public void PosistionCameraForCombat()
     {
         camTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
-        Camera.main.orthographicSize = 10;
     }
 }
