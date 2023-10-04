@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
-using Unity.Netcode;
 
-public class MouseLook : NetworkBehaviour
+public class MouseLook : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] float mouseSensitivity = 500;
@@ -24,18 +21,7 @@ public class MouseLook : NetworkBehaviour
     bool zoomedIn;
     public GameObject[] cameras;
 
-    float yRotation;
-    public float GetYRotation
-    {
-        get
-        {
-            return yRotation;
-        }
-        set
-        {
-            yRotation = value;
-        }
-    }
+    public float yRotation { get; private set; }
     float xRotation;
 
     bool isLocked;

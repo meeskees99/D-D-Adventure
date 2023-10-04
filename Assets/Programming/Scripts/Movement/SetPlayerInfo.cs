@@ -6,13 +6,17 @@ using Unity.Netcode;
 public class SetPlayerInfo : NetworkBehaviour
 {
     [SerializeField] List<ForceMovement> myEntities;
-
+    [SerializeField] MouseLook MouseLook;
     ForceMovement[] m;
     [Tooltip("Time until it moves on to check all MouseLook's found")]
     [SerializeField] float time = 3f;
 
     bool camtargetSet;
     // Update is called once per frame
+    private void Start()
+    {
+        MouseLook = FindObjectOfType<MouseLook>();
+    }
     void Update()
     {
         if (time > 0)
@@ -34,10 +38,11 @@ public class SetPlayerInfo : NetworkBehaviour
                     for (int e = 0; e < myEntities.Count; e++)
                     {
                         print($"MyEntities[e] = {myEntities[e]}");
-                        myEntities[e].GetComponent<MouseLook>().CamTarget = myEntities[e].gameObject.transform.GetChild(1);
-                        myEntities[e].GetComponent<MouseLook>().CamTarget = myEntities[e].gameObject.transform.GetChild(1);
-                        myEntities[e].GetComponent<MouseLook>().VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
-                        myEntities[e].GetComponent<MouseLook>().VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
+                        MouseLook.transform.SetParent(myEntities[e].gameObject.transform);
+                        MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                        MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                        MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
+                        MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
                     }
                 }
 

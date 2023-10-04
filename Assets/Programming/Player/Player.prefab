@@ -140,9 +140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb80dc336054404d86edae911bb27bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camTarget: {fileID: 562210597231450210}
   mouseSensitivity: 500
   maxLookUpDegrees: 60
+  virCam: {fileID: 0}
+  inBattle: 0
+  combbatHandler: {fileID: 0}
+  cameras: []
 --- !u!1 &5458709087797643964
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +374,7 @@ GameObject:
   - component: {fileID: 3182186462368259055}
   - component: {fileID: 3740611470103476260}
   - component: {fileID: 6424190131289996555}
+  - component: {fileID: 2150649252527901664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -483,16 +487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0c89c8abf730e44a1c086766767a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
-  moveDistance: 100
-  distanceMovedThisTurn: 0
-  moveMultiplier: 3
-  isMoving: 0
-  isFighting: 0
-  isTurn: 1
-  movementSlider: {fileID: 0}
-  mouseLook: {fileID: 5393472128939855249}
-  turningSmoothness: 1
 --- !u!54 &3740611470103476260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -541,8 +535,6 @@ MonoBehaviour:
   moveMultiplier: 1
   rotationSpeed: 7
   movementSlider: {fileID: 0}
-  isFighting: 0
-  isTurn: 0
   canMove: 0
   jumpForce: 3
   jumpCooldown: 0.25
@@ -556,12 +548,32 @@ MonoBehaviour:
   grounded: 0
   maxSlopeAngle: 50
   minSlopeAngle: 1
+  shootPos: {fileID: 3238259149397390782}
   orientation: {fileID: 562210597231450210}
   speedTxt: {fileID: 0}
   raycastLenght: 0.5
   wallWalk: 0
   state: 0
-  shootPos: {fileID: 3238259149397390782}
+--- !u!114 &2150649252527901664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7358223925176065834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &8738973672429574886
 GameObject:
   m_ObjectHideFlags: 0

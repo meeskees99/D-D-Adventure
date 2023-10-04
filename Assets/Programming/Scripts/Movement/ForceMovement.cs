@@ -23,10 +23,10 @@ public class ForceMovement : NetworkBehaviour
 
     [SerializeField] Slider movementSlider;
 
-    public bool isFighting { get; set; }
-    public bool isTurn { get; set; }
     [Header("Turn Based Movement")]
     [SerializeField] bool canMove;
+    public bool isFighting { get; set; }
+    public bool isTurn { get; set; }
     public float distanceToGo { get; private set; }
 
 
@@ -89,7 +89,7 @@ public class ForceMovement : NetworkBehaviour
             speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         }
         // Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, whatIsGround);
 
         isMoving = rb.velocity.magnitude > 0.1;
 
@@ -137,7 +137,8 @@ public class ForceMovement : NetworkBehaviour
             }
             else
             {
-                movementSlider.transform.gameObject.SetActive(false);
+                if (movementSlider != null)
+                    movementSlider.transform.gameObject.SetActive(false);
                 distanceMovedThisTurn = 0;
                 canMove = false;
             }
@@ -189,9 +190,6 @@ public class ForceMovement : NetworkBehaviour
     {
         // Calculalte move direction
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        Vector3 location = transform.position - moveDir;
-        location.y -= transform.position.y;
-        Debug.DrawRay(transform.position, location, Color.green);
         if (isMoving)
         {
             moveDir.y = 0f;
