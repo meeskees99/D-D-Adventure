@@ -6,20 +6,62 @@ using UnityEngine;
 public class CombatHandler : MonoBehaviour
 {
     InitiativeHandler initiativeHandler;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void CheckAttack(GameObject attacker, GameObject victim, float minDistance, float maxDistance)
     {
-        
-    }
-    
-    public void DealDamage(float damage, List<Initiative> _characters, int index)
-    {
+        var victimClass = victim.GetComponent<EntityClass>();
+        //check distance between attacker and victim and compare that to the weapons effective range
+        float distance = Vector3.Distance(attacker.transform.position, victim.transform.position);
+        if (distance < maxDistance)
+        {
+            if (distance > minDistance)
+            {
+                Debug.Log("Target in Range");
+                if (victimClass.armorClass < Random.Range(1, 20))
+                {
+                    victimClass.TakeDamage(Random.Range(1, 8));
 
+                }
+                else
+                {
+                    Debug.Log("Target to close");
+                    if (victimClass.armorClass < DisadvantageRoll())
+                    {
+                        victimClass.TakeDamage(Random.Range(1, 8));
+                    }
+                }
+            }
+            else
+            {
+                //no hit
+                Debug.Log("target to far away");
+            }
+        }
     }
-}
+        public int DisadvantageRoll()
+        {
+            int roll1 = Random.Range(1, 20);
+            int roll2 = Random.Range(1, 20);
+            if (roll1 > roll2)
+            {
+                return roll2;
+            }
+            else
+            {
+                return roll1;
+            }
+        }
+        public int AdvantageRoll(int max, int _damage)
+        {
+            int roll1 = Random.Range(1, 20);
+            int roll2 = Random.Range(1, 20);
+            if (roll1 < roll2)
+            {
+                return roll2;
+            }
+            else
+            {
+                return roll1;
+            }
+        }
+    }

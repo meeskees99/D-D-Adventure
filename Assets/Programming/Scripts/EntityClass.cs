@@ -35,85 +35,8 @@ public class EntityClass : NetworkBehaviour
         intelligenceBonus,
         wisdomBonus,
         charismaBonus;
-
-    bool statsSet;
-    private void SetStats()
-    {
-        statsSet = true;
-        level = stats.Level;
-        currentXp = stats.CurrentXP;
-        xpToGo = stats.XpToGo;
-        isPlayer = stats.isPlayer;
-        maxHitPoints = stats.MaxHitPoints;
-        hitPoints = stats.HitPoints;
-        armorClass = stats.ArmorClass;
-        initiativeBonus = stats.InitiativeBonus;
-        speed = stats.Speed;
-        proficiency = stats.Proficiency;
-        strength = stats.Strength;
-        dexterity = stats.Dexterity;
-        constitution = stats.Constitution;
-        intelligence = stats.Intelligence;
-        wisdom = stats.Wisdom;
-        charisma = stats.Charisma;
-    }
-
     private void Update()
     {
-        // if (stats._class == Class.Goblin)
-        // {
-        //     stats.characterName = "Goblin";
-        //     stats.MaxHitPoints = 7;
-        //     stats.HitPoints = 7;
-        //     stats.Proficiency = 2;
-        //     stats.Speed = 30;
-        //     stats.InitiativeBonus = 2;
-        //     stats.ArmorClass = 15;
-        //     stats.Strength = 8;
-        //     stats.Dexterity = 14;
-        //     stats.Constitution = 10;
-        //     stats.Intelligence = 10;
-        //     stats.Wisdom = 8;
-        //     stats.Charisma = 8;
-        //     if (!statsSet)
-        //         SetStats();
-        // }
-        if (stats._class == Class.Knight)
-        {
-            // stats.characterName = "Knight";
-            stats.MaxHitPoints = 12;
-            stats.HitPoints = 12;
-            stats.Proficiency = 2;
-            stats.Speed = 30;
-            stats.InitiativeBonus = 3;
-            stats.ArmorClass = 14;
-            stats.Strength = 14 + strenghtBonus;
-            stats.Dexterity = 16 + dexterityBonus;
-            stats.Constitution = 15 + constitutionBonus;
-            stats.Intelligence = 11 + intelligenceBonus;
-            stats.Wisdom = 13 + wisdomBonus;
-            stats.Charisma = 9 + charismaBonus;
-            if (!statsSet)
-                SetStats();
-        }
-        else if (stats._class == Class.Ranger)
-        {
-            // stats.CharacterName = "Ranger";
-            stats.MaxHitPoints = 11;
-            stats.HitPoints = 1;
-            stats.Proficiency = 2;
-            stats.Speed = 35;
-            stats.InitiativeBonus = 3;
-            stats.ArmorClass = 14;
-            stats.Strength = 12;
-            stats.Dexterity = 17;
-            stats.Constitution = 13;
-            stats.Intelligence = 10;
-            stats.Wisdom = 15;
-            stats.Charisma = 8;
-            if (!statsSet)
-                SetStats();
-        }
         if (stats._race == Race.Human)
         {
             strenghtBonus = 1;
@@ -141,5 +64,28 @@ public class EntityClass : NetworkBehaviour
             wisdomBonus = 0;
             charismaBonus = 0;
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        this.hitPoints -= damage;
+        if(this.hitPoints <= 0)
+        {
+            Debug.Log(name + " has died!");
+        }
+    }
+    public void Heal(int amount)
+    {
+        this.hitPoints += amount;
+        if(this.hitPoints > this.maxHitPoints)
+        {
+            this.hitPoints = this.maxHitPoints;
+        }
+    }
+    public void LevelUp()
+    {
+        level++;
+        currentXp = 0;
+        //xpToGo = formule gebasseer op lvl
+        //increase stats
     }
 }

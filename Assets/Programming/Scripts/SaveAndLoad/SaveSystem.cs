@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
+    public InitiativeHandler initiativeHandler;
+    public CombatHandler combbatHandler;
     public CampaignSlots campaignSlots;
     private string path;
     public int slotToLoad;
@@ -35,6 +37,7 @@ public class SaveSystem : MonoBehaviour
 
     public SavedData SetDataToSave(int slotToLoad)
     {
+
         campaignSlots.savedData[slotToLoad].playerStats.Add((1,1,1,1,1,1,1,1));
         return campaignSlots.savedData[slotToLoad];
     }

@@ -11,6 +11,7 @@ public class InitiativeHandler : MonoBehaviour
     public bool DMTurn;
     public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
+    public GameManager gameManager;
 
     public void SetInitiativeOrder()
     {
