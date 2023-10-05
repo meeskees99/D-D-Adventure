@@ -7,6 +7,7 @@ using Unity.Netcode;
 public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
+    public CombatHandler combatHandler = CombatHandler.instance;
     public string playerName;
     public bool isPlayer;
     [Header("Stats")]

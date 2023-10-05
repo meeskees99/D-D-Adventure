@@ -16,7 +16,7 @@ public class MouseLook : MonoBehaviour
 
     [Header("In battle")]
     public bool inBattle;
-    [SerializeField] CombatHandler combbatHandler;
+    [SerializeField] CombatHandler combbatHandler = CombatHandler.instance;
 
     [Header("target Selecting")]
     bool zoomedIn;
@@ -86,7 +86,10 @@ public class MouseLook : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-
+                    if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
+                    {
+                        combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, 0, 5);
+                    }
                 }
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))

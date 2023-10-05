@@ -6,7 +6,19 @@ using UnityEngine;
 public class CombatHandler : MonoBehaviour
 {
     InitiativeHandler initiativeHandler;
+    public static CombatHandler instance;
 
+    private void Start()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     public void CheckAttack(GameObject attacker, GameObject victim, float minDistance, float maxDistance)
     {
         var victimClass = victim.GetComponent<EntityClass>();
