@@ -10,6 +10,8 @@ using UnityEngine;
 
 public class ClientManager : MonoBehaviour
 {
+    [SerializeField] GameObject buttonsUI;
+    [SerializeField] GameObject connectingUI;
     public static ClientManager Instance { get; private set; }
     private void Awake()
     {
@@ -28,6 +30,8 @@ public class ClientManager : MonoBehaviour
     public async void StartClient(string joinCode)
     {
         JoinAllocation _allocation;
+        connectingUI.SetActive(true);
+        buttonsUI.SetActive(false);
 
         try
         {
@@ -36,6 +40,8 @@ public class ClientManager : MonoBehaviour
         catch
         {
             Debug.LogError("Relay get join code request failed");
+            buttonsUI.SetActive(true);
+            connectingUI.SetActive(false);
             throw;
         }
 
