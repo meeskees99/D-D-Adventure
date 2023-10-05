@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using Unity.Netcode;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : NetworkBehaviour
 {
     [Header("Settings")]
     [SerializeField] float mouseSensitivity = 500;
@@ -56,6 +57,7 @@ public class MouseLook : MonoBehaviour
             else
             {
                 CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+                ChangeBodyRotationServerRPC();
             }
         }
         else
@@ -103,6 +105,11 @@ public class MouseLook : MonoBehaviour
             }
         }
 
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeBodyRotationServerRPC(ServerRpcParams serverRpcParams = default)
+    {
+        CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 
     public void ActivateCamera(int index)

@@ -15,7 +15,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
     [SerializeField] GameObject characterInfoPanel;
     [SerializeField] TMP_Text characterNameText;
     [SerializeField] Transform introSpawnpoint;
-    [SerializeField] TMP_Text joinCodeTxt;
+    [SerializeField] TMP_InputField joinCodeInputField;
     [SerializeField] Button lockInButton;
 
     [Header("DM Shizzle")]
@@ -39,6 +39,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             if (!IsHost)
             {
                 ClassSheet[] allCharacters = characterDataBase.GetAllCharacters();
+                lockInButton.gameObject.SetActive(true);
 
                 for (int i = 0; i < allCharacters.Length; i++)
                 {
@@ -65,7 +66,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
         if (IsHost)
         {
-            joinCodeTxt.text = HostManager.Instance.JoinCode;
+            joinCodeInputField.text = HostManager.Instance.JoinCode;
         }
     }
     public override void OnNetworkDespawn()

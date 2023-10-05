@@ -1192,7 +1192,7 @@ Transform:
   m_GameObject: {fileID: 91642628}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 4.18}
   m_LocalScale: {x: 10, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4095,6 +4095,7 @@ MonoBehaviour:
   DMTurn: 0
   characters: []
   initiativeOrder: []
+  gameManager: {fileID: 0}
 --- !u!4 &361424685
 Transform:
   m_ObjectHideFlags: 0
@@ -11387,7 +11388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myEntities: []
   MouseLook: {fileID: 0}
-  time: 3
 --- !u!4 &908396015
 Transform:
   m_ObjectHideFlags: 0
@@ -13038,7 +13038,6 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 0}
-  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -13050,11 +13049,13 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  playerHeight: 2
+  groundCheckPos: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
+  overrideGrounded: 0
   grounded: 0
+  groundCheckRayLenght: 0.4
   maxSlopeAngle: 45
   minSlopeAngle: 2
   shootPos: {fileID: 1052512682}
@@ -24984,7 +24985,6 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 0}
-  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -24996,11 +24996,13 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  playerHeight: 2
+  groundCheckPos: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
+  overrideGrounded: 0
   grounded: 0
+  groundCheckRayLenght: 0.4
   maxSlopeAngle: 45
   minSlopeAngle: 2
   shootPos: {fileID: 1968782264}
@@ -26265,7 +26267,6 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 2093816554}
-  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -26277,11 +26278,13 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  playerHeight: 2
+  groundCheckPos: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
+  overrideGrounded: 0
   grounded: 0
+  groundCheckRayLenght: 0.4
   maxSlopeAngle: 45
   minSlopeAngle: 2
   shootPos: {fileID: 2093816555}

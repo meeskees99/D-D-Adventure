@@ -8,8 +8,8 @@ public class SetPlayerInfo : NetworkBehaviour
     [SerializeField] List<ForceMovement> myEntities;
     [SerializeField] MouseLook MouseLook;
     ForceMovement[] m;
-    [Tooltip("Time until it moves on to check all MouseLook's found")]
-    [SerializeField] float time = 3f;
+    // [Tooltip("Time until it moves on to check all MouseLook's found")]
+    // [SerializeField] float time = 3f;
 
     bool camtargetSet;
     // Update is called once per frame

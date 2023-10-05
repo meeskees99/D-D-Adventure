@@ -13,7 +13,6 @@ public class ForceMovement : NetworkBehaviour
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
     [SerializeField] GameObject playerModel;
-    [SerializeField] Transform groundCheckPos;
     bool isMoving;
     [Tooltip("Maximum distance this character can travel in one turn")]
     [SerializeField] float moveDistance;
@@ -45,9 +44,11 @@ public class ForceMovement : NetworkBehaviour
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
-    [SerializeField] float playerHeight = 2f;
+    [SerializeField] Transform groundCheckPos;
     [SerializeField] LayerMask whatIsGround = 6;
+    [SerializeField] bool overrideGrounded;
     [SerializeField] bool grounded;
+    [SerializeField] float groundCheckRayLenght = 0.4f;
 
     [Header("Slope Check")]
     [SerializeField] float maxSlopeAngle = 50f;
@@ -78,6 +79,10 @@ public class ForceMovement : NetworkBehaviour
 
     void Start()
     {
+        if (!IsOwner)
+        {
+            this.enabled = false;
+        }
         rb = GetComponent<Rigidbody>();
         movementSlider = FindObjectOfType<Slider>();
         readyToJump = true;
@@ -85,6 +90,7 @@ public class ForceMovement : NetworkBehaviour
         {
             groundCheckPos = transform;
         }
+        raycastLenght = 0.51f;
     }
 
     void Update()
@@ -94,7 +100,8 @@ public class ForceMovement : NetworkBehaviour
             speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         }
         // Ground Check
-        grounded = Physics.Raycast(groundCheckPos.position, Vector3.down, 0.1f, whatIsGround);
+        if (!overrideGrounded)
+            grounded = Physics.Raycast(groundCheckPos.position, Vector3.down, groundCheckRayLenght, whatIsGround);
 
         isMoving = rb.velocity.magnitude > 0.1;
 
@@ -103,7 +110,7 @@ public class ForceMovement : NetworkBehaviour
 
         if (!isFighting)
             canMove = true;
-        SpeedControl();
+        SpeedControlServerRPC();
         StateHandler();
         // Handle drag
         if (grounded)
@@ -165,7 +172,7 @@ public class ForceMovement : NetworkBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-            Jump();
+            JumpServerRPC();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
@@ -215,6 +222,34 @@ public class ForceMovement : NetworkBehaviour
         {
             wallWalk = false;
         }
+        // On slope
+        if (OnSlope())
+        {
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
+
+            if (rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+            }
+        }
+
+
+        //On ground
+        else if (grounded)
+            MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier);
+        // rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+        //In air
+        else if (!grounded)
+            MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier);
+        // rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+
+        // Turn off gravity while on slope
+        rb.useGravity = !OnSlope();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, ServerRpcParams serverRpcParams = default)
+    {
         if (wallWalk)
         {
             rb.AddForce(Vector3.down * 10f, ForceMode.Force);
@@ -230,20 +265,16 @@ public class ForceMovement : NetworkBehaviour
                 rb.AddForce(Vector3.down * 40f, ForceMode.Force);
             }
         }
-
-
-        //On ground
-        else if (grounded)
+        else if (ground)
             rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
-        //In air
-        else if (!grounded)
+        else if (!ground)
             rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
 
-        // Turn off gravity while on slope
         rb.useGravity = !OnSlope();
-    }
 
-    void SpeedControl()
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void SpeedControlServerRPC(ServerRpcParams serverRpcParams = default)
     {
         //Limit speed on slope
         if (OnSlope())
@@ -266,8 +297,8 @@ public class ForceMovement : NetworkBehaviour
         }
 
     }
-
-    void Jump()
+    [ServerRpc(RequireOwnership = false)]
+    public void JumpServerRPC(ServerRpcParams serverRpcParams = default)
     {
         // Reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -281,7 +312,7 @@ public class ForceMovement : NetworkBehaviour
 
     bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, groundCheckRayLenght))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0 && angle > minSlopeAngle;

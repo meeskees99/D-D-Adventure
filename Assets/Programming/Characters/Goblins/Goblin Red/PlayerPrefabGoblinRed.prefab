@@ -68,11 +68,13 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  playerHeight: 0
+  groundCheckPos: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  overrideGrounded: 0
   grounded: 0
+  groundCheckRayLenght: 0.4
   maxSlopeAngle: 50
   minSlopeAngle: 2
   shootPos: {fileID: 4171993274482260374}
@@ -142,7 +144,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &8697304714363217365
 CapsuleCollider:
@@ -205,9 +207,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
