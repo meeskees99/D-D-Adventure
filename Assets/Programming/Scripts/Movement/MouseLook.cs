@@ -9,6 +9,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] float mouseSensitivity = 500;
     [SerializeField] float maxLookUpDegrees = 60;
     public Transform CamTarget { get; set; }
+    [SerializeField] Transform tempCamTarget;
     [SerializeField] CinemachineVirtualCamera virCam;
     public CinemachineVirtualCamera VirCam { get { return virCam; } set { virCam = value; } }
 
@@ -30,6 +31,8 @@ public class MouseLook : MonoBehaviour
     {
         // if (!IsOwner) { this.enabled = false; }
         Cursor.lockState = CursorLockMode.Locked;
+        if (CamTarget == null)
+            CamTarget = tempCamTarget;
     }
     // Update is called once per frame
     void Update()

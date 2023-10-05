@@ -19,14 +19,15 @@ public class SetPlayerInfo : NetworkBehaviour
     }
     void Update()
     {
-        if (time > 0)
+        // if (time > 0)
+        // {
+        //     time -= Time.deltaTime;
+
+        //     print($"Time until Set CamTarget: {time}");
+        // }
+        if (!camtargetSet && MouseLook.CamTarget == null)
         {
-            time -= Time.deltaTime;
             m = FindObjectsOfType<ForceMovement>();
-            print($"Time until Set CamTarget: {time}");
-        }
-        else if (!camtargetSet)
-        {
             camtargetSet = true;
             print($"ForceMovement Found In M: {m.Length}");
             for (int i = 0; i < m.Length; i++)
@@ -38,8 +39,6 @@ public class SetPlayerInfo : NetworkBehaviour
                     for (int e = 0; e < myEntities.Count; e++)
                     {
                         print($"MyEntities[e] = {myEntities[e]}");
-                        MouseLook.transform.SetParent(myEntities[e].gameObject.transform);
-                        MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
                         MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
                         MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
                         MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);

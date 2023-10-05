@@ -119,6 +119,7 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 6671374038572317368}
+  groundCheckPos: {fileID: 6223561712557869693}
   moveDistance: 50
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -140,7 +141,7 @@ MonoBehaviour:
   shootPos: {fileID: 5564359013943379577}
   orientation: {fileID: 6452452544093469655}
   speedTxt: {fileID: 0}
-  raycastLenght: 0.51
+  raycastLenght: 0.1
   wallWalk: 0
   state: 0
 --- !u!114 &6464970962805161468

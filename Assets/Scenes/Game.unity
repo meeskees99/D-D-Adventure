@@ -12316,13 +12316,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994669799}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.24626495, w: 0.9692026}
-  m_LocalPosition: {x: -9.393536, y: 4.7736125, z: 0}
-  m_LocalScale: {x: 1.1285878, y: 0.81441605, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
+  m_LocalPosition: {x: -9.330128, y: 2.4999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 367476038}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.513}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
 --- !u!1 &1001743441
 GameObject:
   m_ObjectHideFlags: 0
@@ -12868,11 +12868,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5263948908921309991, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5999999
+      value: 4.58
       objectReference: {fileID: 0}
     - target: {fileID: 5263948908921309991, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -7.69
       objectReference: {fileID: 0}
     - target: {fileID: 5263948908921309991, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13038,6 +13038,7 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 0}
+  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -14054,6 +14055,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128580712}
   m_CullTransparentMesh: 1
+--- !u!1 &1135260755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135260756}
+  m_Layer: 0
+  m_Name: EmptyCameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1135260756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135260755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.98, z: -5.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1139919604
 GameObject:
   m_ObjectHideFlags: 0
@@ -19313,6 +19345,7 @@ GameObject:
   - component: {fileID: 1545331834}
   - component: {fileID: 1545331833}
   - component: {fileID: 1545331832}
+  - component: {fileID: 1545331836}
   - component: {fileID: 1545331835}
   m_Layer: 0
   m_Name: Main Camera
@@ -19360,11 +19393,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 50
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -19388,8 +19421,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545331831}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.91, z: -6.1}
+  m_LocalRotation: {x: 0.17667578, y: -0.008693929, z: 0.0015606183, w: 0.9842295}
+  m_LocalPosition: {x: 0.1, y: 6.0800004, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19409,12 +19442,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 500
   maxLookUpDegrees: 60
+  tempCamTarget: {fileID: 0}
   virCam: {fileID: 1579053195}
   inBattle: 0
   combbatHandler: {fileID: 745698787}
   cameras:
   - {fileID: 1542897326}
   - {fileID: 406855419}
+--- !u!114 &1545331836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545331831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1570694188
 GameObject:
   m_ObjectHideFlags: 0
@@ -19632,17 +19700,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3201978389682362489, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201978389682362489, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.8100002
+      value: 6.0800004
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.66
+      value: -11.35
       objectReference: {fileID: 0}
     - target: {fileID: 8483500643478269141, guid: e94c74e31993aab43adc0aa12e1f1e16, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24908,6 +24984,7 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 0}
+  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -26188,6 +26265,7 @@ MonoBehaviour:
   sprintSpeed: 7
   groundDrag: 3
   playerModel: {fileID: 2093816554}
+  groundCheckPos: {fileID: 0}
   moveDistance: 100
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -51759,6 +51837,7 @@ SceneRoots:
   - {fileID: 1968782264}
   - {fileID: 1985618284}
   - {fileID: 346523328}
-  - {fileID: 1545331834}
+  - {fileID: 1135260756}
   - {fileID: 1579053194}
+  - {fileID: 1545331834}
   - {fileID: 1046004750}

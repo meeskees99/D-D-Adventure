@@ -13,6 +13,7 @@ public class ForceMovement : NetworkBehaviour
     [SerializeField] float sprintSpeed;
     [SerializeField] float groundDrag;
     [SerializeField] GameObject playerModel;
+    [SerializeField] Transform groundCheckPos;
     bool isMoving;
     [Tooltip("Maximum distance this character can travel in one turn")]
     [SerializeField] float moveDistance;
@@ -80,6 +81,10 @@ public class ForceMovement : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         movementSlider = FindObjectOfType<Slider>();
         readyToJump = true;
+        if (groundCheckPos == null)
+        {
+            groundCheckPos = transform;
+        }
     }
 
     void Update()
@@ -89,7 +94,7 @@ public class ForceMovement : NetworkBehaviour
             speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         }
         // Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, whatIsGround);
+        grounded = Physics.Raycast(groundCheckPos.position, Vector3.down, 0.1f, whatIsGround);
 
         isMoving = rb.velocity.magnitude > 0.1;
 
