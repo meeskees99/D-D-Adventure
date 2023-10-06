@@ -110,7 +110,7 @@ public class ForceMovement : NetworkBehaviour
 
         if (!isFighting)
             canMove = true;
-        SpeedControlServerRPC();
+        SpeedControl();
         StateHandler();
         // Handle drag
         if (grounded)
@@ -172,7 +172,7 @@ public class ForceMovement : NetworkBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-            JumpServerRPC();
+            Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
@@ -236,45 +236,45 @@ public class ForceMovement : NetworkBehaviour
 
         //On ground
         else if (grounded)
-            MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier);
-        // rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+        // MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier);
         //In air
         else if (!grounded)
-            MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier);
-        // rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+        // MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier);
 
         // Turn off gravity while on slope
         rb.useGravity = !OnSlope();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, ServerRpcParams serverRpcParams = default)
-    {
-        if (wallWalk)
-        {
-            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
-            return;
-        }
-        // On slope
-        if (OnSlope())
-        {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
+    // [ServerRpc(RequireOwnership = false)]
+    // public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, ServerRpcParams serverRpcParams = default)
+    // {
+    //     if (wallWalk)
+    //     {
+    //         rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+    //         return;
+    //     }
+    //     // On slope
+    //     if (OnSlope())
+    //     {
+    //         rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
 
-            if (rb.velocity.y > 0)
-            {
-                rb.AddForce(Vector3.down * 40f, ForceMode.Force);
-            }
-        }
-        else if (ground)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
-        else if (!ground)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+    //         if (rb.velocity.y > 0)
+    //         {
+    //             rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+    //         }
+    //     }
+    //     else if (ground)
+    //         rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+    //     else if (!ground)
+    //         rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
 
-        rb.useGravity = !OnSlope();
+    //     rb.useGravity = !OnSlope();
 
-    }
-    [ServerRpc(RequireOwnership = false)]
-    public void SpeedControlServerRPC(ServerRpcParams serverRpcParams = default)
+    // }
+    // [ServerRpc(RequireOwnership = false)]
+    public void SpeedControl()
     {
         //Limit speed on slope
         if (OnSlope())
@@ -282,7 +282,6 @@ public class ForceMovement : NetworkBehaviour
             if (rb.velocity.magnitude > moveSpeed)
                 rb.velocity = rb.velocity.normalized * moveSpeed;
         }
-
         //Limit speed on ground or in air
         else
         {
@@ -297,8 +296,8 @@ public class ForceMovement : NetworkBehaviour
         }
 
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void JumpServerRPC(ServerRpcParams serverRpcParams = default)
+    // [ServerRpc(RequireOwnership = false)]
+    public void Jump()
     {
         // Reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
