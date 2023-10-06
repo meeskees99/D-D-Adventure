@@ -98,7 +98,7 @@ public class MouseLook : NetworkBehaviour
             {
                 if (zoomedIn)
                 {
-                    Debug.Log("triggering toggle");
+                    //Debug.Log("triggering toggle");
                     ActivateCamera(0);
                     zoomedIn = false;
                 }
@@ -114,18 +114,18 @@ public class MouseLook : NetworkBehaviour
 
     public void ActivateCamera(int index)
     {
-        Debug.Log("toggling Camera's");
+        //Debug.Log("toggling Camera's");
         for (int i = 0; i < cameras.Length; i++)
         {
             if (i == index)
             {
                 cameras[i].SetActive(true);
-                Debug.Log("enabled camera " + cameras[i].name);
+                //Debug.Log("enabled camera " + cameras[i].name);
             }
             else
             {
                 cameras[i].SetActive(false);
-                Debug.Log("disabled camera " + cameras[i].name);
+                //Debug.Log("disabled camera " + cameras[i].name);
             }
         }
     }
@@ -135,7 +135,7 @@ public class MouseLook : NetworkBehaviour
         // Check if there are any objects in the list
         if (objects.Count == 0)
         {
-            Debug.LogWarning("No objects in the list.");
+            //Debug.LogWarning("No objects in the list.");
             return;
         }
 

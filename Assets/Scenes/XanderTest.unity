@@ -215,6 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195461081}
   - component: {fileID: 195461080}
+  - component: {fileID: 195461082}
   m_Layer: 0
   m_Name: InitiativeHandler
   m_TagString: Untagged
@@ -238,6 +239,7 @@ MonoBehaviour:
   DMTurn: 0
   characters: []
   initiativeOrder: []
+  gameManager: {fileID: 0}
 --- !u!4 &195461081
 Transform:
   m_ObjectHideFlags: 0
@@ -253,6 +255,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &195461082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195461079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45006abf3d6194145afd67a678105bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &286909028
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,8 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2b640e13e8c17a64fab604fa06b5a738, type: 2}
-  movement: {fileID: 0}
-  mouse: {fileID: 0}
+  combatHandler: {fileID: 0}
   playerName: 
   isPlayer: 0
   maxHitPoints: 0
@@ -1876,6 +1889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1bbdb46f8115b4390a285872b80633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initiativeHandler: {fileID: 0}
+  combbatHandler: {fileID: 0}
   campaignSlots:
     savedData:
     - entityPos: []
@@ -2207,17 +2222,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6091978239453243886, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
   m_PrefabInstance: {fileID: 2084510080}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2084510082 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2133913032339306739, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
-  m_PrefabInstance: {fileID: 2084510080}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827974091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2084510088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2251,8 +2255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2b640e13e8c17a64fab604fa06b5a738, type: 2}
-  movement: {fileID: 2084510082}
-  mouse: {fileID: 2144800892}
+  combatHandler: {fileID: 0}
   playerName: 
   isPlayer: 1
   maxHitPoints: 0
@@ -2355,17 +2358,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2396848879782116359, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
   m_PrefabInstance: {fileID: 1638099364}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2144800892 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2165436412499327591, guid: 128607cae04a4b94e842628cd508cb8d, type: 3}
-  m_PrefabInstance: {fileID: 2084510080}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb80dc336054404d86edae911bb27bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3879522116423301115
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CombatHandler : MonoBehaviour
 {
     InitiativeHandler initiativeHandler;
-    public static CombatHandler instance;
+    [SerializeField] public static CombatHandler instance;
 
     private void Start()
     {
