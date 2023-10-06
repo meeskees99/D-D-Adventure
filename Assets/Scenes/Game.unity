@@ -1284,9 +1284,9 @@ MonoBehaviour:
   initiativeHandler: {fileID: 361424684}
   combatTrigger: 1
   enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 533261963915806661}
+  - {fileID: 799180020}
+  - {fileID: 269011179}
 --- !u!1 &114803318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,6 +3096,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+--- !u!1 &269011179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8710072926547927412, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+  m_PrefabInstance: {fileID: 269011178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &283144738
 GameObject:
   m_ObjectHideFlags: 0
@@ -10734,6 +10739,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+--- !u!1 &799180020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8710072926547927412, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+  m_PrefabInstance: {fileID: 799180019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &825174414
 GameObject:
   m_ObjectHideFlags: 0
@@ -27720,6 +27730,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+--- !u!1 &533261963915806661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8710072926547927412, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
+  m_PrefabInstance: {fileID: 533261963915806660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &552144748375687368
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class EventTriggers : MonoBehaviour
     [SerializeField] InitiativeHandler initiativeHandler;
     [SerializeField] bool combatTrigger;
     [SerializeField] GameObject[] enemies;
+
+    MouseLook MouseLook;
     public GameObject[] Enemies
     {
         get
@@ -19,6 +21,7 @@ public class EventTriggers : MonoBehaviour
     void Start()
     {
         initiativeHandler = FindObjectOfType<InitiativeHandler>();
+        MouseLook = FindObjectOfType<MouseLook>();
     }
 
     // Update is called once per frame
@@ -36,7 +39,7 @@ public class EventTriggers : MonoBehaviour
                 return;
             }
             other.transform.GetComponent<ForceMovement>().isFighting = true;
-            other.transform.GetChild(0).GetComponent<MouseLook>().inBattle = true;
+            MouseLook.inBattle = true;
             for (int i = 0; i < enemies.Length; i++)
             {
                 initiativeHandler.characters.Add(enemies[i].gameObject);
