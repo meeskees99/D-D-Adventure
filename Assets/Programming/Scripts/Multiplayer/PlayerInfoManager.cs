@@ -13,6 +13,11 @@ public class PlayerInfoManager : NetworkBehaviour
         players = new NetworkList<PlayerId>();
     }
 
+    private void Start()
+    {
+        initiativeHandler = FindObjectOfType<InitiativeHandler>();
+    }
+
     public override void OnNetworkSpawn()
     {
         if (IsClient)
