@@ -10,7 +10,7 @@ public class CombatHandler : MonoBehaviour
 
     private void Start()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -50,30 +50,30 @@ public class CombatHandler : MonoBehaviour
             }
         }
     }
-        public int DisadvantageRoll()
+    public int DisadvantageRoll()
+    {
+        int roll1 = Random.Range(1, 20);
+        int roll2 = Random.Range(1, 20);
+        if (roll1 > roll2)
         {
-            int roll1 = Random.Range(1, 20);
-            int roll2 = Random.Range(1, 20);
-            if (roll1 > roll2)
-            {
-                return roll2;
-            }
-            else
-            {
-                return roll1;
-            }
+            return roll2;
         }
-        public int AdvantageRoll(int max, int _damage)
+        else
         {
-            int roll1 = Random.Range(1, 20);
-            int roll2 = Random.Range(1, 20);
-            if (roll1 < roll2)
-            {
-                return roll2;
-            }
-            else
-            {
-                return roll1;
-            }
+            return roll1;
         }
     }
+    public int AdvantageRoll(int max, int _damage)
+    {
+        int roll1 = Random.Range(1, 20);
+        int roll2 = Random.Range(1, 20);
+        if (roll1 < roll2)
+        {
+            return roll2;
+        }
+        else
+        {
+            return roll1;
+        }
+    }
+}
