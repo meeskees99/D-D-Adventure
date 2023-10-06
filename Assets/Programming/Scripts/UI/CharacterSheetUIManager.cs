@@ -16,16 +16,9 @@ public class CharacterSheetUIManager : MonoBehaviour
     [SerializeField] List<EntityClass> allEntities;
     [SerializeField] bool allPlayersChecked;
     bool playersSet;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // print($"All entities count = {allEntities.Count}. All players Count = {players.Count}.");
         allPlayersChecked = allEntities.Count == FindObjectsOfType<EntityClass>().Length;
         EntityClass[] Sheet = FindObjectsOfType<EntityClass>();
         if (!allPlayersChecked)

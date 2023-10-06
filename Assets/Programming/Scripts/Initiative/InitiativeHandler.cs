@@ -12,6 +12,7 @@ public class InitiativeHandler : MonoBehaviour
     public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
     public GameManager gameManager;
+    public PlayerInfoManager playerInfoManager;
 
     public void SetInitiativeOrder()
     {
@@ -56,7 +57,7 @@ public class InitiativeHandler : MonoBehaviour
                 Debug.Log("Initiative of " + character + " is: " + initiative);
             }
         }
-        
+
         StartCombat();
         foreach (var instance in initiativeOrder)
         {
@@ -98,7 +99,7 @@ public class InitiativeHandler : MonoBehaviour
             initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PositionCameraForObjects(characters);
             initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = false;
         }
-        
+
         currentTurnNmbr++;
         if (currentTurnNmbr > initiativeOrder.Count - 1)
         {
@@ -108,7 +109,7 @@ public class InitiativeHandler : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.isTurn = true;
-            if(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false)
+            if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false)
             {
                 DMTurn = true;
             }
@@ -119,6 +120,7 @@ public class InitiativeHandler : MonoBehaviour
                 initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = true;
             }
         }
+        playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
     }
 
 }
