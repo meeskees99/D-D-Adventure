@@ -9,6 +9,7 @@ using System;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine.UI;
+using TMPro;
 
 public class HostManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class HostManager : MonoBehaviour
     [SerializeField] int maxConnections = 3;
     [SerializeField] string lobbyScene = "Lobby";
     [SerializeField] string gameScene = "Game";
-    [SerializeField] Dropdown mapSelect;
+    [SerializeField] TMP_Dropdown mapSelect;
 
     private bool gameHasStarted;
     public Dictionary<ulong, ClientData> ClientData { get; private set; }
@@ -42,11 +43,12 @@ public class HostManager : MonoBehaviour
     {
         if (mapSelect == null)
         {
-            mapSelect = FindObjectOfType<Dropdown>();
+            mapSelect = FindObjectOfType<TMP_Dropdown>();
         }
         else
         {
-            gameScene = mapSelect.options[mapSelect.value].ToString();
+
+            gameScene = mapSelect.options[mapSelect.value].text;
         }
     }
 
@@ -110,7 +112,7 @@ public class HostManager : MonoBehaviour
     {
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
 
-        NetworkManager.Singleton.SceneManager.LoadScene(lobbyScene, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        _ = NetworkManager.Singleton.SceneManager.LoadScene(lobbyScene, LoadSceneMode.Single);
     }
 
     void OnClientDisconnect(ulong clientId)

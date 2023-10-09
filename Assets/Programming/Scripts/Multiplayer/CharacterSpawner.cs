@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class CharacterSpawner : NetworkBehaviour
 {
     [SerializeField] Characters characterDataBase;
-
+    [SerializeField] Transform spawnTransform;
     public override void OnNetworkSpawn()
     {
         if (!IsServer) { return; }
@@ -17,7 +17,7 @@ public class CharacterSpawner : NetworkBehaviour
             var character = characterDataBase.GetCharacterById(client.Value.characterId);
             if (character != null)
             {
-                var spawnPos = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
+                var spawnPos = new Vector3(spawnTransform.position.x + Random.Range(-3f, 3f), spawnTransform.position.y, spawnTransform.position.z + Random.Range(-3f, 3f));
                 var characterInstance = Instantiate(character.PlayerPrefab, spawnPos, Quaternion.identity);
                 characterInstance.SpawnAsPlayerObject(client.Value.clientId);
                 characterInstance.ChangeOwnership(client.Value.clientId);

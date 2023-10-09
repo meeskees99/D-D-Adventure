@@ -13,7 +13,7 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && turnUI != null)
         {
             turnUI.SetActive(!turnUI.activeSelf);
         }

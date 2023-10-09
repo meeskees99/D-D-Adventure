@@ -9,6 +9,7 @@ public class MouseLook : NetworkBehaviour
     [Header("Settings")]
     [SerializeField] float mouseSensitivity = 500;
     [SerializeField] float maxLookUpDegrees = 60;
+    [SerializeField] float maxLookDownDegrees = 80;
     public Transform CamTarget { get; set; }
     [SerializeField] Transform tempCamTarget;
     [SerializeField] CinemachineVirtualCamera virCam;
@@ -49,7 +50,7 @@ public class MouseLook : NetworkBehaviour
             yRotation += mouseX;
 
             xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -maxLookUpDegrees, 90f);
+            xRotation = Mathf.Clamp(xRotation, -maxLookUpDegrees, maxLookDownDegrees);
             if (CamTarget == null)
             {
                 Debug.LogError("CamTarget Not Assigned");
@@ -57,12 +58,8 @@ public class MouseLook : NetworkBehaviour
             else
             {
                 CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-                ChangeBodyRotationServerRPC();
+                ChangeBodyRotationServerRPC(xRotation, yRotation);
             }
-        }
-        else
-        {
-            //idk
         }
         #endregion
 
@@ -107,7 +104,7 @@ public class MouseLook : NetworkBehaviour
 
     }
     [ServerRpc(RequireOwnership = false)]
-    public void ChangeBodyRotationServerRPC(ServerRpcParams serverRpcParams = default)
+    public void ChangeBodyRotationServerRPC(float xRotation, float yRotation, ServerRpcParams serverRpcParams = default)
     {
         CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
@@ -149,7 +146,7 @@ public class MouseLook : NetworkBehaviour
         // Calculate the camera position and size
         Vector3 cameraPosition = bounds.center;
         cameraPosition.y = 20; // Keep the camera at the same y-coordinate
-        float cameraSize = Mathf.Max(bounds.size.x, bounds.size.z) / 2f;
+
 
         // Set the camera position and orthographic size
         CamTarget.transform.position = cameraPosition;

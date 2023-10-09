@@ -19,33 +19,31 @@ public class SetPlayerInfo : NetworkBehaviour
     }
     void Update()
     {
-        // if (time > 0)
-        // {
-        //     time -= Time.deltaTime;
-
-        //     print($"Time until Set CamTarget: {time}");
-        // }
-        if (!camtargetSet && MouseLook.CamTarget == null)
+        if (!camtargetSet)
         {
-            m = FindObjectsOfType<ForceMovement>();
-            camtargetSet = true;
-            print($"ForceMovement Found In M: {m.Length}");
-            for (int i = 0; i < m.Length; i++)
-            {
-                print($"Is Owner of Movment{i}: {m[i].IsOwner}");
-                if (!myEntities.Contains(m[i]) && m[i].IsOwner)
-                {
-                    myEntities.Add(m[i]);
-                    for (int e = 0; e < myEntities.Count; e++)
-                    {
-                        print($"MyEntities[e] = {myEntities[e]}");
-                        MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
-                        MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
-                        MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
-                    }
-                }
+            SetCamTarget();
+        }
+    }
 
+    void SetCamTarget()
+    {
+        m = FindObjectsOfType<ForceMovement>();
+        print($"ForceMovement Found In M: {m.Length}");
+        for (int i = 0; i < m.Length; i++)
+        {
+            print($"Is Owner of Movment{i}: {m[i].IsOwner}");
+            if (!myEntities.Contains(m[i]) && m[i].IsOwner)
+            {
+                myEntities.Add(m[i]);
+                for (int e = 0; e < myEntities.Count; e++)
+                {
+                    print($"MyEntities[e] = {myEntities[e]}");
+                    MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                    MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
+                    MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
+                }
             }
         }
+        camtargetSet = true;
     }
 }

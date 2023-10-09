@@ -36,8 +36,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8329765272657651280}
   - {fileID: 3061061045182746773}
+  - {fileID: 8329765272657651280}
   - {fileID: 4171993274482260374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2c432413d689bfe428d1be003cb16405, type: 2}
+  combatHandler: {fileID: 0}
   playerName: 
   isPlayer: 0
   maxHitPoints: 0
