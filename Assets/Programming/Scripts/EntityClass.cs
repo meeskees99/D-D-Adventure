@@ -72,6 +72,7 @@ public class EntityClass : NetworkBehaviour
         if(this.hitPoints <= 0)
         {
             Debug.Log(name + " has died!");
+            Destroy(this);
         }
     }
     public void Heal(int amount)
