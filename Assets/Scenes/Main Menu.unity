@@ -2370,6 +2370,7 @@ MonoBehaviour:
   maxConnections: 3
   lobbyScene: Lobby
   gameScene: Game
+  mapSelect: {fileID: 0}
 --- !u!4 &1509025816
 Transform:
   m_ObjectHideFlags: 0

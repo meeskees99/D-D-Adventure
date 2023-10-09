@@ -8,6 +8,7 @@ using Unity.Services.Relay.Models;
 using System;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine.UI;
 
 public class HostManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class HostManager : MonoBehaviour
     [SerializeField] int maxConnections = 3;
     [SerializeField] string lobbyScene = "Lobby";
     [SerializeField] string gameScene = "Game";
+    [SerializeField] Dropdown mapSelect;
 
     private bool gameHasStarted;
     public Dictionary<ulong, ClientData> ClientData { get; private set; }
@@ -33,6 +35,18 @@ public class HostManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    void Update()
+    {
+        if (mapSelect == null)
+        {
+            mapSelect = FindObjectOfType<Dropdown>();
+        }
+        else
+        {
+            gameScene = mapSelect.options[mapSelect.value].ToString();
         }
     }
 

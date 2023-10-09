@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 public class CharacterSpawner : NetworkBehaviour
 {
@@ -21,13 +22,15 @@ public class CharacterSpawner : NetworkBehaviour
                 characterInstance.SpawnAsPlayerObject(client.Value.clientId);
                 characterInstance.ChangeOwnership(client.Value.clientId);
                 characterInstance.GetComponent<EntityClass>().isPlayer = true;
-                SetPlayerObserver(characterInstance.GetComponent<EntityClass>());
+                SetPlayer(characterInstance);
+                characterInstance.AddComponent<Identifier>();
             }
         }
     }
 
-    void SetPlayerObserver(EntityClass charInstance)
+
+    void SetPlayer(NetworkObject charInstance)
     {
-        charInstance.isPlayer = true;
+        charInstance.GetComponent<EntityClass>().isPlayer = true;
     }
 }

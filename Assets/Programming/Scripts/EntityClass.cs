@@ -10,6 +10,7 @@ public class EntityClass : NetworkBehaviour
     public CombatHandler combatHandler = CombatHandler.instance;
     public string playerName;
     public bool isPlayer;
+
     [Header("Stats")]
     [SerializeField] private int maxHitPoints;
     public int
@@ -29,8 +30,8 @@ public class EntityClass : NetworkBehaviour
         charisma;
 
     [Header("Stats Race Bonus")]
+    public int strenghtBonus;
     public int
-        strenghtBonus,
         dexterityBonus,
         constitutionBonus,
         intelligenceBonus,
@@ -69,7 +70,7 @@ public class EntityClass : NetworkBehaviour
     public void TakeDamage(int damage)
     {
         this.hitPoints -= damage;
-        if(this.hitPoints <= 0)
+        if (this.hitPoints <= 0)
         {
             Debug.Log(name + " has died!");
             Destroy(this);
@@ -78,7 +79,7 @@ public class EntityClass : NetworkBehaviour
     public void Heal(int amount)
     {
         this.hitPoints += amount;
-        if(this.hitPoints > this.maxHitPoints)
+        if (this.hitPoints > this.maxHitPoints)
         {
             this.hitPoints = this.maxHitPoints;
         }

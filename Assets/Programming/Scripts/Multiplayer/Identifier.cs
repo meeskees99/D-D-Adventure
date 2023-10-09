@@ -2,9 +2,46 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 
-public class Identifier : MonoBehaviour
+public class Identifier : NetworkBehaviour
 {
     public PlayerId playerId;
+
+    private void Start()
+    {
+        if (IsOwner)
+            SetId(NetworkManager.Singleton.LocalClientId);
+    }
+
+    void SetId(ulong id)
+    {
+        playerId.Id = id;
+    }
+
+    // public NetworkList<PlayerId> players;
+
+    // private void Awake()
+    // {
+    //     players = new NetworkList<PlayerId>();
+    // }
+
+    // public override void OnNetworkSpawn()
+    // {
+    //     if (!IsServer) { return; }
+    //     foreach (var client in HostManager.Instance.ClientData)
+    //     {
+    //         if (!players.Contains(new PlayerId(client.Value.clientId)))
+    //         {
+    //             if (client.Value.clientId == 0)
+    //             {
+    //                 players.Add(new PlayerId(client.Value.clientId, true));
+    //             }
+    //             else
+    //             {
+    //                 players.Add(new PlayerId(client.Value.clientId));
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 

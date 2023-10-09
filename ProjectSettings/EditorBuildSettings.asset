@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 86fbbad2be248a74fa93c79adde7e00c
+  - enabled: 1
+    path: Assets/Scenes/Marnix Test.unity
+    guid: 40a9c5cc25b83c744b7d3e532a6924e9
   m_configObjects: {}
