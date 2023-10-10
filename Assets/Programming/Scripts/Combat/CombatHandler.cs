@@ -49,6 +49,7 @@ public class CombatHandler : MonoBehaviour
                 Debug.Log("target to far away");
             }
         }
+        victim.GetComponent<Outline>().enabled = false;
     }
     public int DisadvantageRoll()
     {
