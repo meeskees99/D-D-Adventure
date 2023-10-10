@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Cinemachine;
 
 public class SetPlayerInfo : NetworkBehaviour
 {
@@ -41,6 +42,8 @@ public class SetPlayerInfo : NetworkBehaviour
                     MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
                     MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
                     MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
+                    MouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().Follow = myEntities[e].gameObject.transform.GetChild(1);
+                    MouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().LookAt = myEntities[e].gameObject.transform.GetChild(1);
                 }
             }
         }
