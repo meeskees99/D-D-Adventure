@@ -27545,14 +27545,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 665116202004024769, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2044235bcc7e0a04fb9923d423aaa6fe, type: 2}
-    - target: {fileID: 7870409253227229797, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
-      propertyPath: combatHandler
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8160626120819401779, guid: c6599404132d3364fb7bb767f7694d0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.5000005
@@ -32103,14 +32095,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4096953664822728518, guid: 3468ee0f00cf3d744bc2d382667d625f, type: 3}
-      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4096953664822728518, guid: 3468ee0f00cf3d744bc2d382667d625f, type: 3}
-      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2fe3e7a4e6fba0047bb8b030f0646099, type: 2}
     - target: {fileID: 5689979917803778262, guid: 3468ee0f00cf3d744bc2d382667d625f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
