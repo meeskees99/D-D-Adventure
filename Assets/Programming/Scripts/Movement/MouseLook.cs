@@ -88,8 +88,8 @@ public class MouseLook : NetworkBehaviour
                 {
                     if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
-                        Debug.DrawRay(cameras[1].transform.position, Vector3.forward, Color.blue, 100f);
-                        Debug.Log("Hit: " + target);
+                        Debug.DrawRay(cameras[1].transform.position, target.point, Color.blue, 100f);
+                        Debug.Log("Hit: " + target.transform.name);
                         target.transform.TryGetComponent(out Outline outline);
                         outline.enabled = true;
                         combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, 0, 5);
