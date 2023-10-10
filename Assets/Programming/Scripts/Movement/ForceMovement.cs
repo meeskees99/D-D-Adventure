@@ -240,43 +240,43 @@ public class ForceMovement : NetworkBehaviour
 
         //On ground
         else if (grounded)
-            MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier, wallWalk);
-        // rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+        // MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier, wallWalk);
         //In air
         else if (!grounded)
-            MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier, wallWalk);
-        // rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+        // MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier, wallWalk);
 
         // Turn off gravity while on slope
         rb.useGravity = !OnSlope();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, bool wallWalk, ServerRpcParams serverRpcParams = default)
-    {
-        if (wallWalk)
-        {
-            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
-            return;
-        }
-        // // On slope
-        // if (OnSlope())
-        // {
-        //     rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
+    // [ServerRpc(RequireOwnership = false)]
+    // public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, bool wallWalk, ServerRpcParams serverRpcParams = default)
+    // {
+    //     if (wallWalk)
+    //     {
+    //         rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+    //         return;
+    //     }
+    //     // // On slope
+    //     // if (OnSlope())
+    //     // {
+    //     //     rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
 
-        //     if (rb.velocity.y > 0)
-        //     {
-        //         rb.AddForce(Vector3.down * 40f, ForceMode.Force);
-        //     }
-        // }
-        else if (ground)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
-        else if (!ground)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+    //     //     if (rb.velocity.y > 0)
+    //     //     {
+    //     //         rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+    //     //     }
+    //     // }
+    //     else if (ground)
+    //         rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+    //     else if (!ground)
+    //         rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
 
-        // rb.useGravity = !OnSlope();
+    //     // rb.useGravity = !OnSlope();
 
-    }
+    // }
     [ServerRpc(RequireOwnership = false)]
     public void SpeedControlServerRpc(float moveSpeed, ServerRpcParams serverRpcParams = default)
     {

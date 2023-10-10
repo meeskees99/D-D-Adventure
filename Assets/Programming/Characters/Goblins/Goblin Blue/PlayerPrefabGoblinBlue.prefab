@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6223561712557869693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1112849807890460698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2242998336475999046}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2242998336475999046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112849807890460698}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.092999935, y: 0.22726098, z: -0.022150189}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6223561712557869693}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3555883979547566194
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,8 +107,8 @@ GameObject:
   - component: {fileID: 6924084925389573328}
   - component: {fileID: 6808097789372724377}
   - component: {fileID: 913036155214639235}
-  - component: {fileID: 7608495211122390168}
-  - component: {fileID: 8994213816957053430}
+  - component: {fileID: 1069031100376541877}
+  - component: {fileID: 7437386936767333064}
   m_Layer: 0
   m_Name: PlayerPrefabGoblinBlue
   m_TagString: Untagged
@@ -101,6 +132,7 @@ Transform:
   - {fileID: 6671374038572045736}
   - {fileID: 6452452544093469655}
   - {fileID: 5564359013943379577}
+  - {fileID: 2242998336475999046}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7667952395538202383
@@ -115,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 21
-  sprintSpeed: 35
+  walkSpeed: 3
+  sprintSpeed: 5
   groundDrag: 3
   playerModel: {fileID: 6671374038572317368}
   moveDistance: 50
@@ -130,13 +162,13 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  groundCheckPos: {fileID: 6223561712557869693}
+  groundCheckPos: {fileID: 2242998336475999046}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   overrideGrounded: 0
   grounded: 0
-  groundCheckRayLenght: 0.4
+  groundCheckRayLenght: 0.24
   maxSlopeAngle: 50
   minSlopeAngle: 2
   shootPos: {fileID: 5564359013943379577}
@@ -252,7 +284,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &7608495211122390168
+--- !u!114 &1069031100376541877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,7 +293,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4427515704635067075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 866248f776b7d4c47b20172e3a245a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -282,7 +314,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &8994213816957053430
+--- !u!114 &7437386936767333064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1555,7 +1555,7 @@ GameObject:
   - component: {fileID: 461918}
   - component: {fileID: 9507038}
   - component: {fileID: 11400180}
-  - component: {fileID: 1399443244550689999}
+  - component: {fileID: 3194058792085415565}
   m_Layer: 0
   m_Name: Goblin_Red
   m_TagString: Untagged
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   runSpeed: 1.7
   turnSpeed: 90
   gravity: 20
---- !u!114 &1399443244550689999
+--- !u!114 &3194058792085415565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1627,7 +1627,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 150878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 866248f776b7d4c47b20172e3a245a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 0

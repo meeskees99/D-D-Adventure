@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8302541877237032638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1588029037920650070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2873951186488293927}
+  m_Layer: 0
+  m_Name: GroundCheckPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2873951186488293927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588029037920650070}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8302541877237032638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4621409914187989895
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +101,7 @@ Transform:
   - {fileID: 8789862566840000193}
   - {fileID: 9113663797271458743}
   - {fileID: 5854691310501848430}
+  - {fileID: 2873951186488293927}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7578703788565506216
@@ -84,10 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  sprintSpeed: 7
+  walkSpeed: 3
+  sprintSpeed: 5
   groundDrag: 3
-  playerModel: {fileID: 0}
+  playerModel: {fileID: 8789862566840356907}
   moveDistance: 50
   distanceMovedThisTurn: 0
   moveMultiplier: 3
@@ -99,17 +131,17 @@ MonoBehaviour:
   airMultiplier: 0.4
   jumpKey: 32
   sprintKey: 304
-  groundCheckPos: {fileID: 0}
+  groundCheckPos: {fileID: 2873951186488293927}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   overrideGrounded: 0
   grounded: 0
-  groundCheckRayLenght: 0.4
+  groundCheckRayLenght: 0.23
   maxSlopeAngle: 50
   minSlopeAngle: 2
-  shootPos: {fileID: 5854691310501848430}
-  orientation: {fileID: 0}
+  shootPos: {fileID: 2873951186488293927}
+  orientation: {fileID: 9113663797271458743}
   speedTxt: {fileID: 0}
   raycastLenght: 0.51
   wallWalk: 0
@@ -354,5 +386,10 @@ PrefabInstance:
 --- !u!4 &8789862566840000193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 470266, guid: 00a11f3eb5ba2aa4a9fe95591be93e28, type: 3}
+  m_PrefabInstance: {fileID: 8789862566840463931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8789862566840356907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 172560, guid: 00a11f3eb5ba2aa4a9fe95591be93e28, type: 3}
   m_PrefabInstance: {fileID: 8789862566840463931}
   m_PrefabAsset: {fileID: 0}
