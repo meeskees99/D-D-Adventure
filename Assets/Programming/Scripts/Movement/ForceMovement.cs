@@ -100,8 +100,11 @@ public class ForceMovement : NetworkBehaviour
             speedTxt.text = "Speed: " + rb.velocity.magnitude.ToString("0");
         }
         // Ground Check
+        RaycastHit groundRay;
+        Physics.Raycast(groundCheckPos.position, Vector3.down, out groundRay, groundCheckRayLenght, whatIsGround);
         if (!overrideGrounded)
             grounded = Physics.Raycast(groundCheckPos.position, Vector3.down, groundCheckRayLenght, whatIsGround);
+        Debug.DrawRay(groundCheckPos.position, groundRay.point, Color.green);
 
         isMoving = rb.velocity.magnitude > 0.1;
 
@@ -110,7 +113,7 @@ public class ForceMovement : NetworkBehaviour
 
         if (!isFighting)
             canMove = true;
-        SpeedControl();
+        SpeedControlServerRpc(moveSpeed);
         StateHandler();
         // Handle drag
         if (grounded)
@@ -202,6 +205,7 @@ public class ForceMovement : NetworkBehaviour
     {
         // Calculalte move direction
         moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDir.y = 0;
         if (isMoving)
         {
             moveDir.y = 0f;
@@ -236,45 +240,45 @@ public class ForceMovement : NetworkBehaviour
 
         //On ground
         else if (grounded)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
-        // MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier);
+            MovePlayerServerRPC(true, moveSpeed, moveDir, airMultiplier, wallWalk);
+        // rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
         //In air
         else if (!grounded)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
-        // MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier);
+            MovePlayerServerRPC(false, moveSpeed, moveDir, airMultiplier, wallWalk);
+        // rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
 
         // Turn off gravity while on slope
         rb.useGravity = !OnSlope();
     }
 
-    // [ServerRpc(RequireOwnership = false)]
-    // public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, ServerRpcParams serverRpcParams = default)
-    // {
-    //     if (wallWalk)
-    //     {
-    //         rb.AddForce(Vector3.down * 10f, ForceMode.Force);
-    //         return;
-    //     }
-    //     // On slope
-    //     if (OnSlope())
-    //     {
-    //         rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
+    [ServerRpc(RequireOwnership = false)]
+    public void MovePlayerServerRPC(bool ground, float moveSpeed, Vector3 moveDir, float airMultiplier, bool wallWalk, ServerRpcParams serverRpcParams = default)
+    {
+        if (wallWalk)
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+            return;
+        }
+        // // On slope
+        // if (OnSlope())
+        // {
+        //     rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
 
-    //         if (rb.velocity.y > 0)
-    //         {
-    //             rb.AddForce(Vector3.down * 40f, ForceMode.Force);
-    //         }
-    //     }
-    //     else if (ground)
-    //         rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
-    //     else if (!ground)
-    //         rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
+        //     if (rb.velocity.y > 0)
+        //     {
+        //         rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+        //     }
+        // }
+        else if (ground)
+            rb.AddForce(moveDir.normalized * moveSpeed * 10, ForceMode.Force);
+        else if (!ground)
+            rb.AddForce(moveDir.normalized * moveSpeed * 10 * airMultiplier, ForceMode.Force);
 
-    //     rb.useGravity = !OnSlope();
+        // rb.useGravity = !OnSlope();
 
-    // }
-    // [ServerRpc(RequireOwnership = false)]
-    public void SpeedControl()
+    }
+    [ServerRpc(RequireOwnership = false)]
+    public void SpeedControlServerRpc(float moveSpeed, ServerRpcParams serverRpcParams = default)
     {
         //Limit speed on slope
         if (OnSlope())

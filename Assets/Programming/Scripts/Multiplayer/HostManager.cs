@@ -11,7 +11,7 @@ using Unity.Netcode.Transports.UTP;
 using UnityEngine.UI;
 using TMPro;
 
-public class HostManager : MonoBehaviour
+public class HostManager : NetworkBehaviour
 {
     public static HostManager Instance { get; private set; }
 
@@ -37,18 +37,24 @@ public class HostManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
     }
 
     void Update()
     {
+        // if (!IsHost)
+        // {
+        //     mapSelect.gameObject.SetActive(false);
+        //     return;
+        // }
         if (mapSelect == null)
         {
             mapSelect = FindObjectOfType<TMP_Dropdown>();
         }
-        else
+        else if (gameScene != mapSelect.options[mapSelect.value].text)
         {
-
             gameScene = mapSelect.options[mapSelect.value].text;
+            UpdateMapSelectDisplayClientRpc(mapSelect.value);
         }
     }
 
@@ -139,5 +145,12 @@ public class HostManager : MonoBehaviour
         gameHasStarted = true;
 
         NetworkManager.Singleton.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+    }
+    [ClientRpc]
+    public void UpdateMapSelectDisplayClientRpc(int index, ClientRpcParams clientRpcParams = default)
+    {
+        mapSelect.value = index;
+        mapSelect.RefreshShownValue();
+        print("Updated Map Selection");
     }
 }

@@ -76,7 +76,8 @@ GameObject:
   - component: {fileID: 6924084925389573328}
   - component: {fileID: 6808097789372724377}
   - component: {fileID: 913036155214639235}
-  - component: {fileID: 7368940160001275277}
+  - component: {fileID: 7608495211122390168}
+  - component: {fileID: 8994213816957053430}
   m_Layer: 0
   m_Name: PlayerPrefabGoblinBlue
   m_TagString: Untagged
@@ -93,12 +94,12 @@ Transform:
   m_GameObject: {fileID: 4427515704635067075}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 868.8521, y: 227.68321, z: -3.3729525}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6452452544093469655}
   - {fileID: 6671374038572045736}
+  - {fileID: 6452452544093469655}
   - {fileID: 5564359013943379577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -251,7 +252,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &7368940160001275277
+--- !u!114 &7608495211122390168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,7 +261,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4427515704635067075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 866248f776b7d4c47b20172e3a245a8e, type: 3}
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -275,12 +276,24 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
+  UseQuaternionSynchronization: 1
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &8994213816957053430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427515704635067075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6671374038572429170
 PrefabInstance:
   m_ObjectHideFlags: 0

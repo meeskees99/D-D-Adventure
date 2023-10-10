@@ -27,9 +27,12 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
     NetworkList<CharacterSelection> players;
 
+    HostManager hostManager = HostManager.Instance;
+
     private void Awake()
     {
         players = new NetworkList<CharacterSelection>();
+        startButton.onClick.AddListener(hostManager.StartGame);
     }
 
     public override void OnNetworkSpawn()
@@ -100,6 +103,12 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsHost)
+        {
+            var mapDropdown = FindObjectOfType<TMP_Dropdown>();
+            if (mapDropdown != null)
+                mapDropdown.gameObject.SetActive(false);
+        }
         for (int i = 0; i < players.Count; i++)
         {
             if (i == 0)
@@ -198,7 +207,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             HostManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
         }
 
-        HostManager.Instance.StartGame();
+        // HostManager.Instance.StartGame();
 
     }
 

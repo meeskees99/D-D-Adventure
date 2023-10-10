@@ -217,6 +217,11 @@ public class SingleForceMovement : MonoBehaviour
         {
             wallWalk = false;
         }
+        if (wallWalk)
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+            return;
+        }
         // On slope
         if (OnSlope())
         {
