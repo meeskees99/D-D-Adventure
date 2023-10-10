@@ -83,11 +83,11 @@ public class MouseLook : NetworkBehaviour
                     ActivateCamera(1);
                     zoomedIn = true;
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
-                        Debug.DrawRay(cameras[1].transform.position, Vector3.forward);
+                        Debug.DrawRay(cameras[1].transform.position, Vector3.forward, Color.blue, 100f);
                         Debug.Log("Hit: " + target);
                         target.transform.TryGetComponent(out Outline outline);
                         outline.enabled = true;
@@ -95,6 +95,7 @@ public class MouseLook : NetworkBehaviour
                     }
                     Debug.Log("hit nothing");
                 }
+                Debug.Log("zooming");
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
             {
