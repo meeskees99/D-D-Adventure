@@ -54,7 +54,6 @@ public class HostManager : NetworkBehaviour
         else if (gameScene != mapSelect.options[mapSelect.value].text)
         {
             gameScene = mapSelect.options[mapSelect.value].text;
-            UpdateMapSelectDisplayClientRpc(mapSelect.value);
         }
     }
 
@@ -145,12 +144,5 @@ public class HostManager : NetworkBehaviour
         gameHasStarted = true;
 
         NetworkManager.Singleton.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
-    }
-    [ClientRpc]
-    public void UpdateMapSelectDisplayClientRpc(int index, ClientRpcParams clientRpcParams = default)
-    {
-        mapSelect.value = index;
-        mapSelect.RefreshShownValue();
-        print("Updated Map Selection");
     }
 }

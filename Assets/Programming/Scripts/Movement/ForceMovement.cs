@@ -226,6 +226,11 @@ public class ForceMovement : NetworkBehaviour
         {
             wallWalk = false;
         }
+        if (wallWalk)
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
+            return;
+        }
         // On slope
         if (OnSlope())
         {
