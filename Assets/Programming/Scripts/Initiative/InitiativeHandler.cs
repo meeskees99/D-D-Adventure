@@ -96,8 +96,8 @@ public class InitiativeHandler : MonoBehaviour
         }
         if (initiativeOrder[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
         {
-            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PositionCameraForObjects(characters);
-            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = false;
+            Camera.main.transform.GetComponent<MouseLook>().PositionCameraForObjects(characters);
+            Camera.main.transform.GetComponent<MouseLook>().enabled = false;
         }
 
         currentTurnNmbr++;
@@ -116,8 +116,8 @@ public class InitiativeHandler : MonoBehaviour
             else
             {
                 DMTurn = false;
-                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().PosistionCameraForCombat();
-                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponentInChildren<MouseLook>().enabled = true;
+                Camera.main.transform.GetComponent<MouseLook>().PosistionCameraForCombat();
+                Camera.main.transform.GetComponent<MouseLook>().enabled = true;
             }
         }
         playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
