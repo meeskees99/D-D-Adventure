@@ -87,10 +87,13 @@ public class MouseLook : NetworkBehaviour
                 {
                     if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
+                        Debug.DrawRay(cameras[1].transform.position, Vector3.forward);
+                        Debug.Log("Hit: " + target);
                         target.transform.TryGetComponent(out Outline outline);
                         outline.enabled = true;
                         combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, 0, 5);
                     }
+                    Debug.Log("hit nothing");
                 }
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
