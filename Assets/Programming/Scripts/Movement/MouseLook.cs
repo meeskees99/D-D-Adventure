@@ -76,14 +76,15 @@ public class MouseLook : NetworkBehaviour
         }
         if (inBattle)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKey(KeyCode.Mouse1))
             {
                 if (!zoomedIn)
                 {
                     ActivateCamera(1);
                     zoomedIn = true;
+                    Debug.Log("zooming");
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.Mouse1))
+                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
                 {
                     if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
@@ -95,7 +96,7 @@ public class MouseLook : NetworkBehaviour
                     }
                     Debug.Log("hit nothing");
                 }
-                Debug.Log("zooming");
+                
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
             {
