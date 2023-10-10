@@ -1039,7 +1039,7 @@ MonoBehaviour:
   mouseSensitivity: 500
   maxLookUpDegrees: 60
   maxLookDownDegrees: 80
-  tempCamTarget: {fileID: 0}
+  tempCamTarget: {fileID: 1848474558}
   virCam: {fileID: 1742159395}
   inBattle: 0
   combbatHandler: {fileID: 195461082}
