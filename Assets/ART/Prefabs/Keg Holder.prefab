@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3762073228521843088}
   - component: {fileID: 259601558726125109}
   - component: {fileID: 2629747555140031231}
+  - component: {fileID: 6833821111950695644}
   m_Layer: 0
   m_Name: Keg Holder
   m_TagString: Untagged
@@ -84,6 +85,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6833821111950695644
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575165773529314090}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6401569013046550577, guid: 2294ec93405f05b4a8c2d8defff30c00, type: 3}
 --- !u!1 &5719060485830055235
 GameObject:
   m_ObjectHideFlags: 0
