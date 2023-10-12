@@ -15,13 +15,15 @@ public class DmCameraController : NetworkBehaviour
     [SerializeField] GameObject cinemachineZoomCam;
 
     LayerMask UILayer;
+
+    [SerializeField] Transform orientation;
     [Header("Zoom Settings")]
     [SerializeField] float scrollSpeed;
     [SerializeField] float minY;
     [SerializeField] float maxY;
     [Header("Move Settings")]
     [SerializeField] float mouseSensitivity;
-    [SerializeField] float moveSpeed = 20.0f;
+    [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float wallCheckRaycastLenght = 5;
 
     float _horizontalInput;
@@ -29,6 +31,9 @@ public class DmCameraController : NetworkBehaviour
     float _scroll;
 
     float _rotation;
+
+    bool _multipleKeys;
+    float _finalMoveSpeed;
 
 
     Vector3 _moveDir;
@@ -38,8 +43,10 @@ public class DmCameraController : NetworkBehaviour
     {
         if (IsHost)
         {
-            cinemachineCam.SetActive(false);
-            cinemachineZoomCam.SetActive(false);
+            if (cinemachineCam != null)
+                cinemachineCam.SetActive(false);
+            if (cinemachineZoomCam != null)
+                cinemachineZoomCam.SetActive(false);
             GetComponent<CinemachineBrain>().enabled = false;
             transform.rotation = Quaternion.Euler(new Vector3(50f, 0f, 0f));
             UILayer = LayerMask.NameToLayer("UI");
@@ -60,10 +67,11 @@ public class DmCameraController : NetworkBehaviour
         if (Physics.Raycast(transform.position, _moveDir, out RaycastHit hit, wallCheckRaycastLenght))
         {
             print("You cant hit a wall!");
+            return;
         }
         else
         {
-            MoveCamera();
+            MoveCamera(true);
         }
         // float horizontalInput = Input.GetAxis("Horizontal");
         // float verticalInput = Input.GetAxis("Vertical");
@@ -93,31 +101,36 @@ public class DmCameraController : NetworkBehaviour
 
         _scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        _rotation = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        _rotation += mouseX;
 
-        bool multipleKeys = Input.GetKey("w") && Input.GetKey("d") || Input.GetKey("w") && Input.GetKey("a") || Input.GetKey("s") && Input.GetKey("d") || Input.GetKey("s") && Input.GetKey("a");
-        float finalMoveSpeed = multipleKeys ? moveSpeed : moveSpeed / 0.75f;
+        _multipleKeys = Input.GetKey("w") && Input.GetKey("d") || Input.GetKey("w") && Input.GetKey("a") || Input.GetKey("s") && Input.GetKey("d") || Input.GetKey("s") && Input.GetKey("a");
+        _finalMoveSpeed = _multipleKeys ? moveSpeed : moveSpeed / 0.75f;
 
-        if (Input.GetKey("w"))
-        {
-            transform.Translate(Vector3.forward * finalMoveSpeed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey("s"))
-        {
-            transform.Translate(Vector3.back * finalMoveSpeed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey("d"))
-        {
-            transform.Translate(Vector3.right * finalMoveSpeed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey("a"))
-        {
-            transform.Translate(Vector3.left * finalMoveSpeed * Time.deltaTime, Space.World);
-        }
+
     }
 
-    void MoveCamera()
+    void MoveCamera(bool inWall)
     {
+        if (!inWall)
+        {
+            if (Input.GetKey("w"))
+            {
+                transform.Translate(orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("s"))
+            {
+                transform.Translate(-orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("d"))
+            {
+                transform.Translate(orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
+            }
+            if (Input.GetKey("a"))
+            {
+                transform.Translate(-orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
+            }
+        }
 
 
         Vector3 pos = transform.position;
@@ -129,7 +142,9 @@ public class DmCameraController : NetworkBehaviour
         // transform.Translate(_moveDir * moveSpeed * Time.deltaTime, Space.World);
 
         transform.position = pos;
-        transform.rotation = Quaternion.Euler(0f, _rotation, 0f);
+        transform.rotation = Quaternion.Euler(50, _rotation, 0).normalized;
+        // orientation.rotation = Quaternion.Euler(-50f, 0f, 0f);
+
     }
     #region UI Check
     public bool IsPointerOverUIElement()
