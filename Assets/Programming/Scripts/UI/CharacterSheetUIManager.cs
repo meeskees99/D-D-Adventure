@@ -10,12 +10,29 @@ public class CharacterSheetUIManager : MonoBehaviour
     [SerializeField] GameObject backgroundPanel;
     [SerializeField] GameObject playerOneSheet;
     [SerializeField] GameObject playerTwoSheet;
+    [SerializeField] Animator sheetAnimator;
     [Header("Player")]
     public List<EntityClass> players = new();
-
+    [SerializeField] bool sheet1Active;
+    [SerializeField] bool sheet2Active;
     [SerializeField] List<EntityClass> allEntities;
     [SerializeField] bool allPlayersChecked;
     bool playersSet;
+
+    [Header("Player One Subsections")]
+    [SerializeField] GameObject p1MainPanel;
+    [SerializeField] GameObject p1CombatPanel;
+    [SerializeField] GameObject p1DeathPanel;
+    [SerializeField] GameObject p1InventoryPanel;
+    [SerializeField] GameObject p1NotesPanel;
+
+
+    [Header("Player Two Subsections")]
+    [SerializeField] GameObject p2MainPanel;
+    [SerializeField] GameObject p2CombatPanel;
+    [SerializeField] GameObject p2DeathPanel;
+    [SerializeField] GameObject p2InventoryPanel;
+    [SerializeField] GameObject p2NotesPanel;
 
     void Update()
     {
@@ -36,25 +53,49 @@ public class CharacterSheetUIManager : MonoBehaviour
             SetPlayers();
         }
 
-        if (playerOneSheet.activeSelf || playerTwoSheet.activeSelf)
-        {
-            backgroundPanel.SetActive(true);
-        }
-        else
-        {
-            backgroundPanel.SetActive(false);
-        }
+        // if (playerOneSheet.activeSelf || playerTwoSheet.activeSelf)
+        // {
+        //     backgroundPanel.SetActive(true);
+        // }
+        // else
+        // {
+        //     backgroundPanel.SetActive(false);
+        // }
     }
 
     public void TogglePlayerOneSheet()
     {
-        playerOneSheet.SetActive(!playerOneSheet.activeSelf);
-        playerTwoSheet.SetActive(false);
+        if (sheet2Active)
+        {
+            playerTwoSheet.SetActive(false);
+        }
+        else
+        {
+            SelectMainPanel(true);
+            sheetAnimator.SetTrigger("Toggle");
+        }
+
+        sheet1Active = !sheet1Active;
+        sheet2Active = false;
+        playerOneSheet.SetActive(sheet1Active);
+
     }
     public void TogglePlayerTwoSheet()
     {
-        playerOneSheet.SetActive(false);
-        playerTwoSheet.SetActive(!playerTwoSheet.activeSelf);
+        if (sheet1Active)
+        {
+            playerOneSheet.SetActive(false);
+        }
+        else
+        {
+            SelectMainPanel(false);
+            sheetAnimator.SetTrigger("Toggle");
+        }
+
+        sheet2Active = !sheet2Active;
+        sheet1Active = false;
+        playerTwoSheet.SetActive(sheet2Active);
+
     }
 
     void SetPlayers()
@@ -69,4 +110,108 @@ public class CharacterSheetUIManager : MonoBehaviour
         }
 
     }
+
+    #region Character Sheet Subsections
+
+    public void SelectMainPanel(bool isP1)
+    {
+        if (sheet1Active || isP1)
+        {
+            p1MainPanel.SetActive(true);
+            p1CombatPanel.SetActive(false);
+            p1DeathPanel.SetActive(false);
+            p1InventoryPanel.SetActive(false);
+            p1NotesPanel.SetActive(false);
+        }
+        else
+        {
+            p2MainPanel.SetActive(true);
+            p2CombatPanel.SetActive(false);
+            p2DeathPanel.SetActive(false);
+            p2InventoryPanel.SetActive(false);
+            p2NotesPanel.SetActive(false);
+        }
+    }
+
+    public void SelectCombatPanel()
+    {
+        if (sheet1Active)
+        {
+            p1MainPanel.SetActive(false);
+            p1CombatPanel.SetActive(true);
+            p1DeathPanel.SetActive(false);
+            p1InventoryPanel.SetActive(false);
+            p1NotesPanel.SetActive(false);
+        }
+        else
+        {
+            p2MainPanel.SetActive(false);
+            p2CombatPanel.SetActive(true);
+            p2DeathPanel.SetActive(false);
+            p2InventoryPanel.SetActive(false);
+            p2NotesPanel.SetActive(false);
+        }
+    }
+
+    public void SelectDeathPanel()
+    {
+        if (sheet1Active)
+        {
+            p1MainPanel.SetActive(false);
+            p1CombatPanel.SetActive(false);
+            p1DeathPanel.SetActive(true);
+            p1InventoryPanel.SetActive(false);
+            p1NotesPanel.SetActive(false);
+        }
+        else
+        {
+            p2MainPanel.SetActive(false);
+            p2CombatPanel.SetActive(false);
+            p2DeathPanel.SetActive(true);
+            p2InventoryPanel.SetActive(false);
+            p2NotesPanel.SetActive(false);
+        }
+    }
+
+    public void SelectInventoryPanel()
+    {
+        if (sheet1Active)
+        {
+            p1MainPanel.SetActive(false);
+            p1CombatPanel.SetActive(false);
+            p1DeathPanel.SetActive(false);
+            p1InventoryPanel.SetActive(true);
+            p1NotesPanel.SetActive(false);
+        }
+        else
+        {
+            p2MainPanel.SetActive(false);
+            p2CombatPanel.SetActive(false);
+            p2DeathPanel.SetActive(false);
+            p2InventoryPanel.SetActive(true);
+            p2NotesPanel.SetActive(false);
+        }
+    }
+
+    public void SelectNotesPanel()
+    {
+        if (sheet1Active)
+        {
+            p1MainPanel.SetActive(false);
+            p1CombatPanel.SetActive(false);
+            p1DeathPanel.SetActive(false);
+            p1InventoryPanel.SetActive(false);
+            p1NotesPanel.SetActive(true);
+        }
+        else
+        {
+            p2MainPanel.SetActive(false);
+            p2CombatPanel.SetActive(false);
+            p2DeathPanel.SetActive(false);
+            p2InventoryPanel.SetActive(false);
+            p2NotesPanel.SetActive(true);
+        }
+    }
+
+    #endregion
 }

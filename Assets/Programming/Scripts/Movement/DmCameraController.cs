@@ -131,8 +131,6 @@ public class DmCameraController : NetworkBehaviour
                 transform.Translate(-orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
             }
         }
-
-
         Vector3 pos = transform.position;
 
         pos.y -= _scroll * 100 * scrollSpeed * Time.deltaTime;
