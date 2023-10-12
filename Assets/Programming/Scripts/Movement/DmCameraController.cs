@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
 using Cinemachine;
+using Unity.Mathematics;
 
 public class DmCameraController : NetworkBehaviour
 {
@@ -19,6 +20,7 @@ public class DmCameraController : NetworkBehaviour
     [SerializeField] float minY;
     [SerializeField] float maxY;
     [Header("Move Settings")]
+    [SerializeField] float mouseSensitivity;
     [SerializeField] float moveSpeed = 20.0f;
     [SerializeField] float wallCheckRaycastLenght = 5;
 
@@ -39,7 +41,7 @@ public class DmCameraController : NetworkBehaviour
             cinemachineCam.SetActive(false);
             cinemachineZoomCam.SetActive(false);
             GetComponent<CinemachineBrain>().enabled = false;
-            // transform.rotation = new Quaternion(0f,0f,0f)
+            transform.rotation = Quaternion.Euler(new Vector3(50f, 0f, 0f));
             UILayer = LayerMask.NameToLayer("UI");
 
         }
@@ -91,6 +93,8 @@ public class DmCameraController : NetworkBehaviour
 
         _scroll = Input.GetAxis("Mouse ScrollWheel");
 
+        _rotation = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
         bool multipleKeys = Input.GetKey("w") && Input.GetKey("d") || Input.GetKey("w") && Input.GetKey("a") || Input.GetKey("s") && Input.GetKey("d") || Input.GetKey("s") && Input.GetKey("a");
         float finalMoveSpeed = multipleKeys ? moveSpeed : moveSpeed / 0.75f;
 
@@ -125,6 +129,7 @@ public class DmCameraController : NetworkBehaviour
         // transform.Translate(_moveDir * moveSpeed * Time.deltaTime, Space.World);
 
         transform.position = pos;
+        transform.rotation = Quaternion.Euler(0f, _rotation, 0f);
     }
     #region UI Check
     public bool IsPointerOverUIElement()
