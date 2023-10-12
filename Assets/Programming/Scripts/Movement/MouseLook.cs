@@ -14,7 +14,7 @@ public class MouseLook : NetworkBehaviour
     [SerializeField] Transform tempCamTarget;
     [SerializeField] CinemachineVirtualCamera virCam;
     public CinemachineVirtualCamera VirCam { get { return virCam; } set { virCam = value; } }
-
+    bool isDm;
 
     [Header("In battle")]
     public bool inBattle;
@@ -31,14 +31,20 @@ public class MouseLook : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // if (!IsOwner) { this.enabled = false; }
+        if (IsHost)
+            isDm = true;
+
+        if (isDm) return;
+
         Cursor.lockState = CursorLockMode.Locked;
+
         if (CamTarget == null)
             CamTarget = tempCamTarget;
     }
     // Update is called once per frame
     void Update()
     {
+        if (isDm) return;
         isLocked = Cursor.lockState == CursorLockMode.Locked;
         #region Mouse movement
 
@@ -96,7 +102,7 @@ public class MouseLook : NetworkBehaviour
                     }
                     Debug.Log("hit nothing");
                 }
-                
+
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
             {
@@ -118,6 +124,7 @@ public class MouseLook : NetworkBehaviour
 
     public void ActivateCamera(int index)
     {
+        if (isDm) return;
         //Debug.Log("toggling Camera's");
         for (int i = 0; i < cameras.Length; i++)
         {
@@ -136,6 +143,7 @@ public class MouseLook : NetworkBehaviour
 
     public void PositionCameraForObjects(List<GameObject> objects)
     {
+        if (isDm) return;
         // Check if there are any objects in the list
         if (objects.Count == 0)
         {
@@ -161,6 +169,7 @@ public class MouseLook : NetworkBehaviour
 
     public void PosistionCameraForCombat()
     {
+        if (isDm) return;
         CamTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
     }
 }

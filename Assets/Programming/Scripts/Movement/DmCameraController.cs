@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class DmCameraController : NetworkBehaviour
 {
     public MouseLook mouseLook;
-
+    [SerializeField] GameObject cinemachineCam;
+    [SerializeField] GameObject cinemachineZoomCam;
 
     LayerMask UILayer;
     [Header("Zoom Settings")]
@@ -24,6 +26,9 @@ public class DmCameraController : NetworkBehaviour
     float _verticalInput;
     float _scroll;
 
+    float _rotation;
+
+
     Vector3 _moveDir;
 
 
@@ -31,9 +36,12 @@ public class DmCameraController : NetworkBehaviour
     {
         if (IsHost)
         {
-            mouseLook = this.gameObject.GetComponent<MouseLook>();
-            mouseLook.enabled = false;
+            cinemachineCam.SetActive(false);
+            cinemachineZoomCam.SetActive(false);
+            GetComponent<CinemachineBrain>().enabled = false;
+            // transform.rotation = new Quaternion(0f,0f,0f)
             UILayer = LayerMask.NameToLayer("UI");
+
         }
         else
         {
@@ -83,22 +91,25 @@ public class DmCameraController : NetworkBehaviour
 
         _scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        // if (Input.GetKey("w"))
-        // {
-        //     transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.World);
-        // }
-        // if (Input.GetKey("s"))
-        // {
-        //     transform.Translate(Vector3.back * moveSpeed * Time.deltaTime, Space.World);
-        // }
-        // if (Input.GetKey("d"))
-        // {
-        //     transform.Translate(Vector3.right * moveSpeed * Time.deltaTime, Space.World);
-        // }
-        // if (Input.GetKey("a"))
-        // {
-        //     transform.Translate(Vector3.left * moveSpeed * Time.deltaTime, Space.World);
-        // }
+        bool multipleKeys = Input.GetKey("w") && Input.GetKey("d") || Input.GetKey("w") && Input.GetKey("a") || Input.GetKey("s") && Input.GetKey("d") || Input.GetKey("s") && Input.GetKey("a");
+        float finalMoveSpeed = multipleKeys ? moveSpeed : moveSpeed / 0.75f;
+
+        if (Input.GetKey("w"))
+        {
+            transform.Translate(Vector3.forward * finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+        if (Input.GetKey("s"))
+        {
+            transform.Translate(Vector3.back * finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+        if (Input.GetKey("d"))
+        {
+            transform.Translate(Vector3.right * finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+        if (Input.GetKey("a"))
+        {
+            transform.Translate(Vector3.left * finalMoveSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     void MoveCamera()
@@ -111,7 +122,7 @@ public class DmCameraController : NetworkBehaviour
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         // pos.x = Mathf.Clamp(pos.x, minX, maxX);
         // pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
-        transform.Translate(_moveDir * moveSpeed * Time.deltaTime, Space.World);
+        // transform.Translate(_moveDir * moveSpeed * Time.deltaTime, Space.World);
 
         transform.position = pos;
     }

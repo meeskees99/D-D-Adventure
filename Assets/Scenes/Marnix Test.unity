@@ -2446,6 +2446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseLook: {fileID: 1885565423}
+  cinemachineCam: {fileID: 412899655}
+  cinemachineZoomCam: {fileID: 1822535361}
   scrollSpeed: 20
   minY: 3
   maxY: 10
