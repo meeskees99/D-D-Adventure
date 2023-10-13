@@ -15,6 +15,7 @@ public class CharacterStatsUI : MonoBehaviour
     [SerializeField] TMP_Text race;
     [SerializeField] TMP_Text level;
     [SerializeField] TMP_Text xp;
+    [SerializeField] Slider xpSlider;
     [Header("Extra")]
     [SerializeField] TMP_Text profB;
     [SerializeField] TMP_Text armorClass;
@@ -38,12 +39,15 @@ public class CharacterStatsUI : MonoBehaviour
     {
         if (uIManager.players.Count == 0)
             return;
+        #region Main Tab
         #region Character Stats
         playerName.text = uIManager.players[playerNumber - 1].playerName;
         classType.text = uIManager.players[playerNumber - 1].stats._class.ToString();
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
         level.text = uIManager.players[playerNumber - 1].level.ToString();
         xp.text = uIManager.players[playerNumber - 1].currentXp + "/" + uIManager.players[playerNumber - 1].xpToGo;
+        xpSlider.maxValue = uIManager.players[playerNumber - 1].xpToGo;
+        xpSlider.value = uIManager.players[playerNumber - 1].currentXp;
         #endregion
         #region Extra
         profB.text = uIManager.players[playerNumber - 1].proficiency.ToString();
@@ -65,5 +69,17 @@ public class CharacterStatsUI : MonoBehaviour
         charismaNor.text = uIManager.players[playerNumber - 1].charisma.ToString();
         charismaBonus.text = uIManager.players[playerNumber - 1].charismaBonus.ToString();
         #endregion
+        #endregion
+    }
+
+    public void LevelUp(int player)
+    {
+        uIManager.players[player - 1].AddXp(uIManager.players[player - 1].xpToGo);
+    }
+
+    public void AddXp(int player)
+    {
+        int xpAmount = 10;
+        uIManager.players[player - 1].AddXp(xpAmount);
     }
 }

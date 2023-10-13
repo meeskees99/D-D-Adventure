@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
-  m_Name: Human Ranger
+  m_Name: Elf Ranger
   m_EditorClassIdentifier: 
   id: 1
-  characterName: Ranger
+  characterName: Elf Ranger
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   introPrefab: {fileID: 0}
   playerPrefab: {fileID: 3581732302714341980, guid: 07d502304d909764c966377fa69d23eb, type: 3}
   isPlayer: 1
   _class: 1
-  _race: 0
+  _race: 1

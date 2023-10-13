@@ -52,15 +52,19 @@ public class CharacterSheetUIManager : MonoBehaviour
         {
             SetPlayers();
         }
+    }
 
-        // if (playerOneSheet.activeSelf || playerTwoSheet.activeSelf)
-        // {
-        //     backgroundPanel.SetActive(true);
-        // }
-        // else
-        // {
-        //     backgroundPanel.SetActive(false);
-        // }
+    void SetPlayers()
+    {
+        playersSet = true;
+        for (int i = 0; i < allEntities.Count; i++)
+        {
+            if (allEntities[i].isPlayer)
+            {
+                players.Add(allEntities[i]);
+            }
+        }
+
     }
 
     public void TogglePlayerOneSheet()
@@ -98,22 +102,29 @@ public class CharacterSheetUIManager : MonoBehaviour
 
     }
 
-    void SetPlayers()
-    {
-        playersSet = true;
-        for (int i = 0; i < allEntities.Count; i++)
-        {
-            if (allEntities[i].isPlayer)
-            {
-                players.Add(allEntities[i]);
-            }
-        }
 
-    }
 
     #region Character Sheet Subsections
-
-    public void SelectMainPanel(bool isP1)
+    public void SelectMainPanelButton()
+    {
+        if (sheet1Active)
+        {
+            p1MainPanel.SetActive(true);
+            p1CombatPanel.SetActive(false);
+            p1DeathPanel.SetActive(false);
+            p1InventoryPanel.SetActive(false);
+            p1NotesPanel.SetActive(false);
+        }
+        else
+        {
+            p2MainPanel.SetActive(true);
+            p2CombatPanel.SetActive(false);
+            p2DeathPanel.SetActive(false);
+            p2InventoryPanel.SetActive(false);
+            p2NotesPanel.SetActive(false);
+        }
+    }
+    void SelectMainPanel(bool isP1)
     {
         if (sheet1Active || isP1)
         {

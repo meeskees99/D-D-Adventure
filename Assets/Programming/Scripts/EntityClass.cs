@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Netcode;
-
+using System;
 public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
@@ -37,8 +37,111 @@ public class EntityClass : NetworkBehaviour
         intelligenceBonus,
         wisdomBonus,
         charismaBonus;
-    private void Update()
+
+    void Start()
     {
+        if (PlayerPrefs.GetInt("FirstTime") == 1)
+        {
+            if (stats._class == Class.Knight)
+            {
+                stats.XpToGo = 50;
+                stats.MaxHitPoints = 12;
+                stats.HitPoints = stats.MaxHitPoints;
+                stats.InitiativeBonus = 3;
+                stats.Proficiency = 2;
+                stats.Speed = 30;
+                stats.ArmorClass = 14;
+                stats.Strength = 14;
+                stats.Dexterity = 16;
+                stats.Constitution = 15;
+                stats.Intelligence = 11;
+                stats.Wisdom = 13;
+                stats.Charisma = 9;
+            }
+            else if (stats._class == Class.Ranger)
+            {
+                stats.XpToGo = 50;
+                stats.MaxHitPoints = 11;
+                stats.HitPoints = stats.MaxHitPoints;
+                stats.InitiativeBonus = 3;
+                stats.Proficiency = 2;
+                stats.Speed = 35;
+                stats.ArmorClass = 14;
+                stats.Strength = 12;
+                stats.Dexterity = 17;
+                stats.Constitution = 13;
+                stats.Intelligence = 10;
+                stats.Wisdom = 15;
+                stats.Charisma = 8;
+            }
+
+
+            PlayerPrefs.SetInt("FirstTime", 1);
+        }
+        // if (stats._class == Class.Knight)
+        // {
+        //     stats.MaxHitPoints = 12;
+        //     stats.HitPoints = stats.MaxHitPoints;
+        //     stats.InitiativeBonus = stats.i
+        //     stats.Speed
+        //     stats.ArmorClass =
+        //     stats.Proficiency
+        //     stats.Constitution
+        //     stats.Intelligence
+        //     stats.Wisdom
+        //     stats.Charisma
+        // }
+        // else if (stats._class == Class.Ranger)
+        // {
+
+        //     stats.MaxHitPoints = 17;
+        //     stats.Level
+        //     stats.CurrentXP
+        //     stats.XpToGo
+        //     stats.HitPoints
+        //     stats.InitiativeBonus
+        //     stats.Speed
+        //     stats.ArmorClass
+        //     stats.Proficiency
+        //     stats.Constitution
+        //     stats.Intelligence
+        //     stats.Wisdom
+        //     stats.Charisma
+        // }
+        // else if (stats._class == Class.)
+        // {
+
+        //     stats.MaxHitPoints = 17;
+        //     stats.Level
+        //     stats.CurrentXP
+        //     stats.XpToGo
+        //     stats.HitPoints
+        //     stats.ArmorClass
+        //     stats.InitiativeBonus
+        //     stats.Speed
+        //     stats.Proficiency
+        //     stats.Constitution
+        //     stats.Intelligence
+        //     stats.Wisdom
+        //     stats.Charisma
+        // }
+        playerName = stats.CharacterName;
+        maxHitPoints = stats.MaxHitPoints;
+        level = stats.Level;
+        currentXp = stats.CurrentXP;
+        xpToGo = stats.XpToGo;
+        hitPoints = stats.HitPoints;
+        armorClass = stats.ArmorClass;
+        initiativeBonus = stats.InitiativeBonus;
+        speed = stats.Speed;
+        strength = stats.Strength;
+        proficiency = stats.Proficiency;
+        constitution = stats.Constitution;
+        dexterity = stats.Dexterity;
+        intelligence = stats.Intelligence;
+        wisdom = stats.Wisdom;
+        charisma = stats.Charisma;
+
         if (stats._race == Race.Human)
         {
             strenghtBonus = 1;
@@ -67,6 +170,11 @@ public class EntityClass : NetworkBehaviour
             charismaBonus = 0;
         }
     }
+
+    private void Update()
+    {
+
+    }
     public void TakeDamage(int damage)
     {
         this.hitPoints -= damage;
@@ -84,11 +192,21 @@ public class EntityClass : NetworkBehaviour
             this.hitPoints = this.maxHitPoints;
         }
     }
-    public void LevelUp()
+    public void LevelUp(int extraXp)
     {
         level++;
-        currentXp = 0;
+        xpToGo = Mathf.RoundToInt(xpToGo * 1.2f);
+        currentXp = extraXp;
         //xpToGo = formule gebasseer op lvl
         //increase stats
+    }
+    public void AddXp(int amount)
+    {
+        currentXp += amount;
+        if (currentXp >= xpToGo)
+        {
+            int extraXp = currentXp - xpToGo;
+            LevelUp(extraXp);
+        }
     }
 }
