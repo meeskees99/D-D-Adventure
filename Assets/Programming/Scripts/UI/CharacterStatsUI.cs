@@ -34,7 +34,13 @@ public class CharacterStatsUI : MonoBehaviour
     [SerializeField] TMP_Text wisdomBonus;
     [SerializeField] TMP_Text charismaNor;
     [SerializeField] TMP_Text charismaBonus;
-    // Update is called once per frame
+
+    void Start()
+    {
+        if (playerNumber == 0)
+            playerNumber = 1;
+    }
+
     void Update()
     {
         if (uIManager.players.Count == 0)
@@ -72,6 +78,7 @@ public class CharacterStatsUI : MonoBehaviour
         #endregion
     }
 
+    //For Test Buttons
     public void LevelUp(int player)
     {
         uIManager.players[player - 1].AddXp(uIManager.players[player - 1].xpToGo);

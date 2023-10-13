@@ -11,8 +11,13 @@ public class EntityClass : NetworkBehaviour
     public string playerName;
     public bool isPlayer;
 
+    [Header("Death Saves")]
+    public int deathSaveAttempts;
+    [SerializeField] int saves;
+    [SerializeField] int fails;
+
     [Header("Stats")]
-    [SerializeField] private int maxHitPoints;
+    public int maxHitPoints;
     public int
         level,
         currentXp,
@@ -177,11 +182,13 @@ public class EntityClass : NetworkBehaviour
     }
     public void TakeDamage(int damage)
     {
-        this.hitPoints -= damage;
+        hitPoints -= damage;
         if (this.hitPoints <= 0)
         {
             Debug.Log(name + " has died!");
-            Destroy(this);
+            hitPoints = 0;
+            // Destroy(this);
+            // Die();
         }
     }
     public void Heal(int amount)
@@ -209,4 +216,75 @@ public class EntityClass : NetworkBehaviour
             LevelUp(extraXp);
         }
     }
+
+    System.Random random = new System.Random();
+    public void DeathSave(int throwValue)
+    {
+        if (hitPoints <= 0)
+        {
+            if (throwValue == 0)
+            {
+                int _throwValue = random.Next(1, 20);
+                if (_throwValue > 10)
+                {
+                    saves++;
+                    if (saves == 3)
+                    {
+                        hitPoints = 1;
+                        print("You saved yourself! You now have one health");
+                    }
+                }
+                else
+                {
+                    fails++;
+                    if (fails == 3)
+                    {
+                        Die();
+                    }
+                }
+            }
+            else
+            {
+                if (throwValue > 10)
+                {
+                    saves++;
+                    if (saves == 3)
+                    {
+                        hitPoints = 1;
+                        print("You saved yourself! You now have one health");
+                        saves = 0;
+                        fails = 0;
+                    }
+                }
+                else
+                {
+                    fails++;
+                    if (fails == 3)
+                    {
+                        Die();
+                        saves = 0;
+                        fails = 0;
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            print("No deathsave necessary");
+        }
+
+
+
+    }
+    public void Die()
+    {
+        print("You Died! You missed 3 death saves!");
+        level = 0;
+        currentXp = 0;
+        xpToGo = 50;
+        hitPoints = maxHitPoints;
+    }
+
+
 }
