@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TurnOrderUIManager : MonoBehaviour
 {
     InitiativeHandler initiativeHandler;
 
-    [SerializeField] TMP_Text turnNumberTxt;
-    [SerializeField] int currentTurnNmbr;
+    [Header("Active player")]
+    [SerializeField] Image activePlayerIcon;
+    [SerializeField] TMP_Text activePlayerText;
 
+    [Header("Panels")]
+    [SerializeField] GameObject activePlayerPanel;
     [SerializeField] GameObject combatPanel;
 
+    [Header("Info")]
     [SerializeField] List<TurnOrderUI> players = new();
+    [SerializeField] TMP_Text turnNumberTxt;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,5 +62,8 @@ public class TurnOrderUIManager : MonoBehaviour
             }
 
         }
+
+        activePlayerIcon = players[0].playerIcon;
+        activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
     }
 }
