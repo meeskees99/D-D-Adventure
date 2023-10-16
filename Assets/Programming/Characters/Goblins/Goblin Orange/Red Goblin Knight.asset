@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   characterName: Red Goblin Knight
-  icon: {fileID: 21300000, guid: 27618c63d7f2f884eb42a70724799113, type: 3}
+  icon: {fileID: 21300000, guid: 8ded9f53f806cc445b6a93273f5b62bb, type: 3}
   introPrefab: {fileID: 150878, guid: f8e5b2f39b57ccf45ae8321cac39d04e, type: 3}
   playerPrefab: {fileID: 0}
   isPlayer: 0

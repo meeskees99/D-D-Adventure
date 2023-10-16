@@ -10,6 +10,8 @@ public class TurnOrderUIManager : MonoBehaviour
     [SerializeField] TMP_Text turnNumberTxt;
     [SerializeField] int currentTurnNmbr;
 
+    [SerializeField] GameObject combatPanel;
+
     [SerializeField] List<TurnOrderUI> players = new();
     // Start is called before the first frame update
     void Start()
@@ -17,10 +19,14 @@ public class TurnOrderUIManager : MonoBehaviour
         if (initiativeHandler == null)
             initiativeHandler = FindObjectOfType<InitiativeHandler>();
 
-        for (int i = 0; i < transform.childCount; i++)
+        var _players = FindObjectsOfType<TurnOrderUI>();
+        for (int i = 0; i < _players.Length; i++)
         {
-            players.Add(transform.GetChild(i).GetComponent<TurnOrderUI>());
+            players.Add(_players[i]);
         }
+        players.Reverse();
+
+        combatPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,26 +37,24 @@ public class TurnOrderUIManager : MonoBehaviour
 
     public void UpdateTurnOrder()
     {
-        currentTurnNmbr++;
-        turnNumberTxt.text = currentTurnNmbr.ToString();
+        turnNumberTxt.text = initiativeHandler.currentTurnNmbr.ToString();
 
         for (int i = 0; i < players.Count; i++)
         {
-
-        }
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (i > initiativeHandler.initiativeOrder.Count)
+            if (i >= initiativeHandler.initiativeOrder.Count)
             {
                 players[i].gameObject.SetActive(false);
+                players[i].playerIcon.sprite = null;
+                players[i].initiativeText.text = "";
                 continue;
             }
             else
             {
+                players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().stats.Icon;
+                players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
                 players[i].gameObject.SetActive(true);
             }
-            players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[initiativeHandler.currentTurnNmbr].character.GetComponent<EntityClass>().stats.Icon;
-            players[i].initiativeText.text = initiativeHandler.initiativeOrder[initiativeHandler.currentTurnNmbr].initiative.ToString();
+
         }
     }
 }

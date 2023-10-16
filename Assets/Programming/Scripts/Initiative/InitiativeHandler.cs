@@ -13,6 +13,18 @@ public class InitiativeHandler : MonoBehaviour
     public List<Initiative> initiativeOrder = new();
     public GameManager gameManager;
     public PlayerInfoManager playerInfoManager;
+    public TurnOrderUIManager turnOrderUIManager;
+
+
+    [Header("Settings")]
+    [SerializeField] GameObject combatPanel;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        playerInfoManager = FindObjectOfType<PlayerInfoManager>();
+        turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
+    }
 
     public void SetInitiativeOrder()
     {
@@ -61,20 +73,24 @@ public class InitiativeHandler : MonoBehaviour
         StartCombat();
         foreach (var instance in initiativeOrder)
         {
-            if (instance.character.GetComponent<ForceMovement>().isTurn)
+            if (instance.character.TryGetComponent<ForceMovement>(out ForceMovement forceMovement))
             {
-                continue;
+                if (forceMovement.isTurn)
+                    continue;
             }
             else
             {
                 if (instance.character.GetComponent<EntityClass>().isPlayer)
                 {
-                    var mouseLook = instance.character.GetComponentInChildren<MouseLook>();
-                    mouseLook.PositionCameraForObjects(characters);
+                    var mouseLook = FindObjectOfType<MouseLook>();
+                    if (mouseLook != null)
+                        mouseLook.PositionCameraForObjects(characters);
                 }
             }
 
         }
+
+        turnOrderUIManager.UpdateTurnOrder();
     }
     public void AddInitiatives()
     {
@@ -84,7 +100,12 @@ public class InitiativeHandler : MonoBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log(currentTurnNmbr);
-        initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().isTurn = true;
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out ForceMovement forceMovement);
+        if (forceMovement != null)
+        {
+            forceMovement.isTurn = true;
+        }
+        combatPanel.SetActive(true);
     }
     public void EndTurn()
     {
