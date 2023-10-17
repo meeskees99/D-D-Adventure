@@ -32,25 +32,25 @@ public class CombatHandler : MonoBehaviour
                 if (victimClass.armorClass < Random.Range(1, 20))
                 {
                     victimClass.TakeDamage(Random.Range(1, 8));
-
-                }
-                else
-                {
-                    Debug.Log("Target to close");
-                    if (victimClass.armorClass < DisadvantageRoll())
-                    {
-                        victimClass.TakeDamage(Random.Range(1, 8));
-                    }
                 }
             }
             else
             {
-                //no hit
-                Debug.Log("target to far away");
-            }
+                Debug.Log("Target to close");
+                if (victimClass.armorClass < DisadvantageRoll())
+                {
+                    victimClass.TakeDamage(Random.Range(1, 8));
+                }
+            }  
+        }
+        else
+        {
+            //no hit
+            Debug.Log("target to far away");
         }
         victim.GetComponent<Outline>().enabled = false;
     }
+    
     public int DisadvantageRoll()
     {
         int roll1 = Random.Range(1, 20);

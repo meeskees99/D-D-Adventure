@@ -92,9 +92,9 @@ public class MouseLook : NetworkBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
                 {
-                    if (Physics.Raycast(cameras[1].transform.position, cameras[1].transform.forward, out RaycastHit target, Mathf.Infinity))
+                    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
-                        Debug.DrawRay(cameras[1].transform.position, target.point, Color.blue, 100f);
+                        Debug.DrawRay(Camera.main.transform.position, target.point, Color.blue, 5f);
                         Debug.Log("Hit: " + target.transform.name);
                         target.transform.TryGetComponent(out Outline outline);
                         outline.enabled = true;
