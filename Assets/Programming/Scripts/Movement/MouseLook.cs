@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEditor;
 
 public class MouseLook : NetworkBehaviour
 {
@@ -10,6 +11,7 @@ public class MouseLook : NetworkBehaviour
     [SerializeField] float mouseSensitivity = 500;
     [SerializeField] float maxLookUpDegrees = 60;
     [SerializeField] float maxLookDownDegrees = 80;
+    [SerializeField] GameObject playerObject;
     public Transform CamTarget { get; set; }
     [SerializeField] Transform tempCamTarget;
     [SerializeField] CinemachineVirtualCamera virCam;
@@ -19,6 +21,7 @@ public class MouseLook : NetworkBehaviour
     [Header("In battle")]
     public bool inBattle;
     [SerializeField] CombatHandler combbatHandler = CombatHandler.instance;
+    [SerializeField] bool attacked;
 
     [Header("target Selecting")]
     bool zoomedIn;
@@ -90,7 +93,7 @@ public class MouseLook : NetworkBehaviour
                     zoomedIn = true;
                     Debug.Log("zooming");
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
+                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && !attacked)
                 {
                     if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
@@ -98,7 +101,8 @@ public class MouseLook : NetworkBehaviour
                         Debug.Log("Hit: " + target.transform.name);
                         target.transform.TryGetComponent(out Outline outline);
                         outline.enabled = true;
-                        combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, 0, 5);
+                        combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, playerObject.GetComponent<EntityClass>().currentWeapon);
+                        attacked = true;
                     }
                     Debug.Log("hit nothing");
                 }
@@ -171,5 +175,6 @@ public class MouseLook : NetworkBehaviour
     {
         if (isDm) return;
         CamTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
+        attacked = false;
     }
 }

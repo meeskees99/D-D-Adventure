@@ -19,19 +19,19 @@ public class CombatHandler : MonoBehaviour
             Destroy(this);
         }
     }
-    public void CheckAttack(GameObject attacker, GameObject victim, float minDistance, float maxDistance)
+    public void CheckAttack(GameObject attacker, GameObject victim, WeaponObject weaponUsed)
     {
         var victimClass = victim.GetComponent<EntityClass>();
         //check distance between attacker and victim and compare that to the weapons effective range
         float distance = Vector3.Distance(attacker.transform.position, victim.transform.position);
-        if (distance < maxDistance)
+        if (distance < weaponUsed.maxDistance)
         {
-            if (distance > minDistance)
+            if (distance > weaponUsed.minDistance)
             {
                 Debug.Log("Target in Range");
                 if (victimClass.armorClass < Random.Range(1, 20))
                 {
-                    victimClass.TakeDamage(Random.Range(1, 8));
+                    victimClass.TakeDamage(Random.Range(1, weaponUsed.maxDamageRange));
                 }
             }
             else
@@ -39,7 +39,7 @@ public class CombatHandler : MonoBehaviour
                 Debug.Log("Target to close");
                 if (victimClass.armorClass < DisadvantageRoll())
                 {
-                    victimClass.TakeDamage(Random.Range(1, 8));
+                    victimClass.TakeDamage(Random.Range(1, weaponUsed.maxDamageRange));
                 }
             }  
         }

@@ -10,7 +10,8 @@ public class EntityClass : NetworkBehaviour
     public CombatHandler combatHandler = CombatHandler.instance;
     public string playerName;
     public bool isPlayer;
-
+    public WeaponObject currentWeapon;
+    public WeaponObject[] weaponOptions;
     [Header("Death Saves")]
     public int deathSaveAttempts;
     [SerializeField] int saves;
