@@ -63,7 +63,12 @@ public class TurnOrderUIManager : MonoBehaviour
 
         }
 
-        activePlayerIcon = players[0].playerIcon;
+        activePlayerIcon.sprite = players[0].playerIcon.sprite;
         activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+    }
+
+    public void ToggleCurrentPlayerPanel()
+    {
+        activePlayerPanel.SetActive(!activePlayerPanel.activeSelf);
     }
 }

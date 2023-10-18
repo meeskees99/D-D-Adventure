@@ -88,6 +88,7 @@ public class PlayerInfoManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void NextTurnServerRPC(ulong playerId, ServerRpcParams serverRpcParams = default)
     {
+        print($"Next turn for player {playerId}");
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].Id == serverRpcParams.Receive.SenderClientId)

@@ -15,6 +15,8 @@ public class InitiativeHandler : MonoBehaviour
     public PlayerInfoManager playerInfoManager;
     public TurnOrderUIManager turnOrderUIManager;
 
+    MouseLook mouseLook;
+
 
     [Header("Settings")]
     [SerializeField] GameObject combatPanel;
@@ -24,6 +26,7 @@ public class InitiativeHandler : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
         turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
+        mouseLook = FindObjectOfType<MouseLook>();
     }
 
     public void SetInitiativeOrder()
@@ -82,14 +85,11 @@ public class InitiativeHandler : MonoBehaviour
             {
                 if (instance.character.GetComponent<EntityClass>().isPlayer)
                 {
-                    var mouseLook = FindObjectOfType<MouseLook>();
                     if (mouseLook != null)
                         mouseLook.PositionCameraForObjects(characters);
                 }
             }
-
         }
-
         turnOrderUIManager.UpdateTurnOrder();
     }
     public void AddInitiatives()
@@ -117,8 +117,11 @@ public class InitiativeHandler : MonoBehaviour
         }
         if (initiativeOrder[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
         {
-            Camera.main.transform.GetComponent<MouseLook>().PositionCameraForObjects(characters);
-            Camera.main.transform.GetComponent<MouseLook>().enabled = false;
+            if (mouseLook != null)
+            {
+                mouseLook.PositionCameraForObjects(characters);
+                mouseLook.enabled = false;
+            }
         }
 
         currentTurnNmbr++;
@@ -137,14 +140,17 @@ public class InitiativeHandler : MonoBehaviour
             else
             {
                 DMTurn = false;
-                Camera.main.transform.GetComponent<MouseLook>().PosistionCameraForCombat();
-                Camera.main.transform.GetComponent<MouseLook>().enabled = true;
+                if (mouseLook != null)
+                {
+                    mouseLook.PosistionCameraForCombat();
+                    mouseLook.enabled = true;
+                }
             }
         }
         playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
     }
-
 }
+
 [Serializable]
 public class Initiative
 {
