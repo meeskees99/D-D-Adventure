@@ -77,12 +77,20 @@ public class PlayerInfoManager : NetworkBehaviour
                     players[i].IsTurn
                 );
             }
+            else
+            {
+                players[i] = new PlayerId(
+                    players[i].Id,
+                    false,
+                    players[i].IsTurn
+                                );
+            }
         }
     }
 
     public void NextTurn(ulong playerId)
     {
-        NextTurn(playerId);
+        NextTurnServerRPC(playerId);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -109,6 +117,5 @@ public class PlayerInfoManager : NetworkBehaviour
                 );
             }
         }
-
     }
 }

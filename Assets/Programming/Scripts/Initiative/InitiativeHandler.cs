@@ -99,7 +99,7 @@ public class InitiativeHandler : MonoBehaviour
     private void StartCombat()
     {
         currentTurnNmbr = 0;
-        Debug.Log(currentTurnNmbr);
+        Debug.Log($"Current turn number: {currentTurnNmbr}");
         initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out ForceMovement forceMovement);
         if (forceMovement != null)
         {
@@ -129,6 +129,7 @@ public class InitiativeHandler : MonoBehaviour
         {
             currentTurnNmbr = 0;
         }
+        Debug.Log($"Current turn number: {currentTurnNmbr}");
         initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
         if (playerMovement != null)
         {
@@ -148,6 +149,7 @@ public class InitiativeHandler : MonoBehaviour
             }
         }
         playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
+        turnOrderUIManager.UpdateTurnOrder();
     }
 }
 
