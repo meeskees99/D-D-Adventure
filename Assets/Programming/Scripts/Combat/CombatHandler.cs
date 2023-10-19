@@ -69,10 +69,13 @@ public class CombatHandler : MonoBehaviour
 
     public void SelectTarget(GameObject victim)
     {
-        curTarget.GetComponent<Outline>().enabled = false;
+        if (curTarget != null)
+        {
+            curTarget.GetComponent<Outline>().enabled = false;
+        }
+        
         if (victim.TryGetComponent(out Outline outline))
         {
-           curTarget.GetComponent<Outline>().enabled = false;
            outline.enabled = true;
         }
         else
