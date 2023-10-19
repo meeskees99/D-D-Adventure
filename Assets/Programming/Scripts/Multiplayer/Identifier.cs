@@ -16,32 +16,6 @@ public class Identifier : NetworkBehaviour
     {
         playerId.Id = id;
     }
-
-    // public NetworkList<PlayerId> players;
-
-    // private void Awake()
-    // {
-    //     players = new NetworkList<PlayerId>();
-    // }
-
-    // public override void OnNetworkSpawn()
-    // {
-    //     if (!IsServer) { return; }
-    //     foreach (var client in HostManager.Instance.ClientData)
-    //     {
-    //         if (!players.Contains(new PlayerId(client.Value.clientId)))
-    //         {
-    //             if (client.Value.clientId == 0)
-    //             {
-    //                 players.Add(new PlayerId(client.Value.clientId, true));
-    //             }
-    //             else
-    //             {
-    //                 players.Add(new PlayerId(client.Value.clientId));
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 

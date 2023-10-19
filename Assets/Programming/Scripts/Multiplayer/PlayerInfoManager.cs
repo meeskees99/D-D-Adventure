@@ -55,6 +55,7 @@ public class PlayerInfoManager : NetworkBehaviour
     }
     void HandleClientDisconnected(ulong clientId)
     {
+        if (!IsServer) return;
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].Id == clientId)
@@ -67,6 +68,7 @@ public class PlayerInfoManager : NetworkBehaviour
 
     void HandlePlayersStateChanged(NetworkListEvent<PlayerId> changeEvent)
     {
+        if (!IsServer) return;
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].Id == 0)
