@@ -195,6 +195,13 @@ MonoBehaviour:
   combatHandler: {fileID: 0}
   playerName: 
   isPlayer: 0
+  currentWeapon: {fileID: 0}
+  weaponOptions:
+  - {fileID: 11400000, guid: 320d4e01935431c429ec2312a9b95037, type: 2}
+  - {fileID: 11400000, guid: 29e74cd4442b5fb4b882f07355df0ff9, type: 2}
+  deathSaveAttempts: 0
+  saves: 0
+  fails: 0
   maxHitPoints: 0
   level: 0
   currentXp: 0

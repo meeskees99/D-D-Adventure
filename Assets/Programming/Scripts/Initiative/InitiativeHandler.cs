@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class InitiativeHandler : MonoBehaviour
 {
+    public static InitiativeHandler instance;
+    public CombatHandler combatHandler = CombatHandler.instance;
     public int currentTurnNmbr;
     public bool DMTurn;
     public List<GameObject> characters;
@@ -23,6 +25,14 @@ public class InitiativeHandler : MonoBehaviour
 
     private void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         gameManager = FindObjectOfType<GameManager>();
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
         turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
@@ -76,7 +86,7 @@ public class InitiativeHandler : MonoBehaviour
         StartCombat();
         foreach (var instance in initiativeOrder)
         {
-            if (instance.character.TryGetComponent<ForceMovement>(out ForceMovement forceMovement))
+            if (instance.character.TryGetComponent(out ForceMovement forceMovement))
             {
                 if (forceMovement.isTurn)
                     continue;
@@ -100,17 +110,19 @@ public class InitiativeHandler : MonoBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log($"Current turn number: {currentTurnNmbr}");
-        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent<ForceMovement>(out ForceMovement forceMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement forceMovement);
         if (forceMovement != null)
         {
             forceMovement.isTurn = true;
         }
-        combatPanel.SetActive(true);
+        if(combatPanel != null)
+        {
+            combatPanel.SetActive(true);
+        }
     }
     public void EndTurn()
     {
-        ForceMovement playerMovement;
-        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = false;
@@ -150,6 +162,8 @@ public class InitiativeHandler : MonoBehaviour
         }
         playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
         turnOrderUIManager.UpdateTurnOrder();
+        combatHandler.curTarget.TryGetComponent(out Outline outline);
+        outline.enabled = false;
     }
 }
 

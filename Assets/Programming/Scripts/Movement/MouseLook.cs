@@ -21,7 +21,6 @@ public class MouseLook : NetworkBehaviour
     [Header("In battle")]
     public bool inBattle;
     [SerializeField] CombatHandler combbatHandler = CombatHandler.instance;
-    [SerializeField] bool attacked;
 
     [Header("target Selecting")]
     bool zoomedIn;
@@ -93,16 +92,13 @@ public class MouseLook : NetworkBehaviour
                     zoomedIn = true;
                     Debug.Log("zooming");
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && !attacked)
+                if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
                 {
                     if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit target, Mathf.Infinity))
                     {
                         Debug.DrawRay(Camera.main.transform.position, target.point, Color.blue, 5f);
                         Debug.Log("Hit: " + target.transform.name);
-                        target.transform.TryGetComponent(out Outline outline);
-                        outline.enabled = true;
-                        combbatHandler.CheckAttack(this.gameObject, target.transform.gameObject, playerObject.GetComponent<EntityClass>().currentWeapon);
-                        attacked = true;
+                        combbatHandler.SelectTarget(target.transform.gameObject);
                     }
                     Debug.Log("hit nothing");
                 }
@@ -175,6 +171,5 @@ public class MouseLook : NetworkBehaviour
     {
         if (isDm) return;
         CamTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
-        attacked = false;
     }
 }

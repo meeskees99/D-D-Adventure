@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,8 +6,10 @@ using UnityEngine;
 
 public class CombatHandler : MonoBehaviour
 {
-    InitiativeHandler initiativeHandler;
+    InitiativeHandler initiativeHandler = InitiativeHandler.instance;
     [SerializeField] public static CombatHandler instance;
+    public GameObject curTarget;
+    GameObject currentAttacker;
 
     private void Start()
     {
@@ -29,52 +32,62 @@ public class CombatHandler : MonoBehaviour
             if (distance > weaponUsed.minDistance)
             {
                 Debug.Log("Target in Range");
-                if (victimClass.armorClass < Random.Range(1, 20))
+                if (victimClass.armorClass < UnityEngine.Random.Range(1, 20))
                 {
-                    victimClass.TakeDamage(Random.Range(1, weaponUsed.maxDamageRange));
+                    victimClass.TakeDamage(UnityEngine.Random.Range(1, weaponUsed.maxDamageRange));
                 }
             }
             else
             {
-                Debug.Log("Target to close");
+                Debug.Log("Target too close");
                 if (victimClass.armorClass < DisadvantageRoll())
                 {
-                    victimClass.TakeDamage(Random.Range(1, weaponUsed.maxDamageRange));
+                    victimClass.TakeDamage(UnityEngine.Random.Range(1, weaponUsed.maxDamageRange));
                 }
             }  
         }
         else
         {
             //no hit
-            Debug.Log("target to far away");
+            Debug.Log("target too far away");
         }
         victim.GetComponent<Outline>().enabled = false;
     }
     
     public int DisadvantageRoll()
     {
-        int roll1 = Random.Range(1, 20);
-        int roll2 = Random.Range(1, 20);
-        if (roll1 > roll2)
-        {
-            return roll2;
-        }
-        else
-        {
-            return roll1;
-        }
+        int roll1 = UnityEngine.Random.Range(1, 20);
+        int roll2 = UnityEngine.Random.Range(1, 20);
+        return (int)MathF.Min(roll1, roll2);
     }
-    public int AdvantageRoll(int max, int _damage)
+    public int AdvantageRoll()
     {
-        int roll1 = Random.Range(1, 20);
-        int roll2 = Random.Range(1, 20);
-        if (roll1 < roll2)
+        int roll1 = UnityEngine.Random.Range(1, 20);
+        int roll2 = UnityEngine.Random.Range(1, 20);
+        return (int)MathF.Max(roll1, roll2);
+    }
+
+    public void SelectTarget(GameObject victim)
+    {
+        curTarget.GetComponent<Outline>().enabled = false;
+        if (victim.TryGetComponent(out Outline outline))
         {
-            return roll2;
+           curTarget.GetComponent<Outline>().enabled = false;
+           outline.enabled = true;
         }
         else
         {
-            return roll1;
+            victim.AddComponent<Outline>();
+            victim.GetComponent<Outline>().enabled = true;
         }
+        curTarget = victim;
+        //enable attack select UI
+    }
+
+    public void SelectWeapon(int newWeaponValue)
+    {
+        currentAttacker.TryGetComponent(out EntityClass entity);
+        entity.currentWeapon = entity.weaponOptions[newWeaponValue];
+        CheckAttack(currentAttacker, curTarget, entity.currentWeapon);
     }
 }
