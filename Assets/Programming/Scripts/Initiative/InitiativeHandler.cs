@@ -50,7 +50,7 @@ public class InitiativeHandler : MonoBehaviour
             foreach (var character in characters)
             {
                 var count = 0;
-                int initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus;
+                int initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
                 if (initiativeOrder.Count != 0)
                 {
                     foreach (var item in initiativeOrder)

@@ -32,7 +32,7 @@ public class CombatHandler : MonoBehaviour
             if (distance > weaponUsed.minDistance)
             {
                 Debug.Log("Target in Range");
-                if (victimClass.armorClass < UnityEngine.Random.Range(1, 20))
+                if (victimClass.armorClass.Value < UnityEngine.Random.Range(1, 20))
                 {
                     victimClass.TakeDamage(UnityEngine.Random.Range(1, weaponUsed.maxDamageRange));
                 }
@@ -40,7 +40,7 @@ public class CombatHandler : MonoBehaviour
             else
             {
                 Debug.Log("Target too close");
-                if (victimClass.armorClass < DisadvantageRoll())
+                if (victimClass.armorClass.Value < DisadvantageRoll())
                 {
                     victimClass.TakeDamage(UnityEngine.Random.Range(1, weaponUsed.maxDamageRange));
                 }

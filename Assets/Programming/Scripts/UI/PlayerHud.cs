@@ -47,7 +47,7 @@ public class PlayerHud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myClass.hitPoints <= 0)
+        if (myClass.hitPoints.Value <= 0)
         {
             deathSavePanel.SetActive(true);
         }
@@ -71,10 +71,10 @@ public class PlayerHud : MonoBehaviour
             #region Player Stats
             #region Stats
             classTxt.text = myClass.playerName;
-            levelTxt.text = "Level " + myClass.level;
-            healthTxt.text = myClass.hitPoints + "/" + myClass.maxHitPoints;
-            healthSlider.maxValue = myClass.maxHitPoints;
-            healthSlider.value = myClass.hitPoints;
+            levelTxt.text = "Level " + myClass.level.Value;
+            healthTxt.text = myClass.hitPoints.Value + "/" + myClass.maxHitPoints.Value;
+            healthSlider.maxValue = myClass.maxHitPoints.Value;
+            healthSlider.value = myClass.hitPoints.Value;
             #endregion
             #region Ability Scores
             strenghtTxt.text = myClass.strenghtBonus.ToString();

@@ -52,8 +52,8 @@ public class CharacterStatsUI : MonoBehaviour
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
         level.text = uIManager.players[playerNumber - 1].level.ToString();
         xp.text = uIManager.players[playerNumber - 1].currentXp + "/" + uIManager.players[playerNumber - 1].xpToGo;
-        xpSlider.maxValue = uIManager.players[playerNumber - 1].xpToGo;
-        xpSlider.value = uIManager.players[playerNumber - 1].currentXp;
+        xpSlider.maxValue = uIManager.players[playerNumber - 1].xpToGo.Value;
+        xpSlider.value = uIManager.players[playerNumber - 1].currentXp.Value;
         #endregion
         #region Extra
         profB.text = uIManager.players[playerNumber - 1].proficiency.ToString();
@@ -81,7 +81,7 @@ public class CharacterStatsUI : MonoBehaviour
     //For Test Buttons
     public void LevelUp(int player)
     {
-        uIManager.players[player - 1].AddXp(uIManager.players[player - 1].xpToGo);
+        uIManager.players[player - 1].AddXp(uIManager.players[player - 1].xpToGo.Value);
     }
 
     public void AddXp(int player)

@@ -18,12 +18,12 @@ public class EntityClass : NetworkBehaviour
     [SerializeField] int fails;
 
     [Header("Stats")]
-    public int maxHitPoints;
-    public int
+    public NetworkVariable<int> maxHitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> hitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int>
         level,
         currentXp,
         xpToGo,
-        hitPoints,
         armorClass,
         initiativeBonus,
         speed,
@@ -132,21 +132,21 @@ public class EntityClass : NetworkBehaviour
         //     stats.Charisma
         // }
         playerName = stats.CharacterName;
-        maxHitPoints = stats.MaxHitPoints;
-        level = stats.Level;
-        currentXp = stats.CurrentXP;
-        xpToGo = stats.XpToGo;
-        hitPoints = stats.HitPoints;
-        armorClass = stats.ArmorClass;
-        initiativeBonus = stats.InitiativeBonus;
-        speed = stats.Speed;
-        strength = stats.Strength;
-        proficiency = stats.Proficiency;
-        constitution = stats.Constitution;
-        dexterity = stats.Dexterity;
-        intelligence = stats.Intelligence;
-        wisdom = stats.Wisdom;
-        charisma = stats.Charisma;
+        maxHitPoints.Value = stats.MaxHitPoints;
+        level.Value = stats.Level;
+        currentXp.Value = stats.CurrentXP;
+        xpToGo.Value = stats.XpToGo;
+        hitPoints.Value = stats.HitPoints;
+        armorClass.Value = stats.ArmorClass;
+        initiativeBonus.Value = stats.InitiativeBonus;
+        speed.Value = stats.Speed;
+        strength.Value = stats.Strength;
+        proficiency.Value = stats.Proficiency;
+        constitution.Value = stats.Constitution;
+        dexterity.Value = stats.Dexterity;
+        intelligence.Value = stats.Intelligence;
+        wisdom.Value = stats.Wisdom;
+        charisma.Value = stats.Charisma;
 
         if (stats._race == Race.Human)
         {
@@ -183,37 +183,36 @@ public class EntityClass : NetworkBehaviour
     }
     public void TakeDamage(int damage)
     {
-        hitPoints -= damage;
-        if (this.hitPoints <= 0)
+        if (hitPoints.Value <= 0)
         {
             Debug.Log(name + " has died!");
-            hitPoints = 0;
+            hitPoints.Value = 0;
             // Destroy(this);
             // Die();
         }
     }
     public void Heal(int amount)
     {
-        this.hitPoints += amount;
-        if (this.hitPoints > this.maxHitPoints)
+        hitPoints.Value += amount;
+        if (hitPoints.Value > maxHitPoints.Value)
         {
-            this.hitPoints = this.maxHitPoints;
+            hitPoints.Value = maxHitPoints.Value;
         }
     }
     public void LevelUp(int extraXp)
     {
-        level++;
-        xpToGo = Mathf.RoundToInt(xpToGo * 1.2f);
-        currentXp = extraXp;
+        level.Value++;
+        xpToGo.Value = Mathf.RoundToInt(xpToGo.Value * 1.2f);
+        currentXp.Value = extraXp;
         //xpToGo = formule gebasseer op lvl
         //increase stats
     }
     public void AddXp(int amount)
     {
-        currentXp += amount;
-        if (currentXp >= xpToGo)
+        currentXp.Value += amount;
+        if (currentXp.Value >= xpToGo.Value)
         {
-            int extraXp = currentXp - xpToGo;
+            int extraXp = currentXp.Value - xpToGo.Value;
             LevelUp(extraXp);
         }
     }
@@ -221,7 +220,7 @@ public class EntityClass : NetworkBehaviour
     System.Random random = new System.Random();
     public void DeathSave(int throwValue)
     {
-        if (hitPoints <= 0)
+        if (hitPoints.Value <= 0)
         {
             if (throwValue == 0)
             {
@@ -231,7 +230,7 @@ public class EntityClass : NetworkBehaviour
                     saves++;
                     if (saves == 3)
                     {
-                        hitPoints = 1;
+                        hitPoints.Value = 1;
                         print("You saved yourself! You now have one health");
                     }
                 }
@@ -251,7 +250,7 @@ public class EntityClass : NetworkBehaviour
                     saves++;
                     if (saves == 3)
                     {
-                        hitPoints = 1;
+                        hitPoints.Value = 1;
                         print("You saved yourself! You now have one health");
                         saves = 0;
                         fails = 0;
@@ -281,10 +280,10 @@ public class EntityClass : NetworkBehaviour
     public void Die()
     {
         print("You Died! You missed 3 death saves!");
-        level = 0;
-        currentXp = 0;
-        xpToGo = 50;
-        hitPoints = maxHitPoints;
+        level.Value = 0;
+        currentXp.Value = 0;
+        xpToGo.Value = 50;
+        hitPoints.Value = maxHitPoints.Value;
     }
 
 
