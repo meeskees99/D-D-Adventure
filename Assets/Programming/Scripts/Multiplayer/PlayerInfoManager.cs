@@ -68,7 +68,7 @@ public class PlayerInfoManager : NetworkBehaviour
 
     void HandlePlayersStateChanged(NetworkListEvent<PlayerId> changeEvent)
     {
-        if (!IsServer) return;
+        // if (!IsServer) return;
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].Id == 0)
@@ -85,7 +85,7 @@ public class PlayerInfoManager : NetworkBehaviour
                     players[i].Id,
                     false,
                     players[i].IsTurn
-                                );
+                );
             }
         }
     }

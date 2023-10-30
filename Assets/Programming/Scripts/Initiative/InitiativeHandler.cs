@@ -115,7 +115,7 @@ public class InitiativeHandler : MonoBehaviour
         {
             forceMovement.isTurn = true;
         }
-        if(combatPanel != null)
+        if (combatPanel != null)
         {
             combatPanel.SetActive(true);
         }
@@ -162,8 +162,13 @@ public class InitiativeHandler : MonoBehaviour
         }
         playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
         turnOrderUIManager.UpdateTurnOrder();
-        combatHandler.curTarget.TryGetComponent(out Outline outline);
-        outline.enabled = false;
+        if (combatHandler.curTarget != null)
+        {
+            combatHandler.curTarget.TryGetComponent(out Outline outline);
+            if (outline != null)
+                outline.enabled = false;
+        }
+
     }
 }
 
