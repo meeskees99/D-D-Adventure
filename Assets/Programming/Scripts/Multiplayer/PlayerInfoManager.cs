@@ -7,6 +7,11 @@ public class PlayerInfoManager : NetworkBehaviour
 {
     InitiativeHandler initiativeHandler;
     List<Identifier> players = new();
+    public Identifier[] allEntities;
+
+    // public NetworkVariable<int>
+
+    public List<Identifier> entities = new();
 
     private void Awake()
     {
@@ -15,7 +20,7 @@ public class PlayerInfoManager : NetworkBehaviour
 
     private void Start()
     {
-        // initiativeHandler = FindObjectOfType<InitiativeHandler>();
+        initiativeHandler = FindObjectOfType<InitiativeHandler>();
     }
 
     public override void OnNetworkSpawn()
@@ -26,7 +31,7 @@ public class PlayerInfoManager : NetworkBehaviour
             Identifier[] identifiers = FindObjectsOfType<Identifier>();
             foreach (Identifier player in identifiers)
             {
-                if (!players.Contains(player))
+                if (!players.Contains(player) && !player.isEnemy.Value)
                     players.Add(player);
             }
 
@@ -45,21 +50,35 @@ public class PlayerInfoManager : NetworkBehaviour
 
     void HandleClientConnected(ulong clientId)
     {
-        if (!IsServer) return;
-        for (int i = 0; i < players.Count; i++)
+        // if (!IsServer) return;
+        // for (int i = 0; i < players.Count; i++)
+        // {
+        //     if (players[i].playerId.Value == 0)
+        //     {
+        //         // players[i].playerId.Value = clientId;
+        //         players[i].isDungeonMaster.Value = true;
+        //     }
+        //     else
+        //     {
+        //         players[i].isDungeonMaster.Value = false;
+        //     }
+        // }
+    }
+
+
+    private void Update()
+    {
+        allEntities = FindObjectsOfType<Identifier>();
+        for (int i = 0; i < allEntities.Length; i++)
         {
-            if (players[i].playerId.Value == 0)
+            if (!entities.Contains(allEntities[i]))
             {
-                // players[i].playerId.Value = clientId;
-                players[i].isDungeonMaster.Value = true;
-            }
-            else
-            {
-                players[i].isDungeonMaster.Value = false;
+
+                entities.Add(allEntities[i]);
+
             }
         }
     }
-
     void HandleClientDisconnected(ulong clientId)
     {
         if (!IsServer) return;
@@ -106,5 +125,7 @@ public class PlayerInfoManager : NetworkBehaviour
                 players[i].isTurn.Value = true;
             }
         }
+
+
     }
 }

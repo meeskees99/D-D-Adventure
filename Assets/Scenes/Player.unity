@@ -685,7 +685,7 @@ MonoBehaviour:
   - {fileID: 1570889343}
   - {fileID: 1993615157}
   - {fileID: 1985022501}
-  - {fileID: 838069383}
+  - {fileID: 0}
   - {fileID: 478151755}
   initiativeOrder: []
   gameManager: {fileID: 0}
@@ -716,9 +716,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 478151758}
-  - component: {fileID: 478151757}
-  - component: {fileID: 478151756}
-  - component: {fileID: 478151759}
   m_Layer: 0
   m_Name: Speler(IK)
   m_TagString: Untagged
@@ -726,83 +723,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &478151756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478151755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 955521590
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &478151757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478151755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 497657cb49e9b44479a194f837575845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 65a7d0e5c9ed81147acad4afad4c589a, type: 2}
-  combatHandler: {fileID: 0}
-  playerName: 
-  isPlayer: 1
-  currentWeapon: {fileID: 0}
-  weaponOptions: []
-  deathSaveAttempts: 0
-  saves: 0
-  fails: 0
-  maxHitPoints:
-    m_InternalValue: 1
-  hitPoints:
-    m_InternalValue: 1
-  level:
-    m_InternalValue: 0
-  currentXp:
-    m_InternalValue: 0
-  xpToGo:
-    m_InternalValue: 0
-  armorClass:
-    m_InternalValue: 0
-  initiativeBonus:
-    m_InternalValue: 0
-  speed:
-    m_InternalValue: 0
-  proficiency:
-    m_InternalValue: 0
-  strength:
-    m_InternalValue: 0
-  dexterity:
-    m_InternalValue: 0
-  constitution:
-    m_InternalValue: 0
-  intelligence:
-    m_InternalValue: 0
-  wisdom:
-    m_InternalValue: 0
-  charisma:
-    m_InternalValue: 0
-  strenghtBonus: 0
-  dexterityBonus: 0
-  constitutionBonus: 0
-  intelligenceBonus: 0
-  wisdomBonus: 0
-  charismaBonus: 0
 --- !u!4 &478151758
 Transform:
   m_ObjectHideFlags: 0
@@ -818,22 +738,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &478151759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478151755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5f8c5513c743a48a348089ef76490b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId:
-    Id: 0
-    IsDungeonMaster: 0
-    IsTurn: 0
 --- !u!1 &509561293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,133 +1506,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bd5e55b1e067e4ab96bf7e7ac1b440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &838069383
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 838069386}
-  - component: {fileID: 838069385}
-  - component: {fileID: 838069384}
-  - component: {fileID: 838069387}
-  m_Layer: 0
-  m_Name: Entity (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &838069384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838069383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 484114704
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &838069385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838069383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 497657cb49e9b44479a194f837575845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 2c432413d689bfe428d1be003cb16405, type: 2}
-  combatHandler: {fileID: 0}
-  playerName: 
-  isPlayer: 0
-  currentWeapon: {fileID: 0}
-  weaponOptions: []
-  deathSaveAttempts: 0
-  saves: 0
-  fails: 0
-  maxHitPoints:
-    m_InternalValue: 1
-  hitPoints:
-    m_InternalValue: 1
-  level:
-    m_InternalValue: 0
-  currentXp:
-    m_InternalValue: 0
-  xpToGo:
-    m_InternalValue: 0
-  armorClass:
-    m_InternalValue: 0
-  initiativeBonus:
-    m_InternalValue: 0
-  speed:
-    m_InternalValue: 0
-  proficiency:
-    m_InternalValue: 0
-  strength:
-    m_InternalValue: 0
-  dexterity:
-    m_InternalValue: 0
-  constitution:
-    m_InternalValue: 0
-  intelligence:
-    m_InternalValue: 0
-  wisdom:
-    m_InternalValue: 0
-  charisma:
-    m_InternalValue: 0
-  strenghtBonus: 0
-  dexterityBonus: 0
-  constitutionBonus: 0
-  intelligenceBonus: 0
-  wisdomBonus: 0
-  charismaBonus: 0
---- !u!4 &838069386
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838069383}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 761.4702, y: 911.7435, z: 0.7797195}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &838069387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838069383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5f8c5513c743a48a348089ef76490b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId:
-    Id: 4
-    IsDungeonMaster: 0
-    IsTurn: 0
 --- !u!1 &873421767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,9 +2882,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId:
-    Id: 1
-    IsDungeonMaster: 0
-    IsTurn: 0
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
 --- !u!114 &1571778204 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1414099311399120054, guid: 458411f64bc0b6745863724a615026ed, type: 3}
@@ -3811,6 +3590,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895048064}
   m_CullTransparentMesh: 1
+--- !u!1001 &1949920782
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.084171
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3556869
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.477375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901228729279664830, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431191014196367306, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2918158767
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949404631213483214, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328914577130452180, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520606639705504009, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_Name
+      value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5568557972681342174, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130426010538427674, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: spawnTransform
+      value: 
+      objectReference: {fileID: 478151758}
+    - target: {fileID: 6907998411555028187, guid: 0b962e8952b05a741936056a677feae7, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4211403850
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b962e8952b05a741936056a677feae7, type: 3}
 --- !u!1 &1951754138
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,7 +3869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1985022502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4115,9 +3975,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId:
-    Id: 3
-    IsDungeonMaster: 0
-    IsTurn: 0
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
 --- !u!1 &1993615157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4242,9 +4104,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId:
-    Id: 2
-    IsDungeonMaster: 0
-    IsTurn: 0
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
 --- !u!1 &2005705808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4295,6 +4159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035a900a06d70984eb89d48b8856f532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allEntities: []
+  entities: []
 --- !u!4 &2005705811
 Transform:
   m_ObjectHideFlags: 0
@@ -4861,7 +4727,7 @@ PrefabInstance:
     - target: {fileID: 2649009425137651299, guid: 458411f64bc0b6745863724a615026ed, type: 3}
       propertyPath: myClass
       value: 
-      objectReference: {fileID: 478151757}
+      objectReference: {fileID: 0}
     - target: {fileID: 2649009425137651299, guid: 458411f64bc0b6745863724a615026ed, type: 3}
       propertyPath: rolledText
       value: 
@@ -5903,4 +5769,4 @@ SceneRoots:
   - {fileID: 1570889346}
   - {fileID: 1993615160}
   - {fileID: 1985022504}
-  - {fileID: 838069386}
+  - {fileID: 1949920782}

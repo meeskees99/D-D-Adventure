@@ -1,23 +1,52 @@
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using System.Linq;
 
 public class Identifier : NetworkBehaviour
 {
     // public PlayerId playerId;
-    public NetworkVariable<ulong> playerId = new NetworkVariable<ulong>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    public NetworkVariable<bool> isTurn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    public NetworkVariable<bool> isDungeonMaster = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<ulong> playerId = new NetworkVariable<ulong>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<bool> isTurn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<bool> isEnemy = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-    private void Start()
+    PlayerInfoManager playerInfoManager;
+
+    bool initialized;
+
+    [ServerRpc(RequireOwnership = false)]
+    void SetIdServerRpc(ulong id, ServerRpcParams serverRpcParams = default)
     {
-        if (IsOwner)
-            SetId(NetworkManager.Singleton.LocalClientId);
+        print($"Player Id Set to {id}");
+        playerId.Value = id;
     }
 
-    void SetId(ulong id)
+    void Update()
     {
-        playerId.Value = id;
+        playerInfoManager = FindObjectOfType<PlayerInfoManager>();
+        if (playerInfoManager != null && !initialized)
+        {
+            initialized = true;
+            if (IsOwner && !IsHost)
+            {
+                print($"Setting Client Id as {NetworkManager.Singleton.LocalClient.ClientId}");
+                SetIdServerRpc(NetworkManager.Singleton.LocalClient.ClientId);
+            }
+            else if (IsOwnedByServer && IsHost)
+            {
+                isEnemy.Value = true;
+                int enemyCount = 0;
+                if (playerInfoManager == null) return;
+                foreach (Identifier entity in playerInfoManager.allEntities)
+                {
+                    if (entity.isEnemy.Value && entity.playerId.Value == 0)
+                    {
+                        enemyCount++;
+                        entity.playerId.Value = (ulong)NetworkManager.Singleton.ConnectedClientsList.Count - 1 + (ulong)enemyCount;
+                    }
+                }
+            }
+        }
     }
 }
 

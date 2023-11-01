@@ -22,6 +22,7 @@ public class HostManager : NetworkBehaviour
     [SerializeField] TMP_Dropdown mapSelect;
 
     private bool gameHasStarted;
+
     public Dictionary<ulong, ClientData> ClientData { get; private set; }
 
     public string JoinCode { get; private set; }
@@ -110,7 +111,7 @@ public class HostManager : NetworkBehaviour
 
         ClientData[request.ClientNetworkId] = new ClientData(request.ClientNetworkId);
 
-        Debug.Log($"Removed Client {request.ClientNetworkId}");
+        Debug.Log($"Connected Client {request.ClientNetworkId}");
     }
 
     void OnNetworkReady()

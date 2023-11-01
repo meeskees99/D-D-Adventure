@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 1069031100376541877}
   - component: {fileID: 7437386936767333064}
   - component: {fileID: -5224512880974876483}
+  - component: {fileID: -8530701503233973777}
   m_Layer: 7
   m_Name: PlayerPrefabGoblinBlue
   m_TagString: Untagged
@@ -202,21 +203,36 @@ MonoBehaviour:
   deathSaveAttempts: 0
   saves: 0
   fails: 0
-  maxHitPoints: 0
-  level: 0
-  currentXp: 0
-  xpToGo: 0
-  hitPoints: 0
-  armorClass: 0
-  initiativeBonus: 0
-  speed: 0
-  proficiency: 0
-  strength: 0
-  dexterity: 0
-  constitution: 0
-  intelligence: 0
-  wisdom: 0
-  charisma: 0
+  maxHitPoints:
+    m_InternalValue: 1
+  hitPoints:
+    m_InternalValue: 1
+  level:
+    m_InternalValue: 0
+  currentXp:
+    m_InternalValue: 0
+  xpToGo:
+    m_InternalValue: 0
+  armorClass:
+    m_InternalValue: 0
+  initiativeBonus:
+    m_InternalValue: 0
+  speed:
+    m_InternalValue: 0
+  proficiency:
+    m_InternalValue: 0
+  strength:
+    m_InternalValue: 0
+  dexterity:
+    m_InternalValue: 0
+  constitution:
+    m_InternalValue: 0
+  intelligence:
+    m_InternalValue: 0
+  wisdom:
+    m_InternalValue: 0
+  charisma:
+    m_InternalValue: 0
   strenghtBonus: 0
   dexterityBonus: 0
   constitutionBonus: 0
@@ -353,6 +369,24 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &-8530701503233973777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427515704635067075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5f8c5513c743a48a348089ef76490b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId:
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
 --- !u!1 &8989939575212193674
 GameObject:
   m_ObjectHideFlags: 0
