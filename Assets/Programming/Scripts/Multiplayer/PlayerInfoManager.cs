@@ -6,59 +6,66 @@ using Unity.Netcode;
 public class PlayerInfoManager : NetworkBehaviour
 {
     InitiativeHandler initiativeHandler;
-    NetworkList<PlayerId> players;
+    List<Identifier> players = new();
 
     private void Awake()
     {
-        players = new NetworkList<PlayerId>();
+        // players = new NetworkList<PlayerId>();
     }
 
     private void Start()
     {
-        initiativeHandler = FindObjectOfType<InitiativeHandler>();
+        // initiativeHandler = FindObjectOfType<InitiativeHandler>();
     }
 
     public override void OnNetworkSpawn()
     {
         if (IsClient)
         {
-            players.OnListChanged += HandlePlayersStateChanged;
-        }
-        if (IsServer)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
-
-            foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+            HandleClientConnected(NetworkManager.Singleton.LocalClientId);
+            Identifier[] identifiers = FindObjectsOfType<Identifier>();
+            foreach (Identifier player in identifiers)
             {
-                HandleClientConnected(client.ClientId);
+                if (!players.Contains(player))
+                    players.Add(player);
             }
+
+            // foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
+            // {
+            //     HandleClientConnected(client.ClientId);
+            // }
         }
+
     }
 
     public override void OnNetworkDespawn()
     {
-        if (IsClient)
+        HandleClientDisconnected(NetworkManager.Singleton.LocalClientId);
+    }
+
+    void HandleClientConnected(ulong clientId)
+    {
+        if (!IsServer) return;
+        for (int i = 0; i < players.Count; i++)
         {
-            players.OnListChanged -= HandlePlayersStateChanged;
-        }
-        if (IsServer)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
+            if (players[i].playerId.Value == 0)
+            {
+                // players[i].playerId.Value = clientId;
+                players[i].isDungeonMaster.Value = true;
+            }
+            else
+            {
+                players[i].isDungeonMaster.Value = false;
+            }
         }
     }
 
-    private void HandleClientConnected(ulong clientId)
-    {
-        players.Add(new PlayerId(clientId));
-    }
     void HandleClientDisconnected(ulong clientId)
     {
         if (!IsServer) return;
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i].Id == clientId)
+            if (players[i].playerId.Value == clientId)
             {
                 players.RemoveAt(i);
                 break;
@@ -66,29 +73,7 @@ public class PlayerInfoManager : NetworkBehaviour
         }
     }
 
-    void HandlePlayersStateChanged(NetworkListEvent<PlayerId> changeEvent)
-    {
-        // if (!IsServer) return;
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (players[i].Id == 0)
-            {
-                players[i] = new PlayerId(
-                    players[i].Id,
-                    true,
-                    players[i].IsTurn
-                );
-            }
-            else
-            {
-                players[i] = new PlayerId(
-                    players[i].Id,
-                    false,
-                    players[i].IsTurn
-                );
-            }
-        }
-    }
+
 
     public void NextTurn(ulong playerId)
     {
@@ -98,25 +83,27 @@ public class PlayerInfoManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void NextTurnServerRPC(ulong playerId, ServerRpcParams serverRpcParams = default)
     {
-        print($"Next turn for player {playerId}");
+        print($"Next turn for player {playerId}. Ended turn for player {serverRpcParams.Receive.SenderClientId}.");
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i].Id == serverRpcParams.Receive.SenderClientId)
+            if (players[i].playerId.Value == serverRpcParams.Receive.SenderClientId)
             {
-                players[i] = new PlayerId(
-                    players[i].Id,
-                    players[i].IsDungeonMaster,
-                    false
-                );
-                continue;
+                // players[i] = new PlayerId(
+                //     players[i].Id,
+                //     players[i].IsDungeonMaster,
+                //     false
+                // );
+                // continue;
+                players[i].isTurn.Value = false;
             }
-            if (players[i].Id == playerId)
+            if (players[i].playerId.Value == playerId)
             {
-                players[i] = new PlayerId(
-                    players[i].Id,
-                    players[i].IsDungeonMaster,
-                    true
-                );
+                // players[i] = new PlayerId(
+                //     players[i].Id,
+                //     players[i].IsDungeonMaster,
+                //     true
+                // );
+                players[i].isTurn.Value = true;
             }
         }
     }

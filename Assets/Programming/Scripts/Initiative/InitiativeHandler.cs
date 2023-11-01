@@ -160,7 +160,7 @@ public class InitiativeHandler : MonoBehaviour
                 }
             }
         }
-        playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Id);
+        playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value);
         turnOrderUIManager.UpdateTurnOrder();
         if (combatHandler.curTarget != null)
         {
