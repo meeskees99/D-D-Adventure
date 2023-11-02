@@ -9,7 +9,7 @@ public class CombatHandler : MonoBehaviour
     InitiativeHandler initiativeHandler = InitiativeHandler.instance;
     [SerializeField] public static CombatHandler instance;
     public GameObject curTarget;
-    GameObject currentAttacker;
+    public GameObject currentAttacker;
 
     private void Start()
     {
@@ -85,12 +85,14 @@ public class CombatHandler : MonoBehaviour
         }
         curTarget = victim;
         //enable attack select UI
+        currentAttacker.TryGetComponent(out EntityClass entity);
+        CheckAttack(currentAttacker, curTarget, entity.currentWeapon);
     }
 
     public void SelectWeapon(int newWeaponValue)
     {
         currentAttacker.TryGetComponent(out EntityClass entity);
         entity.currentWeapon = entity.weaponOptions[newWeaponValue];
-        CheckAttack(currentAttacker, curTarget, entity.currentWeapon);
+        currentAttacker = entity.gameObject;
     }
 }

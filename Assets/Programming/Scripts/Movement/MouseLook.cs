@@ -84,25 +84,37 @@ public class MouseLook : NetworkBehaviour
         }
         if (inBattle)
         {
+            LayerMask prevLayer = CamTarget.parent.gameObject.layer;
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                if (!zoomedIn)
+                if (!zoomedIn && combbatHandler.currentAttacker != null)
                 {
                     ActivateCamera(1);
                     zoomedIn = true;
                     Debug.Log("zooming");
+                    
                 }
                 if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
                 {
-                    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit target, Mathf.Infinity))
+                    if(combbatHandler.currentAttacker != null)
                     {
-                        Debug.DrawRay(Camera.main.transform.position, target.point, Color.blue, 5f);
-                        Debug.Log("Hit: " + target.transform.name);
-                        combbatHandler.SelectTarget(target.transform.gameObject);
+                        if(CamTarget.parent.gameObject.layer != 2)
+                        {
+                            prevLayer = CamTarget.parent.gameObject.layer;
+                            CamTarget.parent.gameObject.layer = 2;
+                        }
+                        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit target, Mathf.Infinity))
+                        {
+                            if (target.transform.gameObject.TryGetComponent(out EntityClass _))
+                            {
+                                Debug.DrawRay(Camera.main.transform.position, target.point, Color.blue, 5f);
+                                Debug.Log("Hit: " + target.transform.name);
+                                combbatHandler.SelectTarget(target.transform.gameObject);
+                            }
+                        }
+                        Debug.Log("hit nothing");
                     }
-                    Debug.Log("hit nothing");
                 }
-
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
             {
@@ -111,6 +123,7 @@ public class MouseLook : NetworkBehaviour
                     //Debug.Log("triggering toggle");
                     ActivateCamera(0);
                     zoomedIn = false;
+                    CamTarget.parent.gameObject.layer = prevLayer;
                 }
             }
         }
