@@ -11,6 +11,7 @@ public class TurnOrderUIManager : MonoBehaviour
     [Header("Active player")]
     [SerializeField] Image activePlayerIcon;
     [SerializeField] TMP_Text activePlayerText;
+    [SerializeField] TMP_Text healthText;
 
     [Header("Panels")]
     [SerializeField] GameObject activePlayerPanel;
@@ -35,10 +36,21 @@ public class TurnOrderUIManager : MonoBehaviour
         combatPanel.SetActive(false);
     }
 
+    float turnOrderRefreshTime = 3f;
+    float elapsedTime;
     // Update is called once per frame
     void Update()
     {
-
+        if (elapsedTime > 0)
+        {
+            elapsedTime -= Time.deltaTime;
+        }
+        else if (combatPanel.activeSelf)
+        {
+            elapsedTime = turnOrderRefreshTime;
+            UpdateTurnOrder();
+            print("Updated TurnUI");
+        }
     }
 
     public void UpdateTurnOrder()
@@ -52,19 +64,32 @@ public class TurnOrderUIManager : MonoBehaviour
                 players[i].gameObject.SetActive(false);
                 players[i].playerIcon.sprite = null;
                 players[i].initiativeText.text = "";
-                continue;
             }
             else
             {
-                players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().stats.Icon;
-                players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
-                players[i].gameObject.SetActive(true);
+                if (initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().hitPoints.Value <= 0)
+                {
+                    players[i].gameObject.SetActive(false);
+                    players[i].playerIcon.sprite = null;
+                    players[i].initiativeText.text = "";
+                    players.RemoveAt(i);
+                }
+                else
+                {
+                    players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().stats.Icon;
+                    players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
+                    players[i].gameObject.SetActive(true);
+                }
+
             }
 
         }
-
-        activePlayerIcon.sprite = players[0].playerIcon.sprite;
-        activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+        if (players.Count > 0)
+        {
+            activePlayerIcon.sprite = players[initiativeHandler.currentTurnNmbr].playerIcon.sprite;
+            activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+            healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
+        }
     }
 
     public void ToggleCurrentPlayerPanel()

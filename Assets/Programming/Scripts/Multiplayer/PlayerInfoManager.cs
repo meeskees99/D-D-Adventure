@@ -6,17 +6,13 @@ using Unity.Netcode;
 public class PlayerInfoManager : NetworkBehaviour
 {
     InitiativeHandler initiativeHandler;
-    List<Identifier> players = new();
+    public List<Identifier> players = new();
     public Identifier[] allEntities;
 
     // public NetworkVariable<int>
 
     public List<Identifier> entities = new();
 
-    private void Awake()
-    {
-        // players = new NetworkList<PlayerId>();
-    }
 
     private void Start()
     {
@@ -45,7 +41,7 @@ public class PlayerInfoManager : NetworkBehaviour
 
     public override void OnNetworkDespawn()
     {
-        HandleClientDisconnected(NetworkManager.Singleton.LocalClientId);
+        // HandleClientDisconnected(NetworkManager.Singleton.LocalClientId);
     }
 
     void HandleClientConnected(ulong clientId)

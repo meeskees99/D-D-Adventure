@@ -33,7 +33,7 @@ public class EntityClass : NetworkBehaviour
         constitution,
         intelligence,
         wisdom,
-        charisma;
+        charisma = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Stats Race Bonus")]
     public int strenghtBonus;
@@ -46,6 +46,7 @@ public class EntityClass : NetworkBehaviour
 
     void Start()
     {
+        if (!IsOwner) { return; }
         if (PlayerPrefs.GetInt("FirstTime") == 1)
         {
             if (stats._class == Class.Knight)

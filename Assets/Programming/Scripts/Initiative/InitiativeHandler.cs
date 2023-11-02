@@ -41,6 +41,14 @@ public class InitiativeHandler : MonoBehaviour
 
     public void SetInitiativeOrder()
     {
+        EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
+        foreach (var entity in combatEntities)
+        {
+            if (!characters.Contains(entity.gameObject))
+            {
+                characters.Add(entity.gameObject);
+            }
+        }
         if (initiativeOrder != null)
         {
             if (initiativeOrder.Count != 0)
