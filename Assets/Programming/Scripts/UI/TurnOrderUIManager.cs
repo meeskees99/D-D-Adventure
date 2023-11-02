@@ -12,6 +12,7 @@ public class TurnOrderUIManager : MonoBehaviour
     [SerializeField] Image activePlayerIcon;
     [SerializeField] TMP_Text activePlayerText;
     [SerializeField] TMP_Text healthText;
+    [SerializeField] Slider heatlhSlider;
 
     [Header("Panels")]
     [SerializeField] GameObject activePlayerPanel;
@@ -89,6 +90,8 @@ public class TurnOrderUIManager : MonoBehaviour
             activePlayerIcon.sprite = players[initiativeHandler.currentTurnNmbr].playerIcon.sprite;
             activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
             healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
+            heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
+            heatlhSlider.value = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value;
         }
     }
 
