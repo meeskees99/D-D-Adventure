@@ -47,19 +47,12 @@ public class PlayerHud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myClass.hitPoints.Value <= 0)
-        {
-            deathSavePanel.SetActive(true);
-        }
-        else
-        {
-            deathSavePanel.SetActive(false);
-        }
         if (myClass == null)
         {
             EntityClass[] classToGet = FindObjectsOfType<EntityClass>();
             foreach (EntityClass entity in classToGet)
             {
+                print($"Is owner of {entity.gameObject.name}: {entity.IsOwner}");
                 if (entity.IsOwner)
                 {
                     myClass = entity;
@@ -68,6 +61,18 @@ public class PlayerHud : MonoBehaviour
         }
         else
         {
+            if (myClass.IsServer)
+            {
+                enabled = false;
+            }
+            if (myClass.hitPoints.Value <= 0)
+            {
+                deathSavePanel.SetActive(true);
+            }
+            else
+            {
+                deathSavePanel.SetActive(false);
+            }
             #region Player Stats
             #region Stats
             classTxt.text = myClass.playerName;

@@ -24,7 +24,7 @@ public class Identifier : NetworkBehaviour
     void Update()
     {
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
-        if (playerInfoManager != null && !initialized)
+        if (playerInfoManager != null && !initialized && playerInfoManager.allEntities.Length >= 2)
         {
             initialized = true;
             if (IsOwner && !IsHost)
@@ -36,13 +36,23 @@ public class Identifier : NetworkBehaviour
             {
                 isEnemy.Value = true;
                 int enemyCount = 0;
+                ulong numberToGive = 0;
                 if (playerInfoManager == null) return;
                 foreach (Identifier entity in playerInfoManager.allEntities)
                 {
                     if (entity.isEnemy.Value && entity.playerId.Value == 0)
                     {
                         enemyCount++;
-                        entity.playerId.Value = (ulong)NetworkManager.Singleton.ConnectedClientsList.Count - 1 + (ulong)enemyCount;
+                        numberToGive = (ulong)NetworkManager.Singleton.ConnectedClientsList.Count - 1 + (ulong)enemyCount;
+                        foreach (Identifier enemy in playerInfoManager.allEntities)
+                        {
+                            if (enemy.playerId.Value == numberToGive)
+                            {
+                                numberToGive++;
+                            }
+                        }
+                        entity.playerId.Value = numberToGive;
+                        print($"Setting Client Id for {entity.gameObject.name} as {numberToGive}");
                     }
                 }
             }

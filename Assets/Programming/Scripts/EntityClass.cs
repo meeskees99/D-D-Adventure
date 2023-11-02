@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using UnityEngine.SceneManagement;
 public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
@@ -20,20 +21,19 @@ public class EntityClass : NetworkBehaviour
     [Header("Stats")]
     public NetworkVariable<int> maxHitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> hitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    public NetworkVariable<int>
-        level,
-        currentXp,
-        xpToGo,
-        armorClass,
-        initiativeBonus,
-        speed,
-        proficiency,
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charisma = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> level = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> currentXp = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> xpToGo = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> armorClass = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> initiativeBonus = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> speed = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> proficiency = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> strength = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> dexterity = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> constitution = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> intelligence = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> wisdom = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> charisma = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Stats Race Bonus")]
     public int strenghtBonus;
@@ -184,11 +184,12 @@ public class EntityClass : NetworkBehaviour
     }
     public void TakeDamage(int damage)
     {
+        hitPoints.Value -= damage;
         if (hitPoints.Value <= 0)
         {
             Debug.Log(name + " has died!");
             hitPoints.Value = 0;
-            // Destroy(this);
+            // NetworkManager.Singleton.SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
             // Die();
         }
     }
@@ -281,6 +282,12 @@ public class EntityClass : NetworkBehaviour
     public void Die()
     {
         print("You Died! You missed 3 death saves!");
+        DieServerRpc();
+    }
+
+    [ServerRpc]//joe moeder
+    public void DieServerRpc(ServerRpcParams serverRpcParams = default)
+    {
         level.Value = 0;
         currentXp.Value = 0;
         xpToGo.Value = 50;

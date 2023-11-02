@@ -11,7 +11,7 @@ public class PlayerInfoManager : NetworkBehaviour
 
     // public NetworkVariable<int>
 
-    public List<Identifier> entities = new();
+    public List<Identifier> entitiesList = new();
 
 
     private void Start()
@@ -23,12 +23,12 @@ public class PlayerInfoManager : NetworkBehaviour
     {
         if (IsClient)
         {
-            HandleClientConnected(NetworkManager.Singleton.LocalClientId);
+            // HandleClientConnected(NetworkManager.Singleton.LocalClientId);
             Identifier[] identifiers = FindObjectsOfType<Identifier>();
-            foreach (Identifier player in identifiers)
+            foreach (Identifier entity in identifiers)
             {
-                if (!players.Contains(player) && !player.isEnemy.Value)
-                    players.Add(player);
+                if (!players.Contains(entity) && entity.isEnemy.Value == false)
+                    players.Add(entity);
             }
 
             // foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
@@ -67,11 +67,9 @@ public class PlayerInfoManager : NetworkBehaviour
         allEntities = FindObjectsOfType<Identifier>();
         for (int i = 0; i < allEntities.Length; i++)
         {
-            if (!entities.Contains(allEntities[i]))
+            if (!entitiesList.Contains(allEntities[i]))
             {
-
-                entities.Add(allEntities[i]);
-
+                entitiesList.Add(allEntities[i]);
             }
         }
     }

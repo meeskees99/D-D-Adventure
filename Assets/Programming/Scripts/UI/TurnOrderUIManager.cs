@@ -10,7 +10,7 @@ public class TurnOrderUIManager : MonoBehaviour
 
     [Header("Active player")]
     [SerializeField] Image activePlayerIcon;
-    [SerializeField] TMP_Text activePlayerText;
+    [SerializeField] TMP_Text playerNameText;
     [SerializeField] TMP_Text healthText;
     [SerializeField] Slider heatlhSlider;
 
@@ -35,7 +35,8 @@ public class TurnOrderUIManager : MonoBehaviour
         }
         players.Reverse();
 
-        combatPanel.SetActive(false);
+        if (combatPanel != null)
+            combatPanel.SetActive(false);
     }
 
     float turnOrderRefreshTime = 3f;
@@ -47,7 +48,7 @@ public class TurnOrderUIManager : MonoBehaviour
         {
             elapsedTime -= Time.deltaTime;
         }
-        else if (combatPanel.activeSelf)
+        else if (combatPanel != null && combatPanel.activeSelf)
         {
             elapsedTime = turnOrderRefreshTime;
             UpdateTurnOrder();
@@ -57,7 +58,7 @@ public class TurnOrderUIManager : MonoBehaviour
 
     public void UpdateTurnOrder()
     {
-        turnNumberTxt.text = initiativeHandler.currentTurnNmbr.ToString();
+        //turnNumberTxt.text = initiativeHandler.currentTurnNmbr.ToString();
 
         for (int i = 0; i < players.Count; i++)
         {
@@ -89,7 +90,7 @@ public class TurnOrderUIManager : MonoBehaviour
         if (players.Count > 0)
         {
             activePlayerIcon.sprite = players[initiativeHandler.currentTurnNmbr].playerIcon.sprite;
-            activePlayerText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+            playerNameText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
             healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
             heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
             heatlhSlider.value = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value;
