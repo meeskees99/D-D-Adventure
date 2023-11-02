@@ -7,7 +7,7 @@ using Cinemachine;
 public class SetPlayerInfo : NetworkBehaviour
 {
     [SerializeField] List<ForceMovement> myEntities;
-    [SerializeField] MouseLook MouseLook;
+    [SerializeField] MouseLook mouseLook;
     ForceMovement[] m;
     // [Tooltip("Time until it moves on to check all MouseLook's found")]
     // [SerializeField] float time = 3f;
@@ -16,7 +16,7 @@ public class SetPlayerInfo : NetworkBehaviour
     // Update is called once per frame
     private void Start()
     {
-        MouseLook = FindObjectOfType<MouseLook>();
+        mouseLook = FindObjectOfType<MouseLook>();
     }
     void Update()
     {
@@ -39,11 +39,12 @@ public class SetPlayerInfo : NetworkBehaviour
                 for (int e = 0; e < myEntities.Count; e++)
                 {
                     print($"MyEntities[e] = {myEntities[e]}");
-                    MouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
-                    MouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
-                    MouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
-                    MouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().Follow = myEntities[e].gameObject.transform.GetChild(1).GetChild(0);
-                    MouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().LookAt = myEntities[e].gameObject.transform.GetChild(1).GetChild(0);
+                    if (mouseLook == null) return;
+                    mouseLook.CamTarget = myEntities[e].gameObject.transform.GetChild(1);
+                    mouseLook.VirCam.Follow = myEntities[e].gameObject.transform.GetChild(1);
+                    mouseLook.VirCam.LookAt = myEntities[e].gameObject.transform.GetChild(1);
+                    mouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().Follow = myEntities[e].gameObject.transform.GetChild(1).GetChild(0);
+                    mouseLook.cameras[1].GetComponent<CinemachineVirtualCamera>().LookAt = myEntities[e].gameObject.transform.GetChild(1).GetChild(0);
                 }
             }
         }

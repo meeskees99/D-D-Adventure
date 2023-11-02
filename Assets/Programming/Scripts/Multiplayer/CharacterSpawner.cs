@@ -23,7 +23,6 @@ public class CharacterSpawner : NetworkBehaviour
                 characterInstance.ChangeOwnership(client.Value.clientId);
                 characterInstance.GetComponent<EntityClass>().isPlayer = true;
                 SetPlayer(characterInstance);
-                characterInstance.AddComponent<Identifier>();
             }
         }
     }

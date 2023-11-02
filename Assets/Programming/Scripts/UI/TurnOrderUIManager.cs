@@ -17,6 +17,7 @@ public class TurnOrderUIManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] GameObject activePlayerPanel;
     [SerializeField] GameObject combatPanel;
+    [SerializeField] GameObject turnOrderPanel;
 
     [Header("Info")]
     [SerializeField] List<TurnOrderUI> players = new();
@@ -88,10 +89,15 @@ public class TurnOrderUIManager : MonoBehaviour
         if (players.Count > 0)
         {
             activePlayerIcon.sprite = players[initiativeHandler.currentTurnNmbr].playerIcon.sprite;
-            activePlayerText.text = $"Current Player:\n{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+            activePlayerText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
             healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
             heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
             heatlhSlider.value = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value;
+            turnOrderPanel.SetActive(true);
+        }
+        else
+        {
+            turnOrderPanel.SetActive(false);
         }
     }
 
