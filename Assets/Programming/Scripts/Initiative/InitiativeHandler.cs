@@ -15,7 +15,7 @@ public class InitiativeHandler : NetworkBehaviour
     public bool DMTurn;
     public GameObject DMObject;
     public List<GameObject> characters;
-    public NetworkVariable<List<Initiative>> initiativeOrder = new();
+    public NetworkVariable<List<Initiative>> initiativeOrder = new NetworkVariable<List<Initiative>>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public GameManager gameManager;
     public PlayerInfoManager playerInfoManager;
     public TurnOrderUIManager turnOrderUIManager;
@@ -221,5 +221,5 @@ public class Initiative
 {
     public GameObject character;
     [SerializeField]
-    public NetworkVariable<int> initiative = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public int initiative;
 }
