@@ -69,11 +69,13 @@ public class PlayerHud : MonoBehaviour
             }
             if (myClass.hitPoints.Value <= 0)
             {
-                deathSavePanel.SetActive(true);
+                if (deathSavePanel != null)
+                    deathSavePanel.SetActive(true);
             }
             else
             {
-                deathSavePanel.SetActive(false);
+                if (deathSavePanel != null)
+                    deathSavePanel.SetActive(false);
             }
             #region Player Stats
             #region Stats
