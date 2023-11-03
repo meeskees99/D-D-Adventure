@@ -5,11 +5,11 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 using UnityEngine.SceneManagement;
+using Unity.Collections;
 public class EntityClass : NetworkBehaviour
 {
     public ClassSheet stats;
     public CombatHandler combatHandler = CombatHandler.instance;
-    public string playerName;
     public bool isPlayer;
     public WeaponObject currentWeapon;
     public WeaponObject[] weaponOptions;
@@ -19,6 +19,7 @@ public class EntityClass : NetworkBehaviour
     [SerializeField] int fails;
 
     [Header("Stats")]
+    public NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> maxHitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> hitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> level = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -85,54 +86,7 @@ public class EntityClass : NetworkBehaviour
 
             PlayerPrefs.SetInt("FirstTime", 1);
         }
-        // if (stats._class == Class.Knight)
-        // {
-        //     stats.MaxHitPoints = 12;
-        //     stats.HitPoints = stats.MaxHitPoints;
-        //     stats.InitiativeBonus = stats.i
-        //     stats.Speed
-        //     stats.ArmorClass =
-        //     stats.Proficiency
-        //     stats.Constitution
-        //     stats.Intelligence
-        //     stats.Wisdom
-        //     stats.Charisma
-        // }
-        // else if (stats._class == Class.Ranger)
-        // {
-
-        //     stats.MaxHitPoints = 17;
-        //     stats.Level
-        //     stats.CurrentXP
-        //     stats.XpToGo
-        //     stats.HitPoints
-        //     stats.InitiativeBonus
-        //     stats.Speed
-        //     stats.ArmorClass
-        //     stats.Proficiency
-        //     stats.Constitution
-        //     stats.Intelligence
-        //     stats.Wisdom
-        //     stats.Charisma
-        // }
-        // else if (stats._class == Class.)
-        // {
-
-        //     stats.MaxHitPoints = 17;
-        //     stats.Level
-        //     stats.CurrentXP
-        //     stats.XpToGo
-        //     stats.HitPoints
-        //     stats.ArmorClass
-        //     stats.InitiativeBonus
-        //     stats.Speed
-        //     stats.Proficiency
-        //     stats.Constitution
-        //     stats.Intelligence
-        //     stats.Wisdom
-        //     stats.Charisma
-        // }
-        playerName = stats.CharacterName;
+        playerName.Value = stats.CharacterName;
         maxHitPoints.Value = stats.MaxHitPoints;
         level.Value = stats.Level;
         currentXp.Value = stats.CurrentXP;

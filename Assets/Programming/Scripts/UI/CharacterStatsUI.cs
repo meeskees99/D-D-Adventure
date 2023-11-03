@@ -47,7 +47,7 @@ public class CharacterStatsUI : MonoBehaviour
             return;
         #region Main Tab
         #region Character Stats
-        playerName.text = uIManager.players[playerNumber - 1].playerName;
+        playerName.text = uIManager.players[playerNumber - 1].playerName.Value.ToString();
         classType.text = uIManager.players[playerNumber - 1].stats._class.ToString();
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
         level.text = uIManager.players[playerNumber - 1].level.ToString();

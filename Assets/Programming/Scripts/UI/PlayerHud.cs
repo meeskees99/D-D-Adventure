@@ -75,7 +75,7 @@ public class PlayerHud : MonoBehaviour
             }
             #region Player Stats
             #region Stats
-            classTxt.text = myClass.playerName;
+            classTxt.text = myClass.playerName.Value.ToString();
             levelTxt.text = "Level " + myClass.level.Value;
             healthTxt.text = myClass.hitPoints.Value + "/" + myClass.maxHitPoints.Value;
             healthSlider.maxValue = myClass.maxHitPoints.Value;
