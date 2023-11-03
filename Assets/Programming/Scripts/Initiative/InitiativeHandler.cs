@@ -12,6 +12,7 @@ public class InitiativeHandler : MonoBehaviour
     public int currentTurnNmbr;
     public int currentRound;
     public bool DMTurn;
+    public GameObject DMObject;
     public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
     public GameManager gameManager;
@@ -38,6 +39,11 @@ public class InitiativeHandler : MonoBehaviour
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
         turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
         mouseLook = FindObjectOfType<MouseLook>();
+        
+        if(playerInfoManager.IsHost)
+        {
+            DMObject = Camera.main.transform.gameObject;
+        }
     }
 
     public void SetInitiativeOrder()
@@ -146,6 +152,10 @@ public class InitiativeHandler : MonoBehaviour
                 mouseLook.PositionCameraForObjects(characters);
                 mouseLook.enabled = false;
             }
+        }
+        else
+        {
+            
         }
 
         currentTurnNmbr++;

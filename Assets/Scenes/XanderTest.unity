@@ -3664,14 +3664,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1214152373222522763, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1214152373222522763, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
-      propertyPath: m_LookAt
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5263948908921309991, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.12
@@ -3715,18 +3707,6 @@ PrefabInstance:
     - target: {fileID: 5293239448950517390, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
       propertyPath: m_Name
       value: VirtualCameraZoomed Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 5293239448950517390, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6787039507282499819, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
-      propertyPath: ShoulderOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6787039507282499819, guid: 9561edab7faa7e74f951cd09018c38e3, type: 3}
-      propertyPath: ShoulderOffset.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4007,7 +3987,6 @@ MonoBehaviour:
   cameras:
   - {fileID: 336048597}
   - {fileID: 1531439557}
-  ownedObject: []
 --- !u!114 &1754299180
 MonoBehaviour:
   m_ObjectHideFlags: 0
