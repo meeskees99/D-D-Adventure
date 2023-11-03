@@ -142,7 +142,15 @@ public class InitiativeHandler : NetworkBehaviour
             combatPanel.SetActive(true);
         }
         if (IsHost)
+        {
             DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
+            if(instance.DMTurn)
+            {
+                DMObject.GetComponent<DmCameraController>().enabled = false;
+                DMObject.GetComponent<MouseLook>().enabled = true;
+            }
+        }
+           
     }
     public void EndTurn()
     {
@@ -161,7 +169,7 @@ public class InitiativeHandler : NetworkBehaviour
         }
         else
         {
-
+            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = false;
         }
 
         currentTurnNmbr++;
@@ -178,10 +186,15 @@ public class InitiativeHandler : NetworkBehaviour
             if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false || initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().isEnemy.Value == true)
             {
                 DMTurn = true;
+                DMObject.GetComponent<DmCameraController>().enabled = false;
+                DMObject.GetComponent<MouseLook>().enabled = true;
+                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = true;
             }
             else
             {
                 DMTurn = false;
+                DMObject.GetComponent<DmCameraController>().enabled = true;
+                DMObject.GetComponent<MouseLook>().enabled = false;
                 if (mouseLook != null)
                 {
                     mouseLook.PosistionCameraForCombat();
