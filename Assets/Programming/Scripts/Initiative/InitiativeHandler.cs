@@ -189,7 +189,9 @@ public class InitiativeHandler : MonoBehaviour
         {
             combatHandler.curTarget.TryGetComponent(out Outline outline);
             if (outline != null)
+            {
                 outline.enabled = false;
+            }
         }
 
     }
