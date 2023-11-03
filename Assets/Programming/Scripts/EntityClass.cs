@@ -47,6 +47,10 @@ public class EntityClass : NetworkBehaviour
 
     void Start()
     {
+        if (combatHandler == null)
+        {
+            combatHandler = CombatHandler.instance;
+        }
         if (!IsOwner) { return; }
 
         if (stats._class == Class.Knight)
