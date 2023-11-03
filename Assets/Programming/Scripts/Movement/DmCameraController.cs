@@ -71,7 +71,7 @@ public class DmCameraController : NetworkBehaviour
         }
         else
         {
-            MoveCamera(true);
+            MoveCamera();
         }
         // float horizontalInput = Input.GetAxis("Horizontal");
         // float verticalInput = Input.GetAxis("Vertical");
@@ -110,27 +110,25 @@ public class DmCameraController : NetworkBehaviour
 
     }
 
-    void MoveCamera(bool inWall)
+    void MoveCamera()
     {
-        if (!inWall)
+        if (Input.GetKey("w"))
         {
-            if (Input.GetKey("w"))
-            {
-                transform.Translate(orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
-            }
-            if (Input.GetKey("s"))
-            {
-                transform.Translate(-orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
-            }
-            if (Input.GetKey("d"))
-            {
-                transform.Translate(orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
-            }
-            if (Input.GetKey("a"))
-            {
-                transform.Translate(-orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
-            }
+            transform.Translate(orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
         }
+        if (Input.GetKey("s"))
+        {
+            transform.Translate(-orientation.forward * _finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+        if (Input.GetKey("d"))
+        {
+            transform.Translate(orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+        if (Input.GetKey("a"))
+        {
+            transform.Translate(-orientation.right * _finalMoveSpeed * Time.deltaTime, Space.World);
+        }
+
         Vector3 pos = transform.position;
 
         pos.y -= _scroll * 100 * scrollSpeed * Time.deltaTime;

@@ -66,7 +66,7 @@ public class MouseLook : NetworkBehaviour
             else
             {
                 CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-                ChangeBodyRotationServerRPC(xRotation, yRotation);
+                ChangeBodyRotation(xRotation, yRotation);
             }
         }
         #endregion
@@ -129,8 +129,8 @@ public class MouseLook : NetworkBehaviour
         }
 
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void ChangeBodyRotationServerRPC(float xRotation, float yRotation, ServerRpcParams serverRpcParams = default)
+    
+    public void ChangeBodyRotation(float xRotation, float yRotation)
     {
         CamTarget.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
