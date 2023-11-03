@@ -15,7 +15,7 @@ public class InitiativeHandler : NetworkBehaviour
     public bool DMTurn;
     public GameObject DMObject;
     public List<GameObject> characters;
-    public List<Initiative> initiativeOrder = new();
+    public NetworkVariable<List<Initiative>> initiativeOrder = new();
     public GameManager gameManager;
     public PlayerInfoManager playerInfoManager;
     public TurnOrderUIManager turnOrderUIManager;
