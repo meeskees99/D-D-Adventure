@@ -88,7 +88,7 @@ public class PlayerHud : MonoBehaviour
             intelligenceTxt.text = myClass.intelligenceBonus.ToString();
             wisdomTxt.text = myClass.wisdomBonus.ToString();
             charismaTxt.text = myClass.charismaBonus.ToString();
-            armorClassTxt.text = myClass.armorClass.ToString();
+            armorClassTxt.text = myClass.armorClass.Value.ToString();
             #endregion
             #endregion
             #region Weapon Stats

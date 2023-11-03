@@ -22,6 +22,8 @@ public class TurnOrderUIManager : MonoBehaviour
     [Header("Info")]
     [SerializeField] List<TurnOrderUI> players = new();
     [SerializeField] TMP_Text turnNumberTxt;
+
+    bool startedCombat;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +50,7 @@ public class TurnOrderUIManager : MonoBehaviour
         {
             elapsedTime -= Time.deltaTime;
         }
-        else if (combatPanel != null && combatPanel.activeSelf)
+        else if (startedCombat)
         {
             elapsedTime = turnOrderRefreshTime;
             UpdateTurnOrder();
@@ -58,6 +60,11 @@ public class TurnOrderUIManager : MonoBehaviour
 
     public void UpdateTurnOrder()
     {
+        if (!startedCombat)
+        {
+            startedCombat = true;
+            InitializeCombat();
+        }
         //turnNumberTxt.text = initiativeHandler.currentTurnNmbr.ToString();
 
         for (int i = 0; i < players.Count; i++)
@@ -91,19 +98,24 @@ public class TurnOrderUIManager : MonoBehaviour
         {
             activePlayerIcon.sprite = players[0].playerIcon.sprite;
             playerNameText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
-            healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
+            healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
             heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
             heatlhSlider.value = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value;
-            turnOrderPanel.SetActive(true);
         }
         else
         {
-            turnOrderPanel.SetActive(false);
+            turnOrderPanel.GetComponent<Animator>().SetTrigger("Combat");
+            startedCombat = false;
         }
     }
 
     public void ToggleCurrentPlayerPanel()
     {
         activePlayerPanel.SetActive(!activePlayerPanel.activeSelf);
+    }
+
+    public void InitializeCombat()
+    {
+        turnOrderPanel.GetComponent<Animator>().SetTrigger("Combat");
     }
 }
