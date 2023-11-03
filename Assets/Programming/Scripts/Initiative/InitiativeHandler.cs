@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InitiativeHandler : MonoBehaviour
+public class InitiativeHandler : NetworkBehaviour
 {
     public static InitiativeHandler instance;
     public CombatHandler combatHandler = CombatHandler.instance;
@@ -48,6 +49,10 @@ public class InitiativeHandler : MonoBehaviour
 
     public void SetInitiativeOrder()
     {
+        if(!this.IsServer)
+        {
+            return;
+        }
         currentRound = 0;
         currentTurnNmbr = 0;
 
@@ -68,14 +73,15 @@ public class InitiativeHandler : MonoBehaviour
             foreach (var character in characters)
             {
                 var count = 0;
-                int initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
+                int _initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
                 if (initiativeOrder.Count != 0)
                 {
                     foreach (var item in initiativeOrder)
                     {
-                        if (initiative >= item.initiative)
+                        if (_initiative >= item.initiative.Value)
                         {
-                            var initiativeInstance = new Initiative { character = character, initiative = initiative };
+                            var initiativeInstance = new Initiative { character = character};
+                            initiativeInstance.initiative.Value = _initiative;
                             initiativeOrder.Insert(count, initiativeInstance);
                             break;
                         }
@@ -84,8 +90,9 @@ public class InitiativeHandler : MonoBehaviour
                             count++;
                             if (count == initiativeOrder.Count)
                             {
-                                var _initiativeInstance = new Initiative { character = character, initiative = initiative };
-                                initiativeOrder.Add(_initiativeInstance);
+                                var initiativeInstance = new Initiative { character = character };
+                                initiativeInstance.initiative.Value = _initiative;
+                                initiativeOrder.Add(initiativeInstance);
                                 break;
                             }
                         }
@@ -93,11 +100,12 @@ public class InitiativeHandler : MonoBehaviour
                 }
                 else
                 {
-                    var initiativeInstance = new Initiative { character = character, initiative = initiative };
+                    var initiativeInstance = new Initiative { character = character };
+                    initiativeInstance.initiative.Value = _initiative;
                     initiativeOrder.Add(initiativeInstance);
                 }
                 Debug.Log("The amount of characters is: " + initiativeOrder.Count);
-                Debug.Log("Initiative of " + character + " is: " + initiative);
+                Debug.Log("Initiative of " + character + " is: " + _initiative);
             }
         }
 
@@ -137,6 +145,7 @@ public class InitiativeHandler : MonoBehaviour
         {
             combatPanel.SetActive(true);
         }
+        DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
     }
     public void EndTurn()
     {
@@ -202,5 +211,5 @@ public class Initiative
 {
     public GameObject character;
     [SerializeField]
-    public int initiative;
+    public NetworkVariable<int> initiative = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 }
