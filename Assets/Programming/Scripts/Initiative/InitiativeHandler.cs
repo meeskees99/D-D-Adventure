@@ -40,8 +40,8 @@ public class InitiativeHandler : NetworkBehaviour
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
         turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
         mouseLook = FindObjectOfType<MouseLook>();
-        
-        if(playerInfoManager.IsHost)
+
+        if (IsHost)
         {
             DMObject = Camera.main.transform.gameObject;
         }
@@ -76,7 +76,7 @@ public class InitiativeHandler : NetworkBehaviour
                     {
                         if (_initiative >= item.initiative.Value)
                         {
-                            var initiativeInstance = new Initiative { character = character};
+                            var initiativeInstance = new Initiative { character = character };
                             initiativeInstance.initiative.Value = _initiative;
                             initiativeOrder.Insert(count, initiativeInstance);
                             break;
@@ -160,7 +160,7 @@ public class InitiativeHandler : NetworkBehaviour
         }
         else
         {
-            
+
         }
 
         currentTurnNmbr++;
