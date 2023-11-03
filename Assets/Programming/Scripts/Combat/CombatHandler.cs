@@ -91,7 +91,7 @@ public class CombatHandler : MonoBehaviour
 
     public void SelectWeapon(int newWeaponValue)
     {
-        currentAttacker = initiativeHandler.initiativeOrder[initiativeHandler.currentTurnNmbr].character;
+        currentAttacker = initiativeHandler.initiativeOrder.Value[initiativeHandler.currentTurnNmbr].character;
         currentAttacker.TryGetComponent(out EntityClass entity);
         entity.currentWeapon = entity.weaponOptions[newWeaponValue];
         currentAttacker = entity.gameObject;

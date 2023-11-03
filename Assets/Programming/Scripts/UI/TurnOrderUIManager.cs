@@ -69,7 +69,7 @@ public class TurnOrderUIManager : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            if (i >= initiativeHandler.initiativeOrder.Count)
+            if (i >= initiativeHandler.initiativeOrder.Value.Count)
             {
                 players[i].gameObject.SetActive(false);
                 players[i].playerIcon.sprite = null;
@@ -77,7 +77,7 @@ public class TurnOrderUIManager : MonoBehaviour
             }
             else
             {
-                if (initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().hitPoints.Value <= 0)
+                if (initiativeHandler.initiativeOrder.Value[i].character.GetComponent<EntityClass>().hitPoints.Value <= 0)
                 {
                     players[i].gameObject.SetActive(false);
                     players[i].playerIcon.sprite = null;
@@ -86,7 +86,7 @@ public class TurnOrderUIManager : MonoBehaviour
                 }
                 else
                 {
-                    players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().stats.Icon;
+                    players[i].playerIcon.sprite = initiativeHandler.initiativeOrder.Value[i].character.GetComponent<EntityClass>().stats.Icon;
                     // players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
                     players[i].gameObject.SetActive(true);
                 }
@@ -97,10 +97,10 @@ public class TurnOrderUIManager : MonoBehaviour
         if (players.Count > 0)
         {
             activePlayerIcon.sprite = players[0].playerIcon.sprite;
-            playerNameText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
-            healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
-            heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
-            heatlhSlider.value = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints.Value;
+            playerNameText.text = $"{initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().stats.CharacterName}";
+            healthText.text = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().hitPoints.Value + "/" + initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
+            heatlhSlider.maxValue = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
+            heatlhSlider.value = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().hitPoints.Value;
         }
         else
         {
