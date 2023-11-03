@@ -48,44 +48,40 @@ public class EntityClass : NetworkBehaviour
     void Start()
     {
         if (!IsOwner) { return; }
-        if (PlayerPrefs.GetInt("FirstTime") == 1)
+
+        if (stats._class == Class.Knight)
         {
-            if (stats._class == Class.Knight)
-            {
-                stats.XpToGo = 50;
-                stats.MaxHitPoints = 12;
-                stats.HitPoints = stats.MaxHitPoints;
-                stats.InitiativeBonus = 3;
-                stats.Proficiency = 2;
-                stats.Speed = 30;
-                stats.ArmorClass = 14;
-                stats.Strength = 14;
-                stats.Dexterity = 16;
-                stats.Constitution = 15;
-                stats.Intelligence = 11;
-                stats.Wisdom = 13;
-                stats.Charisma = 9;
-            }
-            else if (stats._class == Class.Ranger)
-            {
-                stats.XpToGo = 50;
-                stats.MaxHitPoints = 11;
-                stats.HitPoints = stats.MaxHitPoints;
-                stats.InitiativeBonus = 3;
-                stats.Proficiency = 2;
-                stats.Speed = 35;
-                stats.ArmorClass = 14;
-                stats.Strength = 12;
-                stats.Dexterity = 17;
-                stats.Constitution = 13;
-                stats.Intelligence = 10;
-                stats.Wisdom = 15;
-                stats.Charisma = 8;
-            }
-
-
-            PlayerPrefs.SetInt("FirstTime", 1);
+            stats.XpToGo = 50;
+            stats.MaxHitPoints = 12;
+            stats.HitPoints = stats.MaxHitPoints;
+            stats.InitiativeBonus = 3;
+            stats.Proficiency = 2;
+            stats.Speed = 30;
+            stats.ArmorClass = 14;
+            stats.Strength = 14;
+            stats.Dexterity = 16;
+            stats.Constitution = 15;
+            stats.Intelligence = 11;
+            stats.Wisdom = 13;
+            stats.Charisma = 9;
         }
+        else if (stats._class == Class.Ranger)
+        {
+            stats.XpToGo = 50;
+            stats.MaxHitPoints = 11;
+            stats.HitPoints = stats.MaxHitPoints;
+            stats.InitiativeBonus = 3;
+            stats.Proficiency = 2;
+            stats.Speed = 35;
+            stats.ArmorClass = 14;
+            stats.Strength = 12;
+            stats.Dexterity = 17;
+            stats.Constitution = 13;
+            stats.Intelligence = 10;
+            stats.Wisdom = 15;
+            stats.Charisma = 8;
+        }
+
         playerName.Value = stats.CharacterName;
         maxHitPoints.Value = stats.MaxHitPoints;
         level.Value = stats.Level;
