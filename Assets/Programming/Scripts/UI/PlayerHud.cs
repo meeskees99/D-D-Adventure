@@ -62,7 +62,6 @@ public class PlayerHud : MonoBehaviour
         }
         else
         {
-            print("myClass found!");
             if (myClass.IsServer)
             {
                 enabled = false;

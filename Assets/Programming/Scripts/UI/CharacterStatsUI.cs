@@ -50,29 +50,29 @@ public class CharacterStatsUI : MonoBehaviour
         playerName.text = uIManager.players[playerNumber - 1].playerName.Value.ToString();
         classType.text = uIManager.players[playerNumber - 1].stats._class.ToString();
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
-        level.text = uIManager.players[playerNumber - 1].level.ToString();
-        xp.text = uIManager.players[playerNumber - 1].currentXp + "/" + uIManager.players[playerNumber - 1].xpToGo;
+        level.text = uIManager.players[playerNumber - 1].level.Value.ToString();
+        xp.text = uIManager.players[playerNumber - 1].currentXp.Value + "/" + uIManager.players[playerNumber - 1].xpToGo;
         xpSlider.maxValue = uIManager.players[playerNumber - 1].xpToGo.Value;
         xpSlider.value = uIManager.players[playerNumber - 1].currentXp.Value;
         #endregion
         #region Extra
-        profB.text = uIManager.players[playerNumber - 1].proficiency.ToString();
-        armorClass.text = uIManager.players[playerNumber - 1].armorClass.ToString();
-        initiative.text = uIManager.players[playerNumber - 1].initiativeBonus.ToString();
+        profB.text = uIManager.players[playerNumber - 1].proficiency.Value.ToString();
+        armorClass.text = uIManager.players[playerNumber - 1].armorClass.Value.ToString();
+        initiative.text = uIManager.players[playerNumber - 1].initiativeBonus.Value.ToString();
         speed.text = uIManager.players[playerNumber - 1].speed.ToString();
         #endregion
         #region Ability Scores
-        strenghtNor.text = uIManager.players[playerNumber - 1].strength.ToString();
+        strenghtNor.text = uIManager.players[playerNumber - 1].strength.Value.ToString();
         strenghtBonus.text = uIManager.players[playerNumber - 1].strenghtBonus.ToString();
-        dexterityNor.text = uIManager.players[playerNumber - 1].dexterity.ToString();
+        dexterityNor.text = uIManager.players[playerNumber - 1].dexterity.Value.ToString();
         dexterityBonus.text = uIManager.players[playerNumber - 1].dexterityBonus.ToString();
-        constitutionNor.text = uIManager.players[playerNumber - 1].constitution.ToString();
+        constitutionNor.text = uIManager.players[playerNumber - 1].constitution.Value.ToString();
         constitutionBonus.text = uIManager.players[playerNumber - 1].constitutionBonus.ToString();
-        intelligenceNor.text = uIManager.players[playerNumber - 1].intelligence.ToString();
+        intelligenceNor.text = uIManager.players[playerNumber - 1].intelligence.Value.ToString();
         intelligenceBonus.text = uIManager.players[playerNumber - 1].intelligenceBonus.ToString();
-        wisdomNor.text = uIManager.players[playerNumber - 1].wisdom.ToString();
+        wisdomNor.text = uIManager.players[playerNumber - 1].wisdom.Value.ToString();
         wisdomBonus.text = uIManager.players[playerNumber - 1].wisdomBonus.ToString();
-        charismaNor.text = uIManager.players[playerNumber - 1].charisma.ToString();
+        charismaNor.text = uIManager.players[playerNumber - 1].charisma.Value.ToString();
         charismaBonus.text = uIManager.players[playerNumber - 1].charismaBonus.ToString();
         #endregion
         #endregion

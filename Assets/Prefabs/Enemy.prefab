@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1639026409034561027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5309577260737867362}
+  m_Layer: 0
+  m_Name: camTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5309577260737867362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639026409034561027}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.509, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8160626120819401779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2704281274184894747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4792866271896542828}
+  m_Layer: 0
+  m_Name: Idk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4792866271896542828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704281274184894747}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8160626120819401779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8710072926547927412
 GameObject:
   m_ObjectHideFlags: 0
@@ -17,6 +79,7 @@ GameObject:
   - component: {fileID: 7870409253227229797}
   - component: {fileID: 5957268079432296399}
   - component: {fileID: 8427159713829977917}
+  - component: {fileID: 5748900473382711661}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -36,7 +99,9 @@ Transform:
   m_LocalPosition: {x: -6.5000005, y: 1.65, z: 17.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4792866271896542828}
+  - {fileID: 5309577260737867362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3423908440357521232
@@ -119,7 +184,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8710072926547927412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7333d59c3e9c83246bbd939575ef41dd, type: 3}
   m_Name: 
@@ -188,23 +253,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 1870932e574cd2747bc18a07fa7d80c5, type: 2}
   combatHandler: {fileID: 0}
-  playerName: 
   isPlayer: 0
-  maxHitPoints: 0
-  level: 0
-  currentXp: 0
-  xpToGo: 0
-  hitPoints: 0
-  armorClass: 0
-  initiativeBonus: 0
-  speed: 0
-  proficiency: 0
-  strength: 0
-  dexterity: 0
-  constitution: 0
-  intelligence: 0
-  wisdom: 0
-  charisma: 0
+  currentWeapon: {fileID: 0}
+  weaponOptions: []
+  deathSaveAttempts: 0
+  saves: 0
+  fails: 0
+  playerName:
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0016: 0
+        byte0017: 0
+        byte0018: 0
+        byte0019: 0
+        byte0020: 0
+        byte0021: 0
+        byte0022: 0
+        byte0023: 0
+        byte0024: 0
+        byte0025: 0
+        byte0026: 0
+        byte0027: 0
+        byte0028: 0
+        byte0029: 0
+  maxHitPoints:
+    m_InternalValue: 1
+  hitPoints:
+    m_InternalValue: 1
+  level:
+    m_InternalValue: 0
+  currentXp:
+    m_InternalValue: 0
+  xpToGo:
+    m_InternalValue: 0
+  armorClass:
+    m_InternalValue: 0
+  initiativeBonus:
+    m_InternalValue: 0
+  speed:
+    m_InternalValue: 0
+  proficiency:
+    m_InternalValue: 0
+  strength:
+    m_InternalValue: 0
+  dexterity:
+    m_InternalValue: 0
+  constitution:
+    m_InternalValue: 0
+  intelligence:
+    m_InternalValue: 0
+  wisdom:
+    m_InternalValue: 0
+  charisma:
+    m_InternalValue: 0
   strenghtBonus: 0
   dexterityBonus: 0
   constitutionBonus: 0
@@ -256,3 +375,21 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &5748900473382711661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8710072926547927412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5f8c5513c743a48a348089ef76490b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId:
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
