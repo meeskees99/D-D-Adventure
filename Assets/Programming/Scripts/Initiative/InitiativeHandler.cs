@@ -49,10 +49,6 @@ public class InitiativeHandler : NetworkBehaviour
 
     public void SetInitiativeOrder()
     {
-        if(!this.IsServer)
-        {
-            return;
-        }
         currentRound = 0;
         currentTurnNmbr = 0;
 
