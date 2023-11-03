@@ -10,6 +10,7 @@ public class InitiativeHandler : MonoBehaviour
     public static InitiativeHandler instance;
     public CombatHandler combatHandler = CombatHandler.instance;
     public int currentTurnNmbr;
+    public int currentRound;
     public bool DMTurn;
     public List<GameObject> characters;
     public List<Initiative> initiativeOrder = new();
@@ -41,6 +42,9 @@ public class InitiativeHandler : MonoBehaviour
 
     public void SetInitiativeOrder()
     {
+        currentRound = 0;
+        currentTurnNmbr = 0;
+
         EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
         foreach (var entity in combatEntities)
         {
@@ -148,13 +152,14 @@ public class InitiativeHandler : MonoBehaviour
         if (currentTurnNmbr > initiativeOrder.Count - 1)
         {
             currentTurnNmbr = 0;
+            currentRound++;
         }
         Debug.Log($"Current turn number: {currentTurnNmbr}");
         initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = true;
-            if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false)
+            if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false || initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().isEnemy.Value == true)
             {
                 DMTurn = true;
             }

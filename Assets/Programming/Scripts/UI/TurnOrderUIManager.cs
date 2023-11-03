@@ -66,7 +66,7 @@ public class TurnOrderUIManager : MonoBehaviour
             {
                 players[i].gameObject.SetActive(false);
                 players[i].playerIcon.sprite = null;
-                players[i].initiativeText.text = "";
+                // players[i].initiativeText.text = "";
             }
             else
             {
@@ -74,13 +74,13 @@ public class TurnOrderUIManager : MonoBehaviour
                 {
                     players[i].gameObject.SetActive(false);
                     players[i].playerIcon.sprite = null;
-                    players[i].initiativeText.text = "";
+                    // players[i].initiativeText.text = "";
                     players.RemoveAt(i);
                 }
                 else
                 {
                     players[i].playerIcon.sprite = initiativeHandler.initiativeOrder[i].character.GetComponent<EntityClass>().stats.Icon;
-                    players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
+                    // players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
                     players[i].gameObject.SetActive(true);
                 }
 
@@ -89,7 +89,7 @@ public class TurnOrderUIManager : MonoBehaviour
         }
         if (players.Count > 0)
         {
-            activePlayerIcon.sprite = players[initiativeHandler.currentTurnNmbr].playerIcon.sprite;
+            activePlayerIcon.sprite = players[0].playerIcon.sprite;
             playerNameText.text = $"{initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().stats.CharacterName}";
             healthText.text = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().hitPoints + "/" + initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints;
             heatlhSlider.maxValue = initiativeHandler.initiativeOrder[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
