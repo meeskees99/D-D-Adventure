@@ -74,10 +74,10 @@ public class InitiativeHandler : NetworkBehaviour
                 {
                     foreach (var item in initiativeOrder.Value)
                     {
-                        if (_initiative >= item.initiative.Value)
+                        if (_initiative >= item.initiative)
                         {
                             var initiativeInstance = new Initiative { character = character };
-                            initiativeInstance.initiative.Value = _initiative;
+                            initiativeInstance.initiative = _initiative;
                             initiativeOrder.Value.Insert(count, initiativeInstance);
                             break;
                         }
@@ -87,7 +87,7 @@ public class InitiativeHandler : NetworkBehaviour
                             if (count == initiativeOrder.Value.Count)
                             {
                                 var initiativeInstance = new Initiative { character = character };
-                                initiativeInstance.initiative.Value = _initiative;
+                                initiativeInstance.initiative = _initiative;
                                 initiativeOrder.Value.Add(initiativeInstance);
                                 break;
                             }
@@ -97,7 +97,7 @@ public class InitiativeHandler : NetworkBehaviour
                 else
                 {
                     var initiativeInstance = new Initiative { character = character };
-                    initiativeInstance.initiative.Value = _initiative;
+                    initiativeInstance.initiative = _initiative;
                     initiativeOrder.Value.Add(initiativeInstance);
                 }
                 Debug.Log("The amount of characters is: " + initiativeOrder.Value.Count);
