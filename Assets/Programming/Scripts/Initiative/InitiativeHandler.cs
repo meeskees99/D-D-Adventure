@@ -141,7 +141,8 @@ public class InitiativeHandler : NetworkBehaviour
         {
             combatPanel.SetActive(true);
         }
-        DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
+        if (IsHost)
+            DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
     }
     public void EndTurn()
     {
