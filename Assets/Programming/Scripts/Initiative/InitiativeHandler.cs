@@ -49,60 +49,64 @@ public class InitiativeHandler : NetworkBehaviour
 
     public void SetInitiativeOrder()
     {
-        currentRound = 0;
-        currentTurnNmbr = 0;
+        if (IsServer)
+        {
+            currentRound = 0;
+            currentTurnNmbr = 0;
 
-        EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
-        foreach (var entity in combatEntities)
-        {
-            if (!characters.Contains(entity.gameObject))
+            EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
+            foreach (var entity in combatEntities)
             {
-                characters.Add(entity.gameObject);
+                if (!characters.Contains(entity.gameObject))
+                {
+                    characters.Add(entity.gameObject);
+                }
             }
-        }
-        if (initiativeOrder != null)
-        {
-            if (initiativeOrder.Value.Count != 0)
+            if (initiativeOrder != null)
             {
-                initiativeOrder.Value.Clear();
-            }
-            foreach (var character in characters)
-            {
-                var count = 0;
-                int _initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
                 if (initiativeOrder.Value.Count != 0)
                 {
-                    foreach (var item in initiativeOrder.Value)
+                    initiativeOrder.Value.Clear();
+                }
+                foreach (var character in characters)
+                {
+                    var count = 0;
+                    int _initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
+                    if (initiativeOrder.Value.Count != 0)
                     {
-                        if (_initiative >= item.initiative)
+                        foreach (var item in initiativeOrder.Value)
                         {
-                            var initiativeInstance = new Initiative { character = character };
-                            initiativeInstance.initiative = _initiative;
-                            initiativeOrder.Value.Insert(count, initiativeInstance);
-                            break;
-                        }
-                        else
-                        {
-                            count++;
-                            if (count == initiativeOrder.Value.Count)
+                            if (_initiative >= item.initiative)
                             {
                                 var initiativeInstance = new Initiative { character = character };
                                 initiativeInstance.initiative = _initiative;
-                                initiativeOrder.Value.Add(initiativeInstance);
+                                initiativeOrder.Value.Insert(count, initiativeInstance);
                                 break;
+                            }
+                            else
+                            {
+                                count++;
+                                if (count == initiativeOrder.Value.Count)
+                                {
+                                    var initiativeInstance = new Initiative { character = character };
+                                    initiativeInstance.initiative = _initiative;
+                                    initiativeOrder.Value.Add(initiativeInstance);
+                                    break;
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        var initiativeInstance = new Initiative { character = character };
+                        initiativeInstance.initiative = _initiative;
+                        initiativeOrder.Value.Add(initiativeInstance);
+                    }
+                    Debug.Log("The amount of characters is: " + initiativeOrder.Value.Count);
+                    Debug.Log("Initiative of " + character + " is: " + _initiative);
                 }
-                else
-                {
-                    var initiativeInstance = new Initiative { character = character };
-                    initiativeInstance.initiative = _initiative;
-                    initiativeOrder.Value.Add(initiativeInstance);
-                }
-                Debug.Log("The amount of characters is: " + initiativeOrder.Value.Count);
-                Debug.Log("Initiative of " + character + " is: " + _initiative);
             }
+
         }
 
         StartCombat();
@@ -144,13 +148,13 @@ public class InitiativeHandler : NetworkBehaviour
         if (IsHost)
         {
             DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
-            if(instance.DMTurn)
+            if (instance.DMTurn)
             {
                 DMObject.GetComponent<DmCameraController>().enabled = false;
                 DMObject.GetComponent<MouseLook>().enabled = true;
             }
         }
-           
+
     }
     public void EndTurn()
     {
