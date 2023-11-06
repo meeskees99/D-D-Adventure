@@ -224,7 +224,6 @@ public class InitiativeHandler : NetworkBehaviour
                 outline.enabled = false;
             }
         }
-
     }
 }
 

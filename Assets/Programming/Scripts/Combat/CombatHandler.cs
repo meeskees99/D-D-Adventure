@@ -11,7 +11,7 @@ public class CombatHandler : MonoBehaviour
     public GameObject curTarget;
     public GameObject currentAttacker;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -44,7 +44,7 @@ public class CombatHandler : MonoBehaviour
                 {
                     victimClass.TakeDamage(UnityEngine.Random.Range(1, weaponUsed.maxDamageRange));
                 }
-            }  
+            }
         }
         else
         {
@@ -53,7 +53,7 @@ public class CombatHandler : MonoBehaviour
         }
         victim.GetComponent<Outline>().enabled = false;
     }
-    
+
     public int DisadvantageRoll()
     {
         int roll1 = UnityEngine.Random.Range(1, 20);
@@ -73,10 +73,10 @@ public class CombatHandler : MonoBehaviour
         {
             curTarget.GetComponent<Outline>().enabled = false;
         }
-        
+
         if (victim.TryGetComponent(out Outline outline))
         {
-           outline.enabled = true;
+            outline.enabled = true;
         }
         else
         {
