@@ -16,6 +16,8 @@ public class GameManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dmCanvas == null || playerCanvas == null) return;
+
         if (NetworkManager.Singleton.LocalClient.ClientId == 0)
         {
             dmCanvas.SetActive(true);

@@ -214,6 +214,7 @@ public class InitiativeHandler : NetworkBehaviour
                 }
             }
         }
+        initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().turnNumber.Value = currentTurnNmbr;
         playerInfoManager.NextTurn(initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value);
         turnOrderUIManager.UpdateTurnOrder();
         if (combatHandler.curTarget != null)

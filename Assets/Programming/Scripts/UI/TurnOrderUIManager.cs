@@ -99,7 +99,7 @@ public class TurnOrderUIManager : MonoBehaviour
         }
         if (playersUI.Count > 0)
         {
-            activePlayerIcon.sprite = playersUI[0].playerIcon.sprite;
+            activePlayerIcon.sprite = initOrder[0].gameObject.GetComponent<EntityClass>().stats.Icon;
             playerNameText.text = $"{initOrder[0].gameObject.GetComponent<EntityClass>().stats.CharacterName}";
             healthText.text = initOrder[0].gameObject.GetComponent<EntityClass>().hitPoints.Value + "/" + initOrder[0].gameObject.GetComponent<EntityClass>().maxHitPoints.Value;
             heatlhSlider.maxValue = initOrder[0].gameObject.GetComponent<EntityClass>().maxHitPoints.Value;

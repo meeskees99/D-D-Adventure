@@ -11,6 +11,7 @@ public class Identifier : NetworkBehaviour
     public NetworkVariable<bool> isEnemy = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public NetworkVariable<int> initiative = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<int> turnNumber = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     PlayerInfoManager playerInfoManager;
 
