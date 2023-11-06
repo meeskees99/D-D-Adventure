@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class TurnOrderUI : MonoBehaviour
 {
-    public TMP_Text playerName;
+    public TMP_Text playerNameText;
     public Image playerIcon;
     public TMP_Text initiativeText;
-    public TMP_Text health;
-    public TMP_Text maxHeatlh;
+    public TMP_Text healthText;
     public Slider healthSlider;
 
 }
