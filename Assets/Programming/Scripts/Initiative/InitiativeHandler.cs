@@ -28,6 +28,10 @@ public class InitiativeHandler : NetworkBehaviour
 
     private void Start()
     {
+        if (!IsServer)
+        {
+            enabled = false;
+        }
         if (instance == null)
         {
             instance = this;
@@ -81,6 +85,7 @@ public class InitiativeHandler : NetworkBehaviour
                                 var initiativeInstance = new Initiative { character = character };
                                 initiativeInstance.initiative = _initiative;
                                 initiativeOrder.Value.Insert(count, initiativeInstance);
+                                initiativeOrder.Value[count].character.GetComponent<Identifier>().initiative.Value = initiativeInstance.initiative;
                                 break;
                             }
                             else
@@ -91,6 +96,7 @@ public class InitiativeHandler : NetworkBehaviour
                                     var initiativeInstance = new Initiative { character = character };
                                     initiativeInstance.initiative = _initiative;
                                     initiativeOrder.Value.Add(initiativeInstance);
+                                    initiativeOrder.Value[count].character.GetComponent<Identifier>().initiative.Value = _initiative;
                                     break;
                                 }
                             }
@@ -156,8 +162,10 @@ public class InitiativeHandler : NetworkBehaviour
         }
 
     }
-    public void EndTurn()
+    public void EndTurn(ulong clientId)
     {
+        if (initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value != clientId) { return; }
+
         initiativeOrder.Value.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement playerMovement);
         if (playerMovement != null)
         {
@@ -224,6 +232,5 @@ public class InitiativeHandler : NetworkBehaviour
 public class Initiative
 {
     public GameObject character;
-    [SerializeField]
     public int initiative;
 }

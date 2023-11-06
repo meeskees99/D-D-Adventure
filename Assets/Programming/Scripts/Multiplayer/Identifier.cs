@@ -10,6 +10,8 @@ public class Identifier : NetworkBehaviour
     public NetworkVariable<bool> isTurn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<bool> isEnemy = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
+    public NetworkVariable<int> initiative = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
     PlayerInfoManager playerInfoManager;
 
     bool initialized;
@@ -36,7 +38,7 @@ public class Identifier : NetworkBehaviour
             {
                 isEnemy.Value = true;
                 int enemyCount = 0;
-                ulong numberToGive = 0;
+                ulong numberToGive;
                 if (playerInfoManager == null) return;
                 foreach (Identifier entity in playerInfoManager.allEntities)
                 {

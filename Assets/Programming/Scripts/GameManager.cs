@@ -20,11 +20,13 @@ public class GameManager : NetworkBehaviour
         {
             dmCanvas.SetActive(true);
             playerCanvas.SetActive(false);
+            Destroy(playerCanvas);
         }
         else
         {
             dmCanvas.SetActive(false);
             playerCanvas.SetActive(true);
+            Destroy(dmCanvas);
         }
     }
 }

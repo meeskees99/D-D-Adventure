@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 public class TurnOrderUIManager : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class TurnOrderUIManager : MonoBehaviour
     [SerializeField] GameObject turnOrderPanel;
 
     [Header("Info")]
-    [SerializeField] List<TurnOrderUI> players = new();
+    [SerializeField] List<TurnOrderUI> playersUI = new();
+    [SerializeField] List<Identifier> entities = new();
+    [SerializeField] List<Identifier> initOrder = new();
     [SerializeField] TMP_Text turnNumberTxt;
 
     bool startedCombat;
@@ -33,9 +36,9 @@ public class TurnOrderUIManager : MonoBehaviour
         var _players = FindObjectsOfType<TurnOrderUI>();
         for (int i = 0; i < _players.Length; i++)
         {
-            players.Add(_players[i]);
+            playersUI.Add(_players[i]);
         }
-        players.Reverse();
+        playersUI.Reverse();
 
         if (combatPanel != null)
             combatPanel.SetActive(false);
@@ -67,40 +70,40 @@ public class TurnOrderUIManager : MonoBehaviour
         }
         //turnNumberTxt.text = initiativeHandler.currentTurnNmbr.ToString();
 
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playersUI.Count; i++)
         {
-            if (i >= initiativeHandler.initiativeOrder.Value.Count)
+            if (i >= initOrder.Count)
             {
-                players[i].gameObject.SetActive(false);
-                players[i].playerIcon.sprite = null;
+                playersUI[i].gameObject.SetActive(false);
+                playersUI[i].playerIcon.sprite = null;
                 // players[i].initiativeText.text = "";
             }
             else
             {
-                if (initiativeHandler.initiativeOrder.Value[i].character.GetComponent<EntityClass>().hitPoints.Value <= 0)
+                if (initOrder[i].gameObject.GetComponent<EntityClass>().hitPoints.Value <= 0)
                 {
-                    players[i].gameObject.SetActive(false);
-                    players[i].playerIcon.sprite = null;
+                    playersUI[i].gameObject.SetActive(false);
+                    playersUI[i].playerIcon.sprite = null;
                     // players[i].initiativeText.text = "";
-                    players.RemoveAt(i);
+                    playersUI.RemoveAt(i);
                 }
                 else
                 {
-                    players[i].playerIcon.sprite = initiativeHandler.initiativeOrder.Value[i].character.GetComponent<EntityClass>().stats.Icon;
+                    playersUI[i].playerIcon.sprite = initOrder[i].gameObject.GetComponent<EntityClass>().stats.Icon;
                     // players[i].initiativeText.text = initiativeHandler.initiativeOrder[i].initiative.ToString();
-                    players[i].gameObject.SetActive(true);
+                    playersUI[i].gameObject.SetActive(true);
                 }
 
             }
 
         }
-        if (players.Count > 0)
+        if (playersUI.Count > 0)
         {
-            activePlayerIcon.sprite = players[0].playerIcon.sprite;
-            playerNameText.text = $"{initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().stats.CharacterName}";
-            healthText.text = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().hitPoints.Value + "/" + initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
-            heatlhSlider.maxValue = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().maxHitPoints.Value;
-            heatlhSlider.value = initiativeHandler.initiativeOrder.Value[0].character.GetComponent<EntityClass>().hitPoints.Value;
+            activePlayerIcon.sprite = playersUI[0].playerIcon.sprite;
+            playerNameText.text = $"{initOrder[0].gameObject.GetComponent<EntityClass>().stats.CharacterName}";
+            healthText.text = initOrder[0].gameObject.GetComponent<EntityClass>().hitPoints.Value + "/" + initOrder[0].gameObject.GetComponent<EntityClass>().maxHitPoints.Value;
+            heatlhSlider.maxValue = initOrder[0].gameObject.GetComponent<EntityClass>().maxHitPoints.Value;
+            heatlhSlider.value = initOrder[0].gameObject.GetComponent<EntityClass>().hitPoints.Value;
         }
         else
         {
@@ -117,5 +120,51 @@ public class TurnOrderUIManager : MonoBehaviour
     public void InitializeCombat()
     {
         turnOrderPanel.GetComponent<Animator>().SetTrigger("Combat");
+
+        Identifier[] identifiers = FindObjectsOfType<Identifier>();
+
+        foreach (var item in identifiers)
+        {
+            if (!entities.Contains(item))
+            {
+                entities.Add(item);
+            }
+        }
+
+        foreach (var item in entities)
+        {
+            for (int i = 0; i < initOrder.Count; i++)
+            {
+                if (initOrder[i].initiative.Value >= item.initiative.Value)
+                {
+                    initOrder.Insert(i, item);
+                }
+                else
+                {
+                    if (i == entities.Count)
+                        initOrder.Add(item);
+                    else
+                    {
+                        continue;
+                    }
+                }
+                continue;
+            }
+            if (initOrder.Count == 0)
+            {
+                initOrder.Add(item);
+            }
+        }
+    }
+
+    public void EndTurnButton()
+    {
+        EndTurn(NetworkManager.Singleton.LocalClient.ClientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void EndTurn(ulong clientID, ServerRpcParams serverRpcParams = default)
+    {
+        initiativeHandler.EndTurn(clientID);
     }
 }
