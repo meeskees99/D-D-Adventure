@@ -19,7 +19,7 @@ public class EntityClass : NetworkBehaviour
     [SerializeField] int fails;
 
     [Header("Stats")]
-    public NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public string playerName;
     public NetworkVariable<int> maxHitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> hitPoints = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> level = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -35,6 +35,7 @@ public class EntityClass : NetworkBehaviour
     public NetworkVariable<int> intelligence = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> wisdom = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> charisma = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> initiative = new NetworkVariable<int>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Stats Race Bonus")]
     public int strenghtBonus;
@@ -51,7 +52,7 @@ public class EntityClass : NetworkBehaviour
         {
             combatHandler = CombatHandler.instance;
         }
-        if (!IsOwner) { return; }
+        // if (!IsOwner) { return; }
 
         if (stats._class == Class.Knight)
         {
@@ -68,6 +69,7 @@ public class EntityClass : NetworkBehaviour
             stats.Intelligence = 11;
             stats.Wisdom = 13;
             stats.Charisma = 9;
+            stats.Initiative = 10;
         }
         else if (stats._class == Class.Ranger)
         {
@@ -84,9 +86,10 @@ public class EntityClass : NetworkBehaviour
             stats.Intelligence = 10;
             stats.Wisdom = 15;
             stats.Charisma = 8;
+            stats.Initiative = 11;
         }
 
-        playerName.Value = stats.CharacterName;
+        playerName = stats.CharacterName;
         maxHitPoints.Value = stats.MaxHitPoints;
         level.Value = stats.Level;
         currentXp.Value = stats.CurrentXP;
@@ -102,6 +105,7 @@ public class EntityClass : NetworkBehaviour
         intelligence.Value = stats.Intelligence;
         wisdom.Value = stats.Wisdom;
         charisma.Value = stats.Charisma;
+        initiative.Value = stats.Initiative;
 
         if (stats._race == Race.Human)
         {
@@ -143,7 +147,7 @@ public class EntityClass : NetworkBehaviour
         {
             Debug.Log(name + " has died!");
             hitPoints.Value = 0;
-            // NetworkManager.Singleton.SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+
             // Die();
         }
     }
@@ -160,7 +164,7 @@ public class EntityClass : NetworkBehaviour
         level.Value++;
         xpToGo.Value = Mathf.RoundToInt(xpToGo.Value * 1.2f);
         currentXp.Value = extraXp;
-        //xpToGo = formule gebasseer op lvl
+
         //increase stats
     }
     public void AddXp(int amount)
@@ -246,6 +250,7 @@ public class EntityClass : NetworkBehaviour
         currentXp.Value = 0;
         xpToGo.Value = 50;
         hitPoints.Value = maxHitPoints.Value;
+        // NetworkManager.Singleton.SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
 
 

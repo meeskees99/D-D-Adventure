@@ -47,7 +47,7 @@ public class CharacterStatsUI : MonoBehaviour
             return;
         #region Main Tab
         #region Character Stats
-        playerName.text = uIManager.players[playerNumber - 1].playerName.Value.ToString();
+        playerName.text = uIManager.players[playerNumber - 1].stats.CharacterName.ToString();
         classType.text = uIManager.players[playerNumber - 1].stats._class.ToString();
         race.text = uIManager.players[playerNumber - 1].stats._race.ToString();
         level.text = uIManager.players[playerNumber - 1].level.Value.ToString();
@@ -59,7 +59,7 @@ public class CharacterStatsUI : MonoBehaviour
         profB.text = uIManager.players[playerNumber - 1].proficiency.Value.ToString();
         armorClass.text = uIManager.players[playerNumber - 1].armorClass.Value.ToString();
         initiative.text = uIManager.players[playerNumber - 1].initiativeBonus.Value.ToString();
-        speed.text = uIManager.players[playerNumber - 1].speed.ToString();
+        speed.text = uIManager.players[playerNumber - 1].speed.Value.ToString();
         #endregion
         #region Ability Scores
         strenghtNor.text = uIManager.players[playerNumber - 1].strength.Value.ToString();

@@ -15,7 +15,7 @@ public class InitiativeHandler : NetworkBehaviour
     public bool DMTurn;
     public GameObject DMObject;
     public List<GameObject> characters;
-    public NetworkVariable<List<Initiative>> initiativeOrder = new NetworkVariable<List<Initiative>>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public List<Initiative> initiativeOrder;
     public GameManager gameManager;
     public PlayerInfoManager playerInfoManager;
     public TurnOrderUIManager turnOrderUIManager;
@@ -28,10 +28,6 @@ public class InitiativeHandler : NetworkBehaviour
 
     private void Start()
     {
-        if (!IsServer)
-        {
-            enabled = false;
-        }
         if (instance == null)
         {
             instance = this;
@@ -68,35 +64,35 @@ public class InitiativeHandler : NetworkBehaviour
             }
             if (initiativeOrder != null)
             {
-                if (initiativeOrder.Value.Count != 0)
+                if (initiativeOrder.Count != 0)
                 {
-                    initiativeOrder.Value.Clear();
+                    initiativeOrder.Clear();
                 }
                 foreach (var character in characters)
                 {
                     var count = 0;
-                    int _initiative = UnityEngine.Random.Range(1, 20) + character.GetComponent<EntityClass>().initiativeBonus.Value;
-                    if (initiativeOrder.Value.Count != 0)
+                    int _initiative = character.GetComponent<EntityClass>().initiative.Value + character.GetComponent<EntityClass>().initiativeBonus.Value;
+                    if (initiativeOrder.Count != 0)
                     {
-                        foreach (var item in initiativeOrder.Value)
+                        foreach (var item in initiativeOrder)
                         {
                             if (_initiative >= item.initiative)
                             {
                                 var initiativeInstance = new Initiative { character = character };
                                 initiativeInstance.initiative = _initiative;
-                                initiativeOrder.Value.Insert(count, initiativeInstance);
-                                initiativeOrder.Value[count].character.GetComponent<Identifier>().initiative.Value = initiativeInstance.initiative;
+                                initiativeOrder.Insert(count, initiativeInstance);
+                                initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = initiativeInstance.initiative;
                                 break;
                             }
                             else
                             {
                                 count++;
-                                if (count == initiativeOrder.Value.Count)
+                                if (count == initiativeOrder.Count)
                                 {
                                     var initiativeInstance = new Initiative { character = character };
                                     initiativeInstance.initiative = _initiative;
-                                    initiativeOrder.Value.Add(initiativeInstance);
-                                    initiativeOrder.Value[count].character.GetComponent<Identifier>().initiative.Value = _initiative;
+                                    initiativeOrder.Add(initiativeInstance);
+                                    initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = _initiative;
                                     break;
                                 }
                             }
@@ -106,9 +102,9 @@ public class InitiativeHandler : NetworkBehaviour
                     {
                         var initiativeInstance = new Initiative { character = character };
                         initiativeInstance.initiative = _initiative;
-                        initiativeOrder.Value.Add(initiativeInstance);
+                        initiativeOrder.Add(initiativeInstance);
                     }
-                    Debug.Log("The amount of characters is: " + initiativeOrder.Value.Count);
+                    Debug.Log("The amount of characters is: " + initiativeOrder.Count);
                     Debug.Log("Initiative of " + character + " is: " + _initiative);
                 }
             }
@@ -116,7 +112,7 @@ public class InitiativeHandler : NetworkBehaviour
         }
 
         StartCombat();
-        foreach (var instance in initiativeOrder.Value)
+        foreach (var instance in initiativeOrder)
         {
             if (instance.character.TryGetComponent(out ForceMovement forceMovement))
             {
@@ -142,7 +138,7 @@ public class InitiativeHandler : NetworkBehaviour
     {
         currentTurnNmbr = 0;
         Debug.Log($"Current turn number: {currentTurnNmbr}");
-        initiativeOrder.Value.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement forceMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement forceMovement);
         if (forceMovement != null)
         {
             forceMovement.isTurn = true;
@@ -164,14 +160,14 @@ public class InitiativeHandler : NetworkBehaviour
     }
     public void EndTurn(ulong clientId)
     {
-        if (initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value != clientId) { return; }
+        if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value != clientId) { return; }
 
-        initiativeOrder.Value.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out ForceMovement playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = false;
         }
-        if (initiativeOrder.Value[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
+        if (initiativeOrder[currentTurnNmbr].character.GetComponent<EntityClass>().isPlayer == true)
         {
             if (mouseLook != null)
             {
@@ -181,26 +177,26 @@ public class InitiativeHandler : NetworkBehaviour
         }
         else
         {
-            initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = false;
+            initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = false;
         }
 
         currentTurnNmbr++;
-        if (currentTurnNmbr > initiativeOrder.Value.Count - 1)
+        if (currentTurnNmbr > initiativeOrder.Count - 1)
         {
             currentTurnNmbr = 0;
             currentRound++;
         }
         Debug.Log($"Current turn number: {currentTurnNmbr}");
-        initiativeOrder.Value.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.TryGetComponent(out playerMovement);
         if (playerMovement != null)
         {
             playerMovement.isTurn = true;
-            if (initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false || initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().isEnemy.Value == true)
+            if (initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<EntityClass>().isPlayer == false || initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().isEnemy.Value == true)
             {
                 DMTurn = true;
                 DMObject.GetComponent<DmCameraController>().enabled = false;
                 DMObject.GetComponent<MouseLook>().enabled = true;
-                initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = true;
+                initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<ForceMovement>().enabled = true;
             }
             else
             {
@@ -214,8 +210,8 @@ public class InitiativeHandler : NetworkBehaviour
                 }
             }
         }
-        initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().turnNumber.Value = currentTurnNmbr;
-        playerInfoManager.NextTurn(initiativeOrder.Value.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value);
+        initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().turnNumber.Value = currentTurnNmbr;
+        playerInfoManager.NextTurn(initiativeOrder.ElementAt(currentTurnNmbr).character.GetComponent<Identifier>().playerId.Value);
         turnOrderUIManager.UpdateTurnOrder();
         if (combatHandler.curTarget != null)
         {

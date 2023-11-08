@@ -38,6 +38,8 @@ public class ClassSheet : ScriptableObject
     public int Wisdom { get; set; }
     public int Charisma { get; set; }
 
+    public int Initiative { get; set; }
+
 }
 [SerializeField]
 public enum Class
