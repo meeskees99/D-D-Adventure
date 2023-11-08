@@ -50,7 +50,14 @@ public class HostManager : NetworkBehaviour
         // }
         if (mapSelect == null)
         {
-            mapSelect = FindObjectOfType<TMP_Dropdown>();
+            var dropdowns = FindObjectsOfType<TMP_Dropdown>();
+            foreach (var dropdown in dropdowns)
+            {
+                if (dropdown.gameObject.name == "MapDropdown")
+                {
+                    mapSelect = dropdown;
+                }
+            }
         }
         else if (gameScene != mapSelect.options[mapSelect.value].text)
         {

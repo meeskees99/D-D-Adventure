@@ -11,7 +11,13 @@ public class PlayerCards : MonoBehaviour
     [SerializeField] GameObject visuals;
     [SerializeField] Image characterIconImage;
     [SerializeField] TMP_Text playerNameText;
-    [SerializeField] TMP_Text characternameText;
+    public TMP_Text characternameText;
+
+    public Button nextCharacterButton;
+    public Button previousCharacterButton;
+
+    public Button lockInButton;
+
 
     public void UpdateDisplay(CharacterSelection state)
     {
@@ -26,8 +32,9 @@ public class PlayerCards : MonoBehaviour
         {
             characterIconImage.enabled = false;
         }
-        playerNameText.text = state.IsLockedIn ? $"Player {state.ClientId}" : $"Player {state.ClientId} (Picking...)";
+        playerNameText.text = state.IsLockedIn ? $"Player {state.ClientId}" : $"Player {state.ClientId}\n(Picking...)";
         visuals.SetActive(true);
+        // Debug.LogError($"Set visuals active for {gameObject.name}.");
     }
 
     public void DisableDisplay()

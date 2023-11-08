@@ -708,18 +708,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1712112999444752224, guid: 9ad55345bf2b1384e8f9a3f62483ccec, type: 3}
-      propertyPath: dmJoinedText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1712112999444752224, guid: 9ad55345bf2b1384e8f9a3f62483ccec, type: 3}
-      propertyPath: characterHolder
-      value: 
-      objectReference: {fileID: 1927000978}
-    - target: {fileID: 1712112999444752224, guid: 9ad55345bf2b1384e8f9a3f62483ccec, type: 3}
-      propertyPath: introSpawnpoint
-      value: 
-      objectReference: {fileID: 572355606}
     - target: {fileID: 1949073108706708878, guid: 9ad55345bf2b1384e8f9a3f62483ccec, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1497505989
@@ -808,10 +796,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8022901838793783450, guid: 9ad55345bf2b1384e8f9a3f62483ccec, type: 3}
-      propertyPath: visuals
-      value: 
-      objectReference: {fileID: 2210473544998896181}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3929,18 +3913,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataBase: {fileID: 11400000, guid: 4b5f446f83ed8ef4b83f5cfc75c376fa, type: 2}
-  characterHolder: {fileID: 1927000978}
-  selectButtonPrefab: {fileID: 5989012557657899051, guid: 13213565ff20d3545be1e6032289476e, type: 3}
   playerCards:
   - {fileID: 2210473544998896180}
   - {fileID: 952247697}
-  characterInfoPanel: {fileID: 416400195}
+  characters: []
+  previousCharacterButton: {fileID: 0}
+  nextCharacterButton: {fileID: 0}
   characterNameText: {fileID: 1357603302}
-  introSpawnpoint: {fileID: 572355606}
   joinCodeInputField: {fileID: 1165593290}
   lockInButton: {fileID: 466545653}
   startButton: {fileID: 282306316}
-  dmJoinedText: {fileID: 297780567}
 --- !u!1 &1915044347
 GameObject:
   m_ObjectHideFlags: 0
@@ -4822,11 +4804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e001c1e90eb794c8cb2678c93503fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2210473544998896181 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1052099186719990087, guid: 1903bf79ed91b1d48868c1c66e40d301, type: 3}
-  m_PrefabInstance: {fileID: 2210473544998896179}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

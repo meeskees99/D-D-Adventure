@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3449396502248654238}
   - component: {fileID: 2074123643956213055}
   m_Layer: 0
-  m_Name: PlayerPrefabGoblinOrange
+  m_Name: PlayerPrefabGoblinRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: -8234663495160299450}
   - component: {fileID: 5476868899075984570}
   - component: {fileID: -85220642882797742}
+  - component: {fileID: -4441766458513052921}
   m_Layer: 0
   m_Name: PlayerPrefabGoblinYellow
   m_TagString: Untagged
@@ -161,23 +162,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 0ad515b6a62891c49a101ddb7b4b64d4, type: 2}
   combatHandler: {fileID: 0}
-  playerName: 
   isPlayer: 0
-  maxHitPoints: 0
-  level: 0
-  currentXp: 0
-  xpToGo: 0
-  hitPoints: 0
-  armorClass: 0
-  initiativeBonus: 0
-  speed: 0
-  proficiency: 0
-  strength: 0
-  dexterity: 0
-  constitution: 0
-  intelligence: 0
-  wisdom: 0
-  charisma: 0
+  currentWeapon: {fileID: 0}
+  weaponOptions: []
+  deathSaveAttempts: 0
+  saves: 0
+  fails: 0
+  playerName: 
+  maxHitPoints:
+    m_InternalValue: 1
+  hitPoints:
+    m_InternalValue: 1
+  level:
+    m_InternalValue: 0
+  currentXp:
+    m_InternalValue: 0
+  xpToGo:
+    m_InternalValue: 0
+  armorClass:
+    m_InternalValue: 0
+  initiativeBonus:
+    m_InternalValue: 0
+  speed:
+    m_InternalValue: 0
+  proficiency:
+    m_InternalValue: 0
+  strength:
+    m_InternalValue: 0
+  dexterity:
+    m_InternalValue: 0
+  constitution:
+    m_InternalValue: 0
+  intelligence:
+    m_InternalValue: 0
+  wisdom:
+    m_InternalValue: 0
+  charisma:
+    m_InternalValue: 0
+  initiative:
+    m_InternalValue: 0
   strenghtBonus: 0
   dexterityBonus: 0
   constitutionBonus: 0
@@ -314,6 +337,28 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &-4441766458513052921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621409914187989895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5f8c5513c743a48a348089ef76490b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId:
+    m_InternalValue: 0
+  isTurn:
+    m_InternalValue: 0
+  isEnemy:
+    m_InternalValue: 0
+  initiative:
+    m_InternalValue: 0
+  turnNumber:
+    m_InternalValue: 0
 --- !u!1 &6671228202701213518
 GameObject:
   m_ObjectHideFlags: 0

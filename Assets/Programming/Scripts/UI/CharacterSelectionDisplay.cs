@@ -9,21 +9,27 @@ using UnityEngine.UI;
 public class CharacterSelectionDisplay : NetworkBehaviour
 {
     [SerializeField] Characters characterDataBase;
-    [SerializeField] Transform characterHolder;
-    [SerializeField] CharacterSelectButton selectButtonPrefab;
+    // [SerializeField] Transform characterHolder;
+    // [SerializeField] CharacterSelectButton selectButtonPrefab;
     [SerializeField] PlayerCards[] playerCards;
-    [SerializeField] GameObject characterInfoPanel;
+
+    [SerializeField] ClassSheet[] characters;
+    [SerializeField] Button previousCharacterButton;
+    [SerializeField] Button nextCharacterButton;
+    int characterIndex = -1;
+
+    // [SerializeField] GameObject characterInfoPanel;
     [SerializeField] TMP_Text characterNameText;
-    [SerializeField] Transform introSpawnpoint;
+    // [SerializeField] Transform introSpawnpoint;
     [SerializeField] TMP_InputField joinCodeInputField;
     [SerializeField] Button lockInButton;
 
     [Header("DM Shizzle")]
     [SerializeField] Button startButton;
-    [SerializeField] TMP_Text dmJoinedText;
+    // [SerializeField] TMP_Text dmJoinedText;
 
     GameObject introPrefabInstance;
-    List<CharacterSelectButton> characterButtons = new();
+    // List<CharacterSelectButton> characterButtons = new();
 
     NetworkList<CharacterSelection> players;
 
@@ -41,15 +47,24 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         {
             if (!IsHost)
             {
-                ClassSheet[] allCharacters = characterDataBase.GetAllCharacters();
-                lockInButton.gameObject.SetActive(true);
+                characters = characterDataBase.GetAllCharacters();
+                // lockInButton.gameObject.SetActive(true);
 
-                for (int i = 0; i < allCharacters.Length; i++)
-                {
-                    var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
-                    selectButtonInstance.SetCharacter(this, allCharacters[i]);
-                    characterButtons.Add(selectButtonInstance);
-                }
+                // for (int i = 0; i < characters.Length; i++)
+                // {
+                //     var selectButtonInstance = Instantiate(selectButtonPrefab, characterHolder.GetChild(i));
+                //     selectButtonInstance.SetCharacter(this, characters[i]);
+                //     characterButtons.Add(selectButtonInstance);
+                // }
+
+                lockInButton = playerCards[NetworkManager.Singleton.LocalClient.ClientId - 1].lockInButton;
+                nextCharacterButton = playerCards[NetworkManager.Singleton.LocalClient.ClientId - 1].nextCharacterButton;
+                previousCharacterButton = playerCards[NetworkManager.Singleton.LocalClient.ClientId - 1].previousCharacterButton;
+                characterNameText = playerCards[NetworkManager.Singleton.LocalClient.ClientId - 1].characternameText;
+                nextCharacterButton.onClick.AddListener(NextCharacter);
+                previousCharacterButton.onClick.AddListener(PreviousCharacter);
+                lockInButton.onClick.AddListener(LockIn);
+                NextCharacter();
             }
 
             players.OnListChanged += HandlePlayersStateChanged;
@@ -100,7 +115,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             }
         }
     }
-
+    bool updateButtons = true;
     private void Update()
     {
         if (!IsHost)
@@ -119,6 +134,37 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             }
             startButton.interactable = true;
         }
+        #region Disable Buttons
+        if (updateButtons)
+        {
+            updateButtons = false;
+            if (NetworkManager.Singleton.LocalClientId == 1)
+            {  //Disable Buttons from opisite player
+                // Debug.LogError($"This is player {NetworkManager.Singleton.LocalClientId}, disabling buttons for playercard 2");
+                playerCards[1].nextCharacterButton.gameObject.SetActive(false);
+                playerCards[1].previousCharacterButton.gameObject.SetActive(false);
+                playerCards[1].lockInButton.gameObject.SetActive(false);
+            }
+            else if (NetworkManager.Singleton.LocalClientId == 2)
+            {   //Disable Buttons from opisite player
+                // Debug.LogError($"This is player {NetworkManager.Singleton.LocalClientId}, disabling buttons for playercard 1");
+                playerCards[0].nextCharacterButton.gameObject.SetActive(false);
+                playerCards[0].previousCharacterButton.gameObject.SetActive(false);
+                playerCards[0].lockInButton.gameObject.SetActive(false);
+            }
+            else
+            {   //Disable buttons for DM
+                // Debug.LogError($"This is player {NetworkManager.Singleton.LocalClientId}, disabling buttons for playercards 1 and 2");
+                playerCards[0].nextCharacterButton.gameObject.SetActive(false);
+                playerCards[0].previousCharacterButton.gameObject.SetActive(false);
+                playerCards[0].lockInButton.gameObject.SetActive(false);
+
+                playerCards[1].nextCharacterButton.gameObject.SetActive(false);
+                playerCards[1].previousCharacterButton.gameObject.SetActive(false);
+                playerCards[1].lockInButton.gameObject.SetActive(false);
+            }
+        }
+        #endregion
     }
 
     public void Select(ClassSheet character)
@@ -127,14 +173,14 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         {
             // if (i == 0)
             //     continue;
-            if (players[i].ClientId != NetworkManager.Singleton.LocalClientId) { continue; }
+            if (players[i].ClientId != NetworkManager.Singleton.LocalClientId || players[i].ClientId == 0) { continue; }
             if (players[i].IsLockedIn) { return; }
             if (players[i].CharacterId == character.Id) { return; }
         }
 
         characterNameText.text = character.CharacterName;
 
-        characterInfoPanel.SetActive(true);
+        // characterInfoPanel.SetActive(true);
 
         if (introPrefabInstance != null)
         {
@@ -143,7 +189,7 @@ public class CharacterSelectionDisplay : NetworkBehaviour
 
         if (character.IntroPrefab != null)
         {
-            introPrefabInstance = Instantiate(character.IntroPrefab, introSpawnpoint);
+            // introPrefabInstance = Instantiate(character.IntroPrefab, introSpawnpoint);
         }
 
         SelectServerRPC(character.Id);
@@ -207,8 +253,6 @@ public class CharacterSelectionDisplay : NetworkBehaviour
             HostManager.Instance.SetCharacter(player.ClientId, player.CharacterId);
         }
 
-        // HostManager.Instance.StartGame();
-
     }
 
     void HandlePlayersStateChanged(NetworkListEvent<CharacterSelection> changeEvent)
@@ -217,17 +261,53 @@ public class CharacterSelectionDisplay : NetworkBehaviour
         {
             if (i == 0)
             {
-                dmJoinedText.text = "Joined";
+                // dmJoinedText.text = "Joined";
                 continue;
             }
+
             if (players.Count > i)
             {
+                Debug.LogError($"Updated Display Of PlayerCard {i - 1} for player {players[i].ClientId}.");
                 playerCards[i - 1].UpdateDisplay(players[i]);
             }
             else
             {
+                // Debug.LogError($"Disabled Display Of PlayerCard {i - 1}.");
                 playerCards[i - 1].DisableDisplay();
             }
         }
+    }
+
+    public void NextCharacter()
+    {
+        if (characterIndex == characterDataBase.GetAllCharacters().Length - 1)
+        {
+            characterIndex = 0;
+        }
+        else
+        {
+            characterIndex++;
+        }
+        print(characterIndex + " < character index");
+        Select(characters[characterIndex]);
+        if (players.Count > 1)
+            playerCards[0].UpdateDisplay(players[1]);
+        if (players.Count > 2)
+            playerCards[1].UpdateDisplay(players[2]);
+    }
+
+    public void PreviousCharacter()
+    {
+        if (characterIndex == 0)
+        {
+            characterIndex = characterDataBase.GetAllCharacters().Length - 1;
+        }
+        else
+        {
+            characterIndex--;
+        }
+        Select(characters[characterIndex]);
+        playerCards[0].UpdateDisplay(players[1]);
+        playerCards[1].UpdateDisplay(players[2]);
     }
 }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce0917fc45c5b91478d6982587039f17, type: 3}
-  m_Name: Orange Goblin Knight
+  m_Name: Red Goblin Knight
   m_EditorClassIdentifier: 
-  id: 5
-  characterName: Orange Goblin Ranger
-  icon: {fileID: 21300000, guid: 8ded9f53f806cc445b6a93273f5b62bb, type: 3}
-  introPrefab: {fileID: 172560, guid: 00a11f3eb5ba2aa4a9fe95591be93e28, type: 3}
-  playerPrefab: {fileID: 0}
+  id: 6
+  characterName: Red Goblin Knight
+  icon: {fileID: 21300000, guid: 8880a91728aeb3d4295fac7173b3c85b, type: 3}
+  introPrefab: {fileID: 150878, guid: f8e5b2f39b57ccf45ae8321cac39d04e, type: 3}
+  playerPrefab: {fileID: 3755476422297848227, guid: b763e4eab0a71514d9714545b6ee2a40, type: 3}
   isPlayer: 0
   _class: 0
   _race: 2
