@@ -202,41 +202,7 @@ MonoBehaviour:
   deathSaveAttempts: 0
   saves: 0
   fails: 0
-  playerName:
-    m_InternalValue:
-      utf8LengthInBytes: 0
-      bytes:
-        offset0000:
-          byte0000: 0
-          byte0001: 0
-          byte0002: 0
-          byte0003: 0
-          byte0004: 0
-          byte0005: 0
-          byte0006: 0
-          byte0007: 0
-          byte0008: 0
-          byte0009: 0
-          byte0010: 0
-          byte0011: 0
-          byte0012: 0
-          byte0013: 0
-          byte0014: 0
-          byte0015: 0
-        byte0016: 0
-        byte0017: 0
-        byte0018: 0
-        byte0019: 0
-        byte0020: 0
-        byte0021: 0
-        byte0022: 0
-        byte0023: 0
-        byte0024: 0
-        byte0025: 0
-        byte0026: 0
-        byte0027: 0
-        byte0028: 0
-        byte0029: 0
+  playerName: 
   maxHitPoints:
     m_InternalValue: 1
   hitPoints:
@@ -266,6 +232,8 @@ MonoBehaviour:
   wisdom:
     m_InternalValue: 0
   charisma:
+    m_InternalValue: 0
+  initiative:
     m_InternalValue: 0
   strenghtBonus: 0
   dexterityBonus: 0
@@ -420,6 +388,10 @@ MonoBehaviour:
   isTurn:
     m_InternalValue: 0
   isEnemy:
+    m_InternalValue: 0
+  initiative:
+    m_InternalValue: 0
+  turnNumber:
     m_InternalValue: 0
 --- !u!1 &8989939575212193674
 GameObject:

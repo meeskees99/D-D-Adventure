@@ -3,6 +3,7 @@ using Unity.Netcode;
 using System;
 using System.Linq;
 
+[DisallowMultipleComponent]
 public class Identifier : NetworkBehaviour
 {
     // public PlayerId playerId;
