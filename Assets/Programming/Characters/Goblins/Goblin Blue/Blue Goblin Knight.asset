@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Blue Goblin Knight
   m_EditorClassIdentifier: 
   id: 4
-  characterName: Blue Goblin Knight
+  characterName: Blue Goblin
   icon: {fileID: 21300000, guid: f2013939721db6648be489777d490e64, type: 3}
   introPrefab: {fileID: 185802, guid: c1d92bdd55f8c154c957dcd4f7cfe669, type: 3}
   playerPrefab: {fileID: 913036155214639235, guid: a89a60d36c2daec41ab4931d5a12d23d, type: 3}

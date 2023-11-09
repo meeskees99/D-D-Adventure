@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yellow Goblin Knight
   m_EditorClassIdentifier: 
   id: 5
-  characterName: Orange Goblin Ranger
+  characterName: Yellow Goblin
   icon: {fileID: 21300000, guid: 19cfacfde99c1584782010f86d0a2cdc, type: 3}
   introPrefab: {fileID: 172560, guid: 00a11f3eb5ba2aa4a9fe95591be93e28, type: 3}
   playerPrefab: {fileID: -5902247496252337187, guid: b3d3ab10dffa00743b5aba7ee1b8ba09, type: 3}

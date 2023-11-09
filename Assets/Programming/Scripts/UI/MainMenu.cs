@@ -35,6 +35,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartClient()
     {
+        print("Input text: " + joinCodeInputField.text);
         ClientManager.Instance.StartClient(joinCodeInputField.text);
     }
 
