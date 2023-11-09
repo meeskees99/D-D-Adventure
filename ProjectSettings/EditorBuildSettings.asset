@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 86fbbad2be248a74fa93c79adde7e00c
   - enabled: 1
-    path: Assets/Scenes/Marnix Test.unity
+    path: Assets/Scenes/Marnix Tavern.unity
     guid: 40a9c5cc25b83c744b7d3e532a6924e9
   - enabled: 1
     path: Assets/Scenes/XanderTest.unity
@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Player.unity
     guid: 7be376111f0efad42a20648ca4611258
+  - enabled: 1
+    path: Assets/Scenes/Marnix Cave.unity
+    guid: 38f94c16d166f0542bbd2cbfe0404a1b
   m_configObjects: {}

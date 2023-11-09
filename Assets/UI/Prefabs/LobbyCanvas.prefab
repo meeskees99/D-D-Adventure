@@ -5721,15 +5721,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: Marnix Tavern
+      m_Image: {fileID: 0}
+    - m_Text: Marnix Cave
+      m_Image: {fileID: 0}
     - m_Text: Game
-      m_Image: {fileID: 0}
-    - m_Text: Tavern
-      m_Image: {fileID: 0}
-    - m_Text: Cave Only
-      m_Image: {fileID: 0}
-    - m_Text: Tavern Only
-      m_Image: {fileID: 0}
-    - m_Text: Marnix Test
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6608,7 +6604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game
+  m_text: Marnix Tavern
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e8add05ea4d06384284755669b86e877, type: 2}
   m_sharedMaterial: {fileID: -6542346743234102153, guid: e8add05ea4d06384284755669b86e877, type: 2}
