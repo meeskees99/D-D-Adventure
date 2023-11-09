@@ -11,6 +11,8 @@ using Unity.Mathematics;
 public class DmCameraController : NetworkBehaviour
 {
     public MouseLook mouseLook;
+    [SerializeField] CinemachineVirtualCamera virCam;
+    public CinemachineVirtualCamera VirCam { get { return virCam; } set { virCam = value; } }
     [SerializeField] GameObject cinemachineCam;
     [SerializeField] GameObject cinemachineZoomCam;
     public Transform camTarget;
@@ -145,6 +147,8 @@ public class DmCameraController : NetworkBehaviour
     }
     public void PositionCameraForObjects(List<GameObject> objects)
     {
+        GetComponent<CinemachineBrain>().enabled = false;
+        GetComponent<MouseLook>().enabled = false;
         // Check if there are any objects in the list
         if (objects.Count == 0)
         {
@@ -170,7 +174,10 @@ public class DmCameraController : NetworkBehaviour
 
     public void PosistionCameraForCombat()
     {
-        camTarget.transform.localPosition = new Vector3(0, 0.56f, 0);
+        GetComponent<CinemachineBrain>().enabled = true;
+        var mouseLook = GetComponent<MouseLook>();
+        mouseLook.enabled = true;
+        mouseLook.ActivateCamera(0);
     }
     #region UI Check
     public bool IsPointerOverUIElement()

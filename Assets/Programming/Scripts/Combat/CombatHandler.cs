@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CombatHandler : MonoBehaviour
 {
-    InitiativeHandler initiativeHandler = InitiativeHandler.instance;
+    public InitiativeHandler initiativeHandler = InitiativeHandler.instance;
     [SerializeField] public static CombatHandler instance;
     public GameObject curTarget;
     public GameObject currentAttacker;
@@ -21,6 +21,7 @@ public class CombatHandler : MonoBehaviour
         {
             Destroy(this);
         }
+        initiativeHandler = FindAnyObjectByType<InitiativeHandler>();
     }
     public void CheckAttack(GameObject attacker, GameObject victim, WeaponObject weaponUsed)
     {

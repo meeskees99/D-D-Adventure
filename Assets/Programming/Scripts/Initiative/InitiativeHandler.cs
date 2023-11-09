@@ -25,8 +25,7 @@ public class InitiativeHandler : NetworkBehaviour
 
     [Header("Settings")]
     [SerializeField] GameObject combatPanel;
-
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -36,10 +35,15 @@ public class InitiativeHandler : NetworkBehaviour
         {
             Destroy(this);
         }
+    }
+    private void Start()
+    {
+        
         gameManager = FindObjectOfType<GameManager>();
         playerInfoManager = FindObjectOfType<PlayerInfoManager>();
         turnOrderUIManager = FindObjectOfType<TurnOrderUIManager>();
         mouseLook = FindObjectOfType<MouseLook>();
+        combatHandler = FindAnyObjectByType<CombatHandler>();
 
         if (IsHost)
         {
@@ -49,67 +53,66 @@ public class InitiativeHandler : NetworkBehaviour
 
     public void SetInitiativeOrder()
     {
-        if (IsServer)
-        {
-            currentRound = 0;
-            currentTurnNmbr = 0;
 
-            EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
-            foreach (var entity in combatEntities)
+        currentRound = 0;
+        currentTurnNmbr = 0;
+
+        EntityClass[] combatEntities = FindObjectsOfType<EntityClass>();
+        foreach (var entity in combatEntities)
+        {
+            if (!characters.Contains(entity.gameObject))
             {
-                if (!characters.Contains(entity.gameObject))
-                {
-                    characters.Add(entity.gameObject);
-                }
+                characters.Add(entity.gameObject);
             }
-            if (initiativeOrder != null)
+        }
+        if (initiativeOrder != null)
+        {
+            if (initiativeOrder.Count != 0)
             {
+                initiativeOrder.Clear();
+            }
+            foreach (var character in characters)
+            {
+                var count = 0;
+                int _initiative = character.GetComponent<EntityClass>().initiative.Value + character.GetComponent<EntityClass>().initiativeBonus.Value;
                 if (initiativeOrder.Count != 0)
                 {
-                    initiativeOrder.Clear();
-                }
-                foreach (var character in characters)
-                {
-                    var count = 0;
-                    int _initiative = character.GetComponent<EntityClass>().initiative.Value + character.GetComponent<EntityClass>().initiativeBonus.Value;
-                    if (initiativeOrder.Count != 0)
+                    foreach (var item in initiativeOrder)
                     {
-                        foreach (var item in initiativeOrder)
+                        if (_initiative >= item.initiative)
                         {
-                            if (_initiative >= item.initiative)
+                            var initiativeInstance = new Initiative { character = character };
+                            initiativeInstance.initiative = _initiative;
+                            initiativeOrder.Insert(count, initiativeInstance);
+                            initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = initiativeInstance.initiative;
+                            break;
+                        }
+                        else
+                        {
+                            count++;
+                            if (count == initiativeOrder.Count)
                             {
                                 var initiativeInstance = new Initiative { character = character };
                                 initiativeInstance.initiative = _initiative;
-                                initiativeOrder.Insert(count, initiativeInstance);
-                                initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = initiativeInstance.initiative;
+                                initiativeOrder.Add(initiativeInstance);
+                                initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = _initiative;
                                 break;
-                            }
-                            else
-                            {
-                                count++;
-                                if (count == initiativeOrder.Count)
-                                {
-                                    var initiativeInstance = new Initiative { character = character };
-                                    initiativeInstance.initiative = _initiative;
-                                    initiativeOrder.Add(initiativeInstance);
-                                    initiativeOrder[count].character.GetComponent<Identifier>().initiative.Value = _initiative;
-                                    break;
-                                }
                             }
                         }
                     }
-                    else
-                    {
-                        var initiativeInstance = new Initiative { character = character };
-                        initiativeInstance.initiative = _initiative;
-                        initiativeOrder.Add(initiativeInstance);
-                    }
-                    Debug.Log("The amount of characters is: " + initiativeOrder.Count);
-                    Debug.Log("Initiative of " + character + " is: " + _initiative);
                 }
+                else
+                {
+                    var initiativeInstance = new Initiative { character = character };
+                    initiativeInstance.initiative = _initiative;
+                    initiativeOrder.Add(initiativeInstance);
+                }
+                Debug.Log("The amount of characters is: " + initiativeOrder.Count);
+                Debug.Log("Initiative of " + character + " is: " + _initiative);
             }
-
         }
+
+
 
         StartCombat();
         foreach (var instance in initiativeOrder)
@@ -149,11 +152,9 @@ public class InitiativeHandler : NetworkBehaviour
         }
         if (IsHost)
         {
-            DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
             if (instance.DMTurn)
             {
-                DMObject.GetComponent<DmCameraController>().enabled = false;
-                DMObject.GetComponent<MouseLook>().enabled = true;
+                DMObject.GetComponent<DmCameraController>().PosistionCameraForCombat();
             }
         }
 
